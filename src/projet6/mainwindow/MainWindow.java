@@ -1,8 +1,7 @@
 package projet6.mainwindow;
 
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
+
+import javax.swing.*;
 
 public class MainWindow {
 
@@ -12,9 +11,13 @@ public class MainWindow {
 		mainwindow.setTitle("App");
 		JMenuBar menuBar = new JMenuBar();
 		mainwindow.setJMenuBar(menuBar);
-		JMenu menu = new JMenu("Help");
+		JMenu menu = new JMenu("Fichier");
 		menuBar.add(menu); 
+		JMenuItem Help = new JMenuItem();
+		Help.addActionListener(null);
+		menu.add(Help);
 		mainwindow.setVisible(true);
+		
 
 	}
 
