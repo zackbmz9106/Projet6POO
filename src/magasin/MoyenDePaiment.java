@@ -1,8 +1,8 @@
 package magasin;
 
 public class MoyenDePaiment {
-	private String typedepaiement ;
-	private float valeur;
+	private final String typedepaiement ;
+	private final float valeur;
 	
 	public MoyenDePaiment(String typedepaiement,float valeur) {
 		this.typedepaiement = typedepaiement;

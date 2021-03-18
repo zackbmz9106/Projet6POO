@@ -1,11 +1,11 @@
 package commons;
 
 public class Adresse {
-	private String typeVoie;
-	private String voie;
-	private int nVoie;
-	private String ville;
-	private int codePostal ;
+	private final String typeVoie;
+	private final String voie;
+	private final int nVoie;
+	private final String ville;
+	private final int codePostal ;
 	
 	public Adresse(String typeVoie, String voie,int nVoie,String ville,int codePostal) {
 		this.typeVoie = typeVoie;
