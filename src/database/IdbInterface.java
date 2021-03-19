@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public interface IdbInterface {
 
-    boolean update(CObjTransaction Cobjt, String[] nomsDeChampsAMettreAjour);
+    boolean update(CObjTransaction objt, String[] nomsDeChampsAMettreAjour);
 
-    boolean load(CObjTransaction Cobjt, int id);
+    boolean load(CObjTransaction objt, int id);
 
-    boolean create(CObjTransaction Cobjt);
+    boolean create(CObjTransaction objt);
 
-    ArrayList<Long> query(CObjTransaction Cobjt);
+    ArrayList<Long> query(CObjTransaction objt);
 
-    boolean delete(CObjTransaction Cobjt,int id);
+    boolean delete(CObjTransaction objt,int id);
 }

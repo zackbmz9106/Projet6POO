@@ -40,14 +40,14 @@ public class Client  implements IdbInterface  {
             stmt = conn.prepareStatement(
                     "insert into Client(nom, prenom, adresse,dateDeNaissance,mail,numerotel,carteFidelite,pointFidelite) values(?,?,?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, getNom());
-            stmt.setString(2, getPrenom());
-            stmt.setString(3, getAdresseString());
-            stmt.setDate(4, (java.sql.Date) getDateDeNaissance());
-            stmt.setString(5, getMail());
-            stmt.setInt(6, getNumerotel());
-            stmt.setBoolean(7, isCarteFidelite());
-            stmt.setInt(8, getPointFidelite());
+            stmt.setString(1, this.nom);
+            stmt.setString(2, this.prenom);
+            stmt.setString(3,this.adresse.toString());
+            stmt.setDate(4, (java.sql.Date) this.dateDeNaissance);
+            stmt.setString(5, this.mail);
+            stmt.setInt(6,this.numerotel);
+            stmt.setBoolean(7, this.carteFidelite);
+            stmt.setInt(8,this.pointFidelite);
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
