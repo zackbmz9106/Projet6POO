@@ -12,5 +12,5 @@ public interface IdbInterface {
 
     ArrayList<Long> query(CObjTransaction objt);
 
-    boolean delete(CObjTransaction objt,int id);
+    boolean delete(CObjTransaction objt, int id);
 }

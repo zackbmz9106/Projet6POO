@@ -3,7 +3,8 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<TabPane xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="590.0"
+<TabPane xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0"
+         prefWidth="590.0"
          tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="sample.Controller">
     <tabs>
         <Tab text="Client">

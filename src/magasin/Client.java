@@ -8,11 +8,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Client  implements IdbInterface  {
-    private  String nom;
-    private  String prenom;
+public class Client implements IdbInterface {
+    private String nom;
+    private String prenom;
     private Adresse adresse;
-    private  Date dateDeNaissance;
+    private Date dateDeNaissance;
     private String mail;
     private int numerotel;
     private boolean carteFidelite;
@@ -42,12 +42,12 @@ public class Client  implements IdbInterface  {
                     Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, this.nom);
             stmt.setString(2, this.prenom);
-            stmt.setString(3,this.adresse.toString());
+            stmt.setString(3, this.adresse.toString());
             stmt.setDate(4, (java.sql.Date) this.dateDeNaissance);
             stmt.setString(5, this.mail);
-            stmt.setInt(6,this.numerotel);
+            stmt.setInt(6, this.numerotel);
             stmt.setBoolean(7, this.carteFidelite);
-            stmt.setInt(8,this.pointFidelite);
+            stmt.setInt(8, this.pointFideli);
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -61,7 +61,6 @@ public class Client  implements IdbInterface  {
         }
         return true;
     }
-
 
 
     @Override
@@ -78,17 +77,17 @@ public class Client  implements IdbInterface  {
             for (int i = 1; i >= nomsDeChampsAMettreAjour.length; i++) {
                 switch (nomsDeChampsAMettreAjour[i]) {
                     case "nom" -> stmt.setString(i, this.nom);
-                    case "prenom" -> stmt.setString(i,this.prenom);
-                    case "adresse" -> stmt.setString(i,this.adresse.toString());
+                    case "prenom" -> stmt.setString(i, this.prenom);
+                    case "adresse" -> stmt.setString(i, this.adresse.toString());
                     case "dateDeNaissance" -> stmt.setDate(i, (java.sql.Date) this.dateDeNaissance);
-                    case "mail" -> stmt.setString(i,this.mail);
-                    case  "numerotel" -> stmt.setInt(i,this.numerotel);
-                    case "carteFidelite" -> stmt.setBoolean(i,this.carteFidelite);
-                    case "pointFidelite" -> stmt.setInt(i,this.pointFidelite);
+                    case "mail" -> stmt.setString(i, this.mail);
+                    case "numerotel" -> stmt.setInt(i, this.numerotel);
+                    case "carteFidelite" -> stmt.setBoolean(i, this.carteFidelite);
+                    case "pointFidelite" -> stmt.setInt(i, this.pointFidelite);
                 }
             }
             return stmt.executeUpdate() > 0;
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             Cobjt.onerrorCallback(e.getMessage());
             return false;
         }
@@ -113,10 +112,10 @@ public class Client  implements IdbInterface  {
                     this.pointFidelite = rs.getInt("pointFidelite");
                     this.ID = rs.getLong("id");
                 }
-            }else{
+            } else {
                 return false;
-                }
-        }catch (SQLException e){
+            }
+        } catch (SQLException e) {
             objt.onerrorCallback(e.getMessage());
             return false;
         }
@@ -136,7 +135,7 @@ public class Client  implements IdbInterface  {
         Connection conn = objt.getDDitf().getConnection();
         try {
             ResultSet rs = conn.prepareStatement("DELETE FROM Client WHERE id =" + id).executeQuery();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             objt.onerrorCallback(e.getMessage());
             return false;
         }

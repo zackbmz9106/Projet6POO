@@ -18,7 +18,8 @@ public class Adresse {
     public String toString() {
         return this.nVoie + this.typeVoie + this.nVoie + this.voie + this.ville + this.codePostal;
     }
-    public void fromString(String in){
+
+    public void fromString(String in) {
 
     }
 }

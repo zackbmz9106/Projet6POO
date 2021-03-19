@@ -1,20 +1,30 @@
 package magasin;
 
 public class MoyenDePaiment {
-    private final String typedepaiement;
+    private String typeDePaiement;
     private final float valeur;
 
-    public MoyenDePaiment(String typedepaiement, float valeur) {
-        this.typedepaiement = typedepaiement;
+    public MoyenDePaiment(String typeDePaiement, float valeur) {
+        this.typeDePaiement = typeDePaiement;
         this.valeur = valeur;
     }
 
-    public String getTypedepaiement() {
-        return typedepaiement;
+    public String getTypeDePaiement() {
+        return typeDePaiement;
     }
 
     public float getValeur() {
         return valeur;
     }
 
+    @Override
+    public String toString() {
+        return this.typeDePaiement + this.valeur;
+    }
+
+
+    public void fromString(String typePaiement) {
+        //TODO
+        this.typeDePaiement = typePaiement;
+    }
 }

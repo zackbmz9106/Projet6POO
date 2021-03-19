@@ -7,16 +7,16 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Produit implements IdbInterface {
-    private  String typeArticle;
-    private  String marque;
-    private  String nomArticle;
-    private  float prixArticle;
-    private  boolean isSolde;
-    private  float solde;
+    private String typeArticle;
+    private String marque;
+    private String nomArticle;
+    private float prixArticle;
+    private boolean isSolde;
+    private float solde;
     private long ID;
     private long ID_fournisseur;
 
-    public Produit(String typeArticle, String marque, String nomArticle, float prixArticle, boolean isSolde, float solde,long ID_fournisseur) {
+    public Produit(String typeArticle, String marque, String nomArticle, float prixArticle, boolean isSolde, float solde, long ID_fournisseur) {
         this.typeArticle = typeArticle;
         this.marque = marque;
         this.nomArticle = nomArticle;
@@ -40,16 +40,16 @@ public class Produit implements IdbInterface {
             for (int i = 1; i >= nomsDeChampsAMettreAjour.length; i++) {
                 switch (nomsDeChampsAMettreAjour[i]) {
                     case "typeArticle" -> stmt.setString(i, this.typeArticle);
-                    case "marque" -> stmt.setString(i,this.marque);
-                    case "nomArticle" -> stmt.setString(i,this.nomArticle);
-                    case "prixArticle" -> stmt.setFloat(i,this.prixArticle);
-                    case "isSolde" -> stmt.setBoolean(i,this.isSolde);
-                    case  "solde" -> stmt.setFloat(i,this.solde);
-                    case "ID_fournisseur" -> stmt.setLong(i,this.ID_fournisseur);
+                    case "marque" -> stmt.setString(i, this.marque);
+                    case "nomArticle" -> stmt.setString(i, this.nomArticle);
+                    case "prixArticle" -> stmt.setFloat(i, this.prixArticle);
+                    case "isSolde" -> stmt.setBoolean(i, this.isSolde);
+                    case "solde" -> stmt.setFloat(i, this.solde);
+                    case "ID_fournisseur" -> stmt.setLong(i, this.ID_fournisseur);
                 }
             }
             return stmt.executeUpdate() > 0;
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             objt.onerrorCallback(e.getMessage());
             return false;
         }
@@ -72,10 +72,10 @@ public class Produit implements IdbInterface {
                     this.ID_fournisseur = rs.getLong("ID_fournisseur");
                     this.ID = rs.getLong("id");
                 }
-            }else{
+            } else {
                 return false;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             objt.onerrorCallback(e.getMessage());
             return false;
         }
@@ -94,9 +94,9 @@ public class Produit implements IdbInterface {
             stmt.setString(1, this.typeArticle);
             stmt.setString(2, this.marque);
             stmt.setString(3, this.nomArticle);
-            stmt.setFloat(4,this.prixArticle);
+            stmt.setFloat(4, this.prixArticle);
             stmt.setBoolean(5, this.isSolde);
-            stmt.setFloat(6, this.solde );
+            stmt.setFloat(6, this.solde);
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -124,14 +124,12 @@ public class Produit implements IdbInterface {
         Connection conn = objt.getDDitf().getConnection();
         try {
             ResultSet rs = conn.prepareStatement("DELETE FROM Produit WHERE id =" + id).executeQuery();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             objt.onerrorCallback(e.getMessage());
             return false;
         }
         return true;
     }
-
-
 
 
     public String getTypeArticle() {
