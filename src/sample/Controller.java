@@ -26,19 +26,19 @@ public class Controller {
         String toBeLoaded = "";
         AnchorPane src = (AnchorPane) event.getSource();
         int index = -1;
-        for(int i = 0 ; i < APList.size();i++){
-            if(APList.get(i).getId() == src.getId()){
-                index = i ;
+        for (int i = 0; i < APList.size(); i++) {
+            if (APList.get(i).getId() == src.getId()) {
+                index = i;
             }
         }
-        if(index !=-1){
+        if (index != -1) {
             AnchorPane cAP = APList.get(index);
             switch (src.getId()) {
                 case "PClient" -> toBeLoaded = "./client.fxml";
                 case "PVente" -> toBeLoaded = "./vente.fxml";
                 case "PProduit" -> toBeLoaded = "./produit.fxml";
             }
-            if(cAP != null) {
+            if (cAP != null) {
                 Pane newLoadedPane = null;
                 try {
                     newLoadedPane = FXMLLoader.load(getClass().getResource(toBeLoaded));
@@ -48,7 +48,7 @@ public class Controller {
                 if (newLoadedPane != null) {
                     cAP.getChildren().add(newLoadedPane);
                 }
-        }
+            }
         }
     }
 }
