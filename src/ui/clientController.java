@@ -1,6 +1,7 @@
-package sample;
+package ui;
 
 import commons.Adresse;
+import database.CObjTransaction;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -34,10 +35,14 @@ public class clientController {
     private TextField TAdresse;
 
     @FXML
-    private CheckBox BFidel;
+    private TextField TNvoie;
 
     @FXML
-    private TextField TFidel;
+    private TextField TCodePostal;
+
+    @FXML
+    private CheckBox BFidel;
+
 
     @FXML
     private ProgressBar BProcessBar;
@@ -51,12 +56,13 @@ public class clientController {
     @FXML
     void clickonButton(MouseEvent event) {
         Client c = null;
+        CObjTransaction objt = new CObjTransaction();
         try {
             c = new Client(TNom.getText(), TPrenom.getText(), currentAdresse
                     , convertToDateViaInstant(naissancePicker.getValue()), TMail.getText(),
                     Integer.parseInt(TNumeroTel.getText()),
                     BFidel.isSelected());
-            BProcessBar.setProgress(50);
+            BProcessBar.setProgress(25);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             BProcessBar.setProgress(70);

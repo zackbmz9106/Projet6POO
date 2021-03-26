@@ -47,7 +47,7 @@ public class Client implements IdbInterface {
             stmt.setString(5, this.mail);
             stmt.setInt(6, this.numerotel);
             stmt.setBoolean(7, this.carteFidelite);
-            stmt.setInt(8, this.pointFideli);
+            stmt.setInt(8, this.pointFidelite);
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -88,7 +88,7 @@ public class Client implements IdbInterface {
             }
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            Cobjt.onerrorCallback(e.getMessage());
+            objt.onerrorCallback(e.getMessage());
             return false;
         }
 

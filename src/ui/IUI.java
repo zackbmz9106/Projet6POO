@@ -1,4 +1,4 @@
-package sample;
+package ui;
 
 public interface IUI {
 }

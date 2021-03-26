@@ -7,7 +7,7 @@ import database.IdbInterface;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
-}
+
 
 public class Commande implements IdbInterface {
 
@@ -89,7 +89,6 @@ public class Commande implements IdbInterface {
         }
 
     }
-
 
     @Override
     public boolean load(CObjTransaction objt, int id) {
