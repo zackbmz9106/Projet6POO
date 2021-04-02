@@ -2,7 +2,6 @@ package magasin;
 
 import commons.Adresse;
 import database.CObjTransaction;
-import database.IdbInterface;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,9 +31,9 @@ public class Client implements IdbInterface {
     }
 
     @Override
-    public boolean create(CObjTransaction Cobjt) {
+    public boolean create(CObjTransaction objt) {
         //creer l'incsrpition depuis les valeurs de l'object
-        Connection conn = Cobjt.getDDitf().getConnection();
+        Connection conn = objt.getdBi().getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = conn.prepareStatement(
@@ -42,7 +41,7 @@ public class Client implements IdbInterface {
                     Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, this.nom);
             stmt.setString(2, this.prenom);
-            stmt.setString(3, this.adresse.toString());
+            stmt.setString(3, this.adresse.toDB());
             stmt.setDate(4, (java.sql.Date) this.dateDeNaissance);
             stmt.setString(5, this.mail);
             stmt.setInt(6, this.numerotel);
@@ -56,7 +55,7 @@ public class Client implements IdbInterface {
                 this.ID = rs.getInt(1);
             }
         } catch (SQLException e) {
-            Cobjt.onerrorCallback(e.getMessage());
+            objt.onerrorCallback(e.getMessage());
             return false;
         }
         return true;
@@ -67,7 +66,7 @@ public class Client implements IdbInterface {
     public boolean update(CObjTransaction objt, String[] nomsDeChampsAMettreAjour) {
         //remplacer les elements modifier dans le l'inscription sql
         try {
-            Connection conn = objt.getDDitf().getConnection();
+            Connection conn = objt.getdBi().getConnection();
             String sql = "UPDATE Client SET";
             for (String champ : nomsDeChampsAMettreAjour) {
                 sql += champ + "=?";
@@ -78,7 +77,7 @@ public class Client implements IdbInterface {
                 switch (nomsDeChampsAMettreAjour[i]) {
                     case "nom" -> stmt.setString(i, this.nom);
                     case "prenom" -> stmt.setString(i, this.prenom);
-                    case "adresse" -> stmt.setString(i, this.adresse.toString());
+                    case "adresse" -> stmt.setString(i, this.adresse.toDB());
                     case "dateDeNaissance" -> stmt.setDate(i, (java.sql.Date) this.dateDeNaissance);
                     case "mail" -> stmt.setString(i, this.mail);
                     case "numerotel" -> stmt.setInt(i, this.numerotel);
@@ -98,13 +97,13 @@ public class Client implements IdbInterface {
     public boolean load(CObjTransaction objt, int id) {
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
-            Connection conn = objt.getDDitf().getConnection();
+            Connection conn = objt.getdBi().getConnection();
             ResultSet rs = conn.prepareStatement("SELECT * FROM Client WHERE id =" + id).executeQuery();
             if (rs != null) {
                 while (rs.next()) {
                     this.nom = rs.getString("nom");
                     this.prenom = rs.getString("prenom");
-                    this.adresse.fromString(rs.getString("adresse"));
+                    this.adresse.fromDB(rs.getString("adresse"));
                     this.dateDeNaissance = rs.getDate("dateDeNaissance");
                     this.mail = rs.getString("mail");
                     this.numerotel = rs.getInt("numerotel");
@@ -132,7 +131,7 @@ public class Client implements IdbInterface {
     @Override
     public boolean delete(CObjTransaction objt, int id) {
         //Delete l'inscription de l'id donnée
-        Connection conn = objt.getDDitf().getConnection();
+        Connection conn = objt.getdBi().getConnection();
         try {
             ResultSet rs = conn.prepareStatement("DELETE FROM Client WHERE id =" + id).executeQuery();
         } catch (SQLException e) {

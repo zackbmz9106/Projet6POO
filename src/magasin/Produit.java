@@ -1,7 +1,6 @@
 package magasin;
 
 import database.CObjTransaction;
-import database.IdbInterface;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class Produit implements IdbInterface {
     public boolean update(CObjTransaction objt, String[] nomsDeChampsAMettreAjour) {
         //remplacer les elements modifier dans le l'inscription sql
         try {
-            Connection conn = objt.getDDitf().getConnection();
+            Connection conn = objt.getdBi().getConnection();
             String sql = "UPDATE Client SET";
             for (String champ : nomsDeChampsAMettreAjour) {
                 sql += champ + "=?";
@@ -59,7 +58,7 @@ public class Produit implements IdbInterface {
     public boolean load(CObjTransaction objt, int id) {
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
-            Connection conn = objt.getDDitf().getConnection();
+            Connection conn = objt.getdBi().getConnection();
             ResultSet rs = conn.prepareStatement("SELECT * FROM Client WHERE id =" + id).executeQuery();
             if (rs != null) {
                 while (rs.next()) {
@@ -85,7 +84,7 @@ public class Produit implements IdbInterface {
     @Override
     public boolean create(CObjTransaction objt) {
         //creer l'incsrpition depuis les valeurs de l'object
-        Connection conn = objt.getDDitf().getConnection();
+        Connection conn = objt.getdBi().getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = conn.prepareStatement(
@@ -121,7 +120,7 @@ public class Produit implements IdbInterface {
     @Override
     public boolean delete(CObjTransaction objt, int id) {
         //Delete l'inscription de l'id donnée
-        Connection conn = objt.getDDitf().getConnection();
+        Connection conn = objt.getdBi().getConnection();
         try {
             ResultSet rs = conn.prepareStatement("DELETE FROM Produit WHERE id =" + id).executeQuery();
         } catch (SQLException e) {

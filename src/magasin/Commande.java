@@ -2,7 +2,6 @@ package magasin;
 
 import commons.Adresse;
 import database.CObjTransaction;
-import database.IdbInterface;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class Commande implements IdbInterface {
     @Override
     public boolean create(CObjTransaction Cobjt) {
         //creer l'incsrpition depuis les valeurs de l'object
-        Connection conn = Cobjt.getDDitf().getConnection();
+        Connection conn = Cobjt.getdBi().getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = conn.prepareStatement(
@@ -42,7 +41,7 @@ public class Commande implements IdbInterface {
             stmt.setArray(1, (Array) this.listeArticle);
             stmt.setFloat(2, this.reduction);
             stmt.setString(3, this.typePaiement.toString());
-            stmt.setString(4, this.adresseLivr.toString());
+            stmt.setString(4, this.adresseLivr.toDB());
             stmt.setDate(5, (java.sql.Date) this.dateLivraison);
             stmt.setLong(6, this.ID_client);
             stmt.executeUpdate();
@@ -64,7 +63,7 @@ public class Commande implements IdbInterface {
     public boolean update(CObjTransaction objt, String[] nomsDeChampsAMettreAjour) {
         //remplacer les elements modifier dans le l'inscription sql
         try {
-            Connection conn = objt.getDDitf().getConnection();
+            Connection conn = objt.getdBi().getConnection();
             String sql = "UPDATE Commande SET";
             for (String champ : nomsDeChampsAMettreAjour) {
                 sql += champ + "=?";
@@ -77,7 +76,7 @@ public class Commande implements IdbInterface {
                     case "reduction" -> stmt.setFloat(i, this.reduction);
                     case "typePaeiment" -> stmt.setString(i, this.typePaiement.toString());
                     case "dateLivraison" -> stmt.setDate(i, (java.sql.Date) this.dateLivraison);
-                    case "adresseLivr" -> stmt.setString(i, this.adresseLivr.toString());
+                    case "adresseLivr" -> stmt.setString(i, this.adresseLivr.toDB());
                     case "ID_Client" -> stmt.setLong(i, this.ID_client);
 
                 }
@@ -94,14 +93,14 @@ public class Commande implements IdbInterface {
     public boolean load(CObjTransaction objt, int id) {
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
-            Connection conn = objt.getDDitf().getConnection();
+            Connection conn = objt.getdBi().getConnection();
             ResultSet rs = conn.prepareStatement("SELECT * FROM Client WHERE id =" + id).executeQuery();
             if (rs != null) {
                 while (rs.next()) {
                     this.listeArticle = (ArrayList<Long>) rs.getArray("listeArticle");
                     this.reduction = rs.getFloat("reduction");
                     this.typePaiement.fromString(rs.getString("typePaiement"));
-                    this.adresseLivr.fromString(rs.getString("adresseLivr"));
+                    this.adresseLivr.fromDB(rs.getString("adresseLivr"));
                     this.dateLivraison = rs.getDate("dateLivraison");
                     this.ID_client = rs.getLong("ID_Client");
                 }
@@ -125,7 +124,7 @@ public class Commande implements IdbInterface {
     @Override
     public boolean delete(CObjTransaction objt, int id) {
         //Delete l'inscription de l'id donnée
-        Connection conn = objt.getDDitf().getConnection();
+        Connection conn = objt.getdBi().getConnection();
         try {
             ResultSet rs = conn.prepareStatement("DELETE FROM Commande WHERE id =" + ID).executeQuery();
         } catch (SQLException e) {

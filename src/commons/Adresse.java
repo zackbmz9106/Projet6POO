@@ -1,25 +1,28 @@
 package commons;
 
 public class Adresse {
-    private final String typeVoie;
-    private final String voie;
-    private final int nVoie;
-    private final String ville;
-    private final int codePostal;
+    private  String voie ;
+    private int nVoie;
+    private  int codePostal;
 
-    public Adresse(String typeVoie, String voie, int nVoie, String ville, int codePostal) {
-        this.typeVoie = typeVoie;
+    public Adresse(String voie, int nVoie, int codePostal) {
         this.voie = voie;
         this.nVoie = nVoie;
-        this.ville = ville;
         this.codePostal = codePostal;
     }
-
+    @Override
     public String toString() {
-        return this.nVoie + this.typeVoie + this.nVoie + this.voie + this.ville + this.codePostal;
+        return this.nVoie  + this.voie  + this.codePostal;
     }
 
-    public void fromString(String in) {
+    public String toDB(){
+        return this.nVoie + ";" + this.voie + ";"+ this.codePostal;
+    }
+    public void fromDB(String in){
+        String[] split = in.split(";");
+        this.nVoie = Integer.parseInt(split[0]);
+        this.voie = split[1];
+        this.codePostal = Integer.parseInt(split[2]);
 
     }
 }

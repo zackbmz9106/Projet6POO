@@ -1,14 +1,16 @@
 package ui;
 
+import database.DatabaseInterface;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import logic.AppController;
 
 import java.util.ArrayList;
 
-public class Controller {
+public class MainController extends AppController {
 
     @FXML
     private AnchorPane PClient;
@@ -39,9 +41,15 @@ public class Controller {
                 case "PProduit" -> toBeLoaded = "./produit.fxml";
             }
             if (cAP != null) {
-                Pane newLoadedPane = null;
+                FXMLLoader loader = null;
+                Pane newLoadedPane = null ;
                 try {
-                    newLoadedPane = FXMLLoader.load(getClass().getResource(toBeLoaded));
+                    loader = new FXMLLoader(getClass().getResource(toBeLoaded));
+                    newLoadedPane = loader.load();
+                    AppController appController = loader.getController();
+                    DatabaseInterface dBi = getdBi();
+                    System.out.println(dBi.getConnection());
+                    appController.setdBi(dBi);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }

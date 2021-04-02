@@ -2,6 +2,7 @@ package ui;
 
 import commons.Adresse;
 import database.CObjTransaction;
+import database.DatabaseInterface;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -11,8 +12,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class clientController {
-    private final Adresse currentAdresse = new Adresse("Voie", "route", 1, "Ville", 0);
+public class clientController  {
+
     @FXML
     private Button myButton;
 
@@ -53,31 +54,11 @@ public class clientController {
                 .toInstant());
     }
 
+
     @FXML
     void clickonButton(MouseEvent event) {
-        Client c = null;
-        CObjTransaction objt = new CObjTransaction();
-        try {
-            c = new Client(TNom.getText(), TPrenom.getText(), currentAdresse
-                    , convertToDateViaInstant(naissancePicker.getValue()), TMail.getText(),
-                    Integer.parseInt(TNumeroTel.getText()),
-                    BFidel.isSelected());
-            BProcessBar.setProgress(25);
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            BProcessBar.setProgress(70);
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur de Saisie");
-            alert.setContentText("Veuilliez verifier que tous les champs sont corrects");
-            alert.showAndWait();
-        }
-        if (c != null) {
-            BProcessBar.setProgress(80);
-            System.out.println(c.toString());
+        Adresse adresse = new Adresse(TAdresse.getText(),Integer.parseInt(TNvoie.getText()),Integer.parseInt(TCodePostal.getText()));
+        Main.getAppC().createClient(TNom.getText(),TPrenom.getText(),adresse,convertToDateViaInstant(naissancePicker.getValue()),TMail.getText(),Integer.parseInt(TNumeroTel.getText()),BFidel.isSelected());
 
-        }
-
-        //BProcessBar.setProgress(0);
     }
 }

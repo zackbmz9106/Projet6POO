@@ -1,4 +1,6 @@
-package database;
+package magasin;
+
+import database.CObjTransaction;
 
 import java.util.ArrayList;
 
@@ -10,6 +12,7 @@ public interface IdbInterface {
 
     boolean create(CObjTransaction objt);
 
+    //TODO : add operand
     ArrayList<Long> query(CObjTransaction objt);
 
     boolean delete(CObjTransaction objt, int id);
