@@ -8,18 +8,14 @@
          tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="ui.MainController">
     <tabs>
         <Tab text="Client">
-            <AnchorPane fx:id="PClient" onContextMenuRequested="#loadFxml"/>
+            <fx:include fx:id="PClient" source="./client.fxml" />
         </Tab>
         <Tab text="Vente">
             <content>
-                <AnchorPane fx:id="PVente" minHeight="0.0" minWidth="0.0" onContextMenuRequested="#loadFxml"
-                            prefHeight="180.0" prefWidth="200.0"/>
             </content>
         </Tab>
         <Tab text="Base Produit">
             <content>
-                <AnchorPane fx:id="PProduit" minHeight="0.0" minWidth="0.0" onContextMenuRequested="#loadFxml"
-                            prefHeight="180.0" prefWidth="200.0"/>
             </content>
         </Tab>
     </tabs>

@@ -1,24 +1,26 @@
 package magasin;
 
 import commons.Adresse;
-import database.CObjTransaction;
+import database.Transaction;
+import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Client implements IdbInterface {
+public class Client  extends DBObject implements IdbInterface{
     private String nom;
     private String prenom;
     private Adresse adresse;
     private Date dateDeNaissance;
     private String mail;
-    private int numerotel;
+    private String numerotel;
     private boolean carteFidelite;
     private int pointFidelite;
     private long ID;
 
-    public Client(String nom, String prenom, Adresse adresse, Date dateDeNaissance, String mail, int numerotel, boolean cartefidelite) {
+    public Client(String nom, String prenom, Adresse adresse, Date dateDeNaissance, String mail, String numerotel, boolean cartefidelite) {
+        super("Client");
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;
@@ -30,21 +32,22 @@ public class Client implements IdbInterface {
 
     }
 
+
     @Override
-    public boolean create(CObjTransaction objt) {
+    public void create(Transaction transaction) {
         //creer l'incsrpition depuis les valeurs de l'object
-        Connection conn = objt.getdBi().getConnection();
+        Connection conn = transaction.getdBi().getConnection();
         PreparedStatement stmt = null;
+        java.sql.Date d = new java.sql.Date(this.dateDeNaissance.getTime());
         try {
-            stmt = conn.prepareStatement(
-                    "insert into Client(nom, prenom, adresse,dateDeNaissance,mail,numerotel,carteFidelite,pointFidelite) values(?,?,?,?,?,?,?,?)",
-                    Statement.RETURN_GENERATED_KEYS);
+            String sql = "insert into "+ this.tableName +"(nom, prenom, adresse,dateDeNaissance,mail,numerotel,carteFidelite,pointFidelite) values(?,?,?,?,?,?,?,?)";
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, this.nom);
             stmt.setString(2, this.prenom);
             stmt.setString(3, this.adresse.toDB());
-            stmt.setDate(4, (java.sql.Date) this.dateDeNaissance);
+            stmt.setDate(4, d);
             stmt.setString(5, this.mail);
-            stmt.setInt(6, this.numerotel);
+            stmt.setString(6, this.numerotel);
             stmt.setBoolean(7, this.carteFidelite);
             stmt.setInt(8, this.pointFidelite);
             stmt.executeUpdate();
@@ -54,20 +57,22 @@ public class Client implements IdbInterface {
             if (rs.next()) {
                 this.ID = rs.getInt(1);
             }
+            transaction.succesfullMessage();
         } catch (SQLException e) {
-            objt.onerrorCallback(e.getMessage());
-            return false;
+            transaction.setMessage(e.getMessage());
+            transaction.setLevel(Alert.AlertType.ERROR);
+
         }
-        return true;
+
     }
 
 
     @Override
-    public boolean update(CObjTransaction objt, String[] nomsDeChampsAMettreAjour) {
+    public void update(Transaction transaction, String[] nomsDeChampsAMettreAjour) {
         //remplacer les elements modifier dans le l'inscription sql
         try {
-            Connection conn = objt.getdBi().getConnection();
-            String sql = "UPDATE Client SET";
+            Connection conn = transaction.getdBi().getConnection();
+            String sql = "UPDATE "+this.tableName+" SET";
             for (String champ : nomsDeChampsAMettreAjour) {
                 sql += champ + "=?";
             }
@@ -80,25 +85,26 @@ public class Client implements IdbInterface {
                     case "adresse" -> stmt.setString(i, this.adresse.toDB());
                     case "dateDeNaissance" -> stmt.setDate(i, (java.sql.Date) this.dateDeNaissance);
                     case "mail" -> stmt.setString(i, this.mail);
-                    case "numerotel" -> stmt.setInt(i, this.numerotel);
+                    case "numerotel" -> stmt.setString(i, this.numerotel);
                     case "carteFidelite" -> stmt.setBoolean(i, this.carteFidelite);
                     case "pointFidelite" -> stmt.setInt(i, this.pointFidelite);
                 }
             }
-            return stmt.executeUpdate() > 0;
+            stmt.executeUpdate() ;
+            transaction.succesfullMessage();
         } catch (SQLException e) {
-            objt.onerrorCallback(e.getMessage());
-            return false;
+            transaction.setMessage(e.getMessage());
+            transaction.setLevel(Alert.AlertType.ERROR);
         }
 
     }
 
     @Override
-    public boolean load(CObjTransaction objt, int id) {
+    public void load(Transaction transaction, int id) {
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
-            Connection conn = objt.getdBi().getConnection();
-            ResultSet rs = conn.prepareStatement("SELECT * FROM Client WHERE id =" + id).executeQuery();
+            Connection conn = transaction.getdBi().getConnection();
+            ResultSet rs = conn.prepareStatement("SELECT * FROM "+this.tableName+" WHERE id =" + id).executeQuery();
             if (rs != null) {
                 while (rs.next()) {
                     this.nom = rs.getString("nom");
@@ -106,40 +112,27 @@ public class Client implements IdbInterface {
                     this.adresse.fromDB(rs.getString("adresse"));
                     this.dateDeNaissance = rs.getDate("dateDeNaissance");
                     this.mail = rs.getString("mail");
-                    this.numerotel = rs.getInt("numerotel");
+                    this.numerotel = rs.getString("numerotel");
                     this.carteFidelite = rs.getBoolean("carteFidelite");
                     this.pointFidelite = rs.getInt("pointFidelite");
                     this.ID = rs.getLong("id");
                 }
-            } else {
-                return false;
             }
+            transaction.succesfullMessage();
         } catch (SQLException e) {
-            objt.onerrorCallback(e.getMessage());
-            return false;
+            transaction.setMessage(e.getMessage());
+            transaction.setLevel(Alert.AlertType.ERROR);
         }
-        return true;
+
     }
 
 
-    public ArrayList<Long> query(CObjTransaction objt) {
+    public ArrayList<Long> query(Transaction objt) {
         //TODO : finir l'implementation
         ArrayList<Long> out = new ArrayList<Long>();
         return out;
     }
 
-    @Override
-    public boolean delete(CObjTransaction objt, int id) {
-        //Delete l'inscription de l'id donnée
-        Connection conn = objt.getdBi().getConnection();
-        try {
-            ResultSet rs = conn.prepareStatement("DELETE FROM Client WHERE id =" + id).executeQuery();
-        } catch (SQLException e) {
-            objt.onerrorCallback(e.getMessage());
-            return false;
-        }
-        return true;
-    }
 
 
     //GETER/SETTER+TOSTRING
@@ -164,11 +157,11 @@ public class Client implements IdbInterface {
         this.mail = mail;
     }
 
-    public int getNumerotel() {
+    public String getNumerotel() {
         return numerotel;
     }
 
-    public void setNumerotel(int numerotel) {
+    public void setNumerotel(String numerotel) {
         this.numerotel = numerotel;
     }
 

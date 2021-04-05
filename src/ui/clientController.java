@@ -1,12 +1,9 @@
 package ui;
 
 import commons.Adresse;
-import database.CObjTransaction;
-import database.DatabaseInterface;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import magasin.Client;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -57,8 +54,8 @@ public class clientController  {
 
     @FXML
     void clickonButton(MouseEvent event) {
-        Adresse adresse = new Adresse(TAdresse.getText(),Integer.parseInt(TNvoie.getText()),Integer.parseInt(TCodePostal.getText()));
-        Main.getAppC().createClient(TNom.getText(),TPrenom.getText(),adresse,convertToDateViaInstant(naissancePicker.getValue()),TMail.getText(),Integer.parseInt(TNumeroTel.getText()),BFidel.isSelected());
+        Adresse adresse = new Adresse(TAdresse.getText(),TNvoie.getText(),TCodePostal.getText());
+        Main.getAppC().createClient(TNom.getText(),TPrenom.getText(),adresse,convertToDateViaInstant(naissancePicker.getValue()),TMail.getText(),TNumeroTel.getText(),BFidel.isSelected());
 
     }
 }

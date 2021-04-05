@@ -1,19 +1,19 @@
 package magasin;
 
-import database.CObjTransaction;
+import database.Transaction;
 
 import java.util.ArrayList;
 
 public interface IdbInterface {
 
-    boolean update(CObjTransaction objt, String[] nomsDeChampsAMettreAjour);
+    void update(Transaction tx, String[] nomsDeChampsAMettreAjour);
 
-    boolean load(CObjTransaction objt, int id);
+    void load(Transaction tx, int id);
 
-    boolean create(CObjTransaction objt);
+    void create(Transaction tx);
 
     //TODO : add operand
-    ArrayList<Long> query(CObjTransaction objt);
+    ArrayList<Long> query(Transaction tx);
 
-    boolean delete(CObjTransaction objt, int id);
+    void delete(Transaction tx);
 }

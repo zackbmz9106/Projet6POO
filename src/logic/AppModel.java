@@ -2,6 +2,7 @@ package logic;
 
 import commons.Adresse;
 import database.DatabaseInterface;
+import database.Transaction;
 import javafx.scene.control.Alert;
 import magasin.Client;
 
@@ -15,16 +16,10 @@ public class AppModel {
         dBi.lauchDatabase();
     }
 
-    public void createClient(String nom, String prenom, Adresse adresse, Date dateDeNaissance, String mail, int numerotel, boolean carteFidelite){
+    public Transaction createClient(String nom, String prenom, Adresse adresse, Date dateDeNaissance, String mail, String numerotel, boolean carteFidelite){
         Client c = new Client(nom,prenom,adresse,dateDeNaissance,mail,numerotel,carteFidelite);
-        boolean status = c.create(objt);
-        if(!status){
-            String e = objt.getLastErrorMessage();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur d'inscription dans la base de donnée");
-            alert.setContentText("l'erreur suivante est survenue : " + e);
-            alert.showAndWait();
-        }
+        Transaction tx = new Transaction(dBi);
+        c.create(tx);
+        return tx;
     }
 }

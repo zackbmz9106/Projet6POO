@@ -2,10 +2,10 @@ package commons;
 
 public class Adresse {
     private  String voie ;
-    private int nVoie;
-    private  int codePostal;
+    private String nVoie;
+    private  String codePostal;
 
-    public Adresse(String voie, int nVoie, int codePostal) {
+    public Adresse(String voie, String nVoie, String codePostal) {
         this.voie = voie;
         this.nVoie = nVoie;
         this.codePostal = codePostal;
@@ -20,9 +20,9 @@ public class Adresse {
     }
     public void fromDB(String in){
         String[] split = in.split(";");
-        this.nVoie = Integer.parseInt(split[0]);
+        this.nVoie = split[0];
         this.voie = split[1];
-        this.codePostal = Integer.parseInt(split[2]);
+        this.codePostal = split[2];
 
     }
 }

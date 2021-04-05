@@ -1,7 +1,8 @@
+/*
 package magasin;
 
 import commons.Adresse;
-import database.CObjTransaction;
+import database.Transaction;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class Commande implements IdbInterface {
     }
 
     @Override
-    public boolean create(CObjTransaction Cobjt) {
+    public boolean create(Transaction Cobjt) {
         //creer l'incsrpition depuis les valeurs de l'object
         Connection conn = Cobjt.getdBi().getConnection();
         PreparedStatement stmt = null;
@@ -60,7 +61,7 @@ public class Commande implements IdbInterface {
 
 
     @Override
-    public boolean update(CObjTransaction objt, String[] nomsDeChampsAMettreAjour) {
+    public boolean update(Transaction objt, String[] nomsDeChampsAMettreAjour) {
         //remplacer les elements modifier dans le l'inscription sql
         try {
             Connection conn = objt.getdBi().getConnection();
@@ -90,7 +91,7 @@ public class Commande implements IdbInterface {
     }
 
     @Override
-    public boolean load(CObjTransaction objt, int id) {
+    public boolean load(Transaction objt, int id) {
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
             Connection conn = objt.getdBi().getConnection();
@@ -115,14 +116,14 @@ public class Commande implements IdbInterface {
     }
 
     @Override
-    public ArrayList<Long> query(CObjTransaction objt) {
+    public ArrayList<Long> query(Transaction objt) {
         //TODO : finir l'implementation
         ArrayList<Long> out = new ArrayList<Long>();
         return out;
     }
 
     @Override
-    public boolean delete(CObjTransaction objt, int id) {
+    public boolean delete(Transaction objt, long id) {
         //Delete l'inscription de l'id donnée
         Connection conn = objt.getdBi().getConnection();
         try {
@@ -135,3 +136,4 @@ public class Commande implements IdbInterface {
     }
 
 }
+*/

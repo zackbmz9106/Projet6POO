@@ -10,8 +10,6 @@ import logic.AppController;
 import logic.AppModel;
 
 public class Main extends Application {
-    private AppController mainController;
-    private  static DatabaseInterface dBi;
     private static AppController appC;
     private static AppModel appM;
 
