@@ -1,14 +1,16 @@
 package magasin;
 
 import commons.Adresse;
+import database.QueryDB;
 import database.Transaction;
+import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 
 
-public class Commande implements IdbInterface {
+public class Commande extends DBObject implements IdbInterface {
 
     private ArrayList<Long> listeArticle;
     private float reduction;
@@ -19,7 +21,8 @@ public class Commande implements IdbInterface {
     private long ID_client;
 
 
-    public Commande(ArrayList<Long> listearticle, float reduction, String typepaiement, Adresse adresselivr, Date datelivraison, long ID_client) {
+    public Commande (ArrayList<Long> listearticle, float reduction, String typepaiement, Adresse adresselivr, Date datelivraison, long ID_client){
+        super("Commande");
         this.listeArticle = listearticle;
         this.reduction = reduction;
         this.typePaiement = typepaiement;
@@ -29,16 +32,16 @@ public class Commande implements IdbInterface {
     }
 
     @Override
-    public boolean create(Transaction Cobjt) {
+    public void create(Transaction tx) {
         //creer l'incsrpition depuis les valeurs de l'object
-        Connection conn = Cobjt.getdBi().getConnection();
+        Connection conn = tx.getdBi().getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = conn.prepareStatement(
-                    "insert into Commande(listeArticle, reduction, typePaiement, adresseLivr, dateLivraison,ID_client) values(?,?,?,?,?,?)",
+                    "insert into "+ this.tableName+ "(listeArticle, reduction, typePaiement, adresseLivr, dateLivraison,ID_client) values(?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
 
-            stmt.setArray(1, (Array) this.listeArticle);
+            stmt.setString(1, arrayToDB(this.listeArticle));
             stmt.setFloat(2, this.reduction);
             stmt.setString(3, this.typePaiement.toString());
             stmt.setString(4, this.adresseLivr.toDB());
@@ -51,20 +54,20 @@ public class Commande implements IdbInterface {
             if (rs.next()) {
                 this.ID = rs.getInt(1);
             }
+            tx.succesfullMessage();
         } catch (SQLException e) {
-            Cobjt.onerrorCallback(e.getMessage());
-            return false;
+            tx.setMessage(e.getMessage());
+            tx.setLevel(Alert.AlertType.ERROR);
         }
-        return true;
     }
 
 
     @Override
-    public boolean update(Transaction objt, String[] nomsDeChampsAMettreAjour) {
+    public void update(Transaction tx, String[] nomsDeChampsAMettreAjour) {
         //remplacer les elements modifier dans le l'inscription sql
         try {
-            Connection conn = objt.getdBi().getConnection();
-            String sql = "UPDATE Commande SET";
+            Connection conn = tx.getdBi().getConnection();
+            String sql = "UPDATE "+ this.tableName+ " SET";
             for (String champ : nomsDeChampsAMettreAjour) {
                 sql += champ + "=?";
             }
@@ -72,7 +75,7 @@ public class Commande implements IdbInterface {
             PreparedStatement stmt = conn.prepareStatement(sql);
             for (int i = 1; i >= nomsDeChampsAMettreAjour.length; i++) {
                 switch (nomsDeChampsAMettreAjour[i]) {
-                    case "listeArticle" -> stmt.setArray(i, (Array) this.listeArticle);
+                    case "listeArticle" -> stmt.setString(i,arrayToDB(this.listeArticle));
                     case "reduction" -> stmt.setFloat(i, this.reduction);
                     case "typePaeiment" -> stmt.setString(i, this.typePaiement.toString());
                     case "dateLivraison" -> stmt.setDate(i, (java.sql.Date) this.dateLivraison);
@@ -81,57 +84,44 @@ public class Commande implements IdbInterface {
 
                 }
             }
-            return stmt.executeUpdate() > 0;
+            stmt.executeUpdate() ;
+            tx.succesfullMessage();
         } catch (SQLException e) {
-            objt.onerrorCallback(e.getMessage());
-            return false;
+            tx.setMessage(e.getMessage());
+            tx.setLevel(Alert.AlertType.ERROR);
         }
 
     }
 
     @Override
-    public boolean load(Transaction objt, int id) {
+    public void load(Transaction tx, int id) {
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
-            Connection conn = objt.getdBi().getConnection();
+            Connection conn = tx.getdBi().getConnection();
             ResultSet rs = conn.prepareStatement("SELECT * FROM Client WHERE id =" + id).executeQuery();
             if (rs != null) {
                 while (rs.next()) {
-                    this.listeArticle = (ArrayList<Long>) rs.getArray("listeArticle");
+                    this.listeArticle =  DBtoArray(rs.getString("listeArticle"));
                     this.reduction = rs.getFloat("reduction");
-                    this.typePaiement.fromString(rs.getString("typePaiement"));
+                    this.typePaiement = rs.getString("typePaiement");
                     this.adresseLivr.fromDB(rs.getString("adresseLivr"));
                     this.dateLivraison = rs.getDate("dateLivraison");
                     this.ID_client = rs.getLong("ID_Client");
                 }
-            } else {
-                return false;
+                tx.succesfullMessage();
             }
         } catch (SQLException e) {
-            objt.onerrorCallback(e.getMessage());
-            return false;
+            tx.setMessage(e.getMessage());
+            tx.setLevel(Alert.AlertType.ERROR);
         }
-        return true;
+
     }
 
     @Override
-    public ArrayList<Long> query(Transaction objt) {
+    public ArrayList<Long> query(Transaction objt, QueryDB qdb) {
         //TODO : finir l'implementation
         ArrayList<Long> out = new ArrayList<Long>();
         return out;
-    }
-
-    @Override
-    public boolean delete(Transaction objt, long id) {
-        //Delete l'inscription de l'id donnée
-        Connection conn = objt.getdBi().getConnection();
-        try {
-            ResultSet rs = conn.prepareStatement("DELETE FROM Commande WHERE id =" + ID).executeQuery();
-        } catch (SQLException e) {
-            objt.onerrorCallback(e.getMessage());
-            return false;
-        }
-        return true;
     }
 
 }

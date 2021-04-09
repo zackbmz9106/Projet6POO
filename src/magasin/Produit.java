@@ -1,12 +1,13 @@
-/*
 package magasin;
 
+import database.QueryDB;
 import database.Transaction;
+import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class Produit implements IdbInterface {
+public class Produit extends DBObject implements IdbInterface {
     private String typeArticle;
     private String marque;
     private String nomArticle;
@@ -17,6 +18,7 @@ public class Produit implements IdbInterface {
     private long ID_fournisseur;
 
     public Produit(String typeArticle, String marque, String nomArticle, float prixArticle, boolean isSolde, float solde, long ID_fournisseur) {
+        super("Produit");
         this.typeArticle = typeArticle;
         this.marque = marque;
         this.nomArticle = nomArticle;
@@ -27,11 +29,11 @@ public class Produit implements IdbInterface {
     }
 
     @Override
-    public boolean update(Transaction objt, String[] nomsDeChampsAMettreAjour) {
+    public void update(Transaction tx, String[] nomsDeChampsAMettreAjour) {
         //remplacer les elements modifier dans le l'inscription sql
         try {
-            Connection conn = objt.getdBi().getConnection();
-            String sql = "UPDATE Client SET";
+            Connection conn = tx.getdBi().getConnection();
+            String sql = "UPDATE "+ this.tableName+ " SET";
             for (String champ : nomsDeChampsAMettreAjour) {
                 sql += champ + "=?";
             }
@@ -48,19 +50,20 @@ public class Produit implements IdbInterface {
                     case "ID_fournisseur" -> stmt.setLong(i, this.ID_fournisseur);
                 }
             }
-            return stmt.executeUpdate() > 0;
+            stmt.executeUpdate() ;
+            tx.succesfullMessage();
         } catch (SQLException e) {
-            objt.onerrorCallback(e.getMessage());
-            return false;
+            tx.setMessage(e.getMessage());
+            tx.setLevel(Alert.AlertType.ERROR);
         }
     }
 
     @Override
-    public boolean load(Transaction objt, int id) {
+    public void load(Transaction tx, int id) {
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
-            Connection conn = objt.getdBi().getConnection();
-            ResultSet rs = conn.prepareStatement("SELECT * FROM Client WHERE id =" + id).executeQuery();
+            Connection conn = tx.getdBi().getConnection();
+            ResultSet rs = conn.prepareStatement("SELECT * FROM "+ this.tableName+ " WHERE id =" + id).executeQuery();
             if (rs != null) {
                 while (rs.next()) {
                     this.typeArticle = rs.getString("typeArticle");
@@ -72,24 +75,22 @@ public class Produit implements IdbInterface {
                     this.ID_fournisseur = rs.getLong("ID_fournisseur");
                     this.ID = rs.getLong("id");
                 }
-            } else {
-                return false;
+                tx.succesfullMessage();
             }
         } catch (SQLException e) {
-            objt.onerrorCallback(e.getMessage());
-            return false;
+            tx.setMessage(e.getMessage());
+            tx.setLevel(Alert.AlertType.ERROR);
         }
-        return true;
     }
 
     @Override
-    public boolean create(Transaction objt) {
+    public void create(Transaction tx) {
         //creer l'incsrpition depuis les valeurs de l'object
-        Connection conn = objt.getdBi().getConnection();
+        Connection conn = tx.getdBi().getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = conn.prepareStatement(
-                    "insert into Produit(typeArticle,marque,nomArticle,prixArticle,isSolde,solde,ID) values(?,?,?,?,?,?)",
+                    "insert into "+ this.tableName+ "(typeArticle,marque,nomArticle,prixArticle,isSolde,solde,ID) values(?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, this.typeArticle);
             stmt.setString(2, this.marque);
@@ -104,32 +105,20 @@ public class Produit implements IdbInterface {
             if (rs.next()) {
                 this.ID = rs.getInt(1);
             }
+            tx.succesfullMessage();
         } catch (SQLException e) {
-            objt.onerrorCallback(e.getMessage());
-            return false;
+            tx.setMessage(e.getMessage());
+            tx.setLevel(Alert.AlertType.ERROR);
         }
-        return true;
     }
 
     @Override
-    public ArrayList<Long> query(Transaction objt) {
+    public ArrayList<Long> query(Transaction objt, QueryDB qDB) {
         //TODO : finir l'implementation
         ArrayList<Long> out = new ArrayList<Long>();
         return out;
     }
 
-    @Override
-    public boolean delete(Transaction objt, long id) {
-        //Delete l'inscription de l'id donnée
-        Connection conn = objt.getdBi().getConnection();
-        try {
-            ResultSet rs = conn.prepareStatement("DELETE FROM Produit WHERE id =" + id).executeQuery();
-        } catch (SQLException e) {
-            objt.onerrorCallback(e.getMessage());
-            return false;
-        }
-        return true;
-    }
 
 
     public String getTypeArticle() {
@@ -156,4 +145,3 @@ public class Produit implements IdbInterface {
         return solde;
     }
 }
-*/

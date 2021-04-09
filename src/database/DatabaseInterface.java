@@ -28,9 +28,14 @@ public class DatabaseInterface {
         }
         try {
             Statement stmt = conn.createStatement();
-            String sqlClient = "CREATE TABLE Client(nom VARCHAR(100) , prenom VARCHAR(100) , adresse VARCHAR(100) ,dateDeNaissance DATE ,mail VARCHAR(100), numerotel VARCHAR(20),carteFidelite BOOL,pointFidelite INT(100),id bigint auto_increment,primary key (id))";
-            stmt.executeUpdate(sqlClient;
-            String sqlCommande = "CREATE TABLE Commande "
+            String sqlFournisseur = "CREATE TABLE Fournisseur(nomFournisseur VARCHAR(100),id bigint auto_increment primary key)";
+            stmt.executeUpdate(sqlFournisseur);
+            String sqlEmploye = "CREATE TABLE Employe(numEmplote bigint,typePoste VARCHAR(100),id bigint auto_increment primary key)";
+            stmt.executeUpdate(sqlEmploye);
+            String sqlClient = "CREATE TABLE Client(nom VARCHAR(100) , prenom VARCHAR(100) , adresse VARCHAR(100) ,dateDeNaissance DATE ,mail VARCHAR(100), numerotel VARCHAR(20),carteFidelite BOOL,pointFidelite INT(100),id bigint auto_increment primary key )";
+            stmt.executeUpdate(sqlClient);
+            String sqlCommande = "CREATE TABLE Commande(listeArticle LONGTEXT, reduction FLOAT, typePaiement VARCHAR(20), adresseLivre VARCHAR(200),dateLivraison DATE,ID_client bigint ,id bigint auto_increment primary key, FOREIGN KEY (ID_client) REFERENCES Client(id)) ";
+            stmt.executeUpdate(sqlCommande);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
