@@ -72,15 +72,24 @@ public class clientController extends ShowHideDialog implements Initializable {
         LocalDate datanaissance = naissancePicker.getValue();
         String mail = TMail.getText().trim();
         String tel = TNumeroTel.getText().trim();
-        Boolean Fidel = BFidel.isSelected();
-//        String adresse = TAdresse.getText().trim();
-//        String
-        if (!validate(TMail.getText().trim())) {
+        boolean Fidel = BFidel.isSelected();
+        String adresse = TAdresse.getText().trim();
+        String nVoie = TNvoie.getText().trim();
+        String codePostal = TCodePostal.getText().trim();
+        if (!validate(mail)) {
             showError("Adresse mail invalide");
             return;
         }
-        Adresse adresse = new Adresse(TAdresse.getText(), TNvoie.getText(), TCodePostal.getText());
-        Main.getAppC().createClient(TNom.getText(), TPrenom.getText(), adresse, convertToDateViaInstant(naissancePicker.getValue()), TMail.getText(), TNumeroTel.getText(), BFidel.isSelected());
+        if(nom.length() == 0 || prenom.length() == 0){
+            showError("Nom/Prenom invalide");
+            return;
+        }
+        if(mail.length() == 0 && tel.length() ==0){
+            showError("Au moins le mail ou le téléphone doivent etre valide");
+            return;
+        }
+        Adresse a = new Adresse(adresse, nVoie, codePostal);
+        Main.getAppC().createClient(nom, prenom, a, convertToDateViaInstant(datanaissance), mail, tel, Fidel);
 
     }
 
