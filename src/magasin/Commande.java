@@ -1,4 +1,3 @@
-/*
 package magasin;
 
 import commons.Adresse;
@@ -13,14 +12,14 @@ public class Commande implements IdbInterface {
 
     private ArrayList<Long> listeArticle;
     private float reduction;
-    private final MoyenDePaiment typePaiement;
-    private final Adresse adresseLivr;
+    private  String typePaiement;
+    private  Adresse adresseLivr;
     private Date dateLivraison;
     private long ID;
     private long ID_client;
 
 
-    public Commande(ArrayList<Long> listearticle, float reduction, MoyenDePaiment typepaiement, Adresse adresselivr, Date datelivraison, long ID_client) {
+    public Commande(ArrayList<Long> listearticle, float reduction, String typepaiement, Adresse adresselivr, Date datelivraison, long ID_client) {
         this.listeArticle = listearticle;
         this.reduction = reduction;
         this.typePaiement = typepaiement;
@@ -136,4 +135,3 @@ public class Commande implements IdbInterface {
     }
 
 }
-*/

@@ -28,8 +28,9 @@ public class DatabaseInterface {
         }
         try {
             Statement stmt = conn.createStatement();
-            String sql = "CREATE TABLE Client(nom VARCHAR(100) , prenom VARCHAR(100) , adresse VARCHAR(100) ,dateDeNaissance DATE ,mail VARCHAR(100), numerotel VARCHAR(20),carteFidelite BOOL,pointFidelite INT(100),id bigint auto_increment,primary key (id))";
-            stmt.executeUpdate(sql);
+            String sqlClient = "CREATE TABLE Client(nom VARCHAR(100) , prenom VARCHAR(100) , adresse VARCHAR(100) ,dateDeNaissance DATE ,mail VARCHAR(100), numerotel VARCHAR(20),carteFidelite BOOL,pointFidelite INT(100),id bigint auto_increment,primary key (id))";
+            stmt.executeUpdate(sqlClient;
+            String sqlCommande = "CREATE TABLE Commande "
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

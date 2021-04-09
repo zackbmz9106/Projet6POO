@@ -5,7 +5,7 @@ public class ApplicationEvent {
     public enum appWindows{
         CREATE_CLIENT,
         QUERRY_CLIENT,
-        CREATE_COMMANDE
+        CREATE_PRODUIT, CREATE_COMMANDE
     }
 
     public enum events{
