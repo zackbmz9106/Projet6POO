@@ -57,6 +57,7 @@
             <Menu mnemonicParsing="false" text="Créer...">
               <items>
                 <MenuItem fx:id="creerClientItem" mnemonicParsing="false" onAction="#oncreateClient" text="Client" />
+                  <MenuItem fx:id="creerCommandeItem" mnemonicParsing="false" onAction="#oncreateCommande" text="Commande" />
               </items>
             </Menu>
         <Menu mnemonicParsing="false" text="Aide">

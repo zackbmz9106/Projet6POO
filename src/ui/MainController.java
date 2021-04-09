@@ -13,6 +13,9 @@ public class MainController {
     private MenuItem prefItem;
 
     @FXML
+    private MenuItem creerCommandeItem;
+
+    @FXML
     private MenuItem quitItem;
 
     @FXML
@@ -33,5 +36,9 @@ public class MainController {
     @FXML
     void oncreateClient(ActionEvent event) {
         Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT,true);
+    }
+    @FXML
+    void oncreateCommande(ActionEvent event) {
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_COMMANDE,true);
     }
 }

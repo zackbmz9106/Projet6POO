@@ -3,7 +3,6 @@ package ui;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import logic.ApplicationEvent;
-import logic.ApplicationEventDispatcher;
 
 public abstract class ShowHideDialog {
 

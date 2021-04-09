@@ -65,6 +65,7 @@ public class Main extends Application {
         primaryStage.setScene(primaryScene);
         primaryStage.show();
         createShowHideDialog("./client.fxml","Client", ApplicationEvent.appWindows.CREATE_CLIENT);
+        createShowHideDialog("./commande.fxml","Commande",ApplicationEvent.appWindows.CREATE_COMMANDE);
     }
 
     private void createShowHideDialog(String fxmlRessource, String title, ApplicationEvent.appWindows appWindow) {

@@ -67,6 +67,14 @@ public class clientController extends ShowHideDialog implements Initializable {
 
     @FXML
     void clickonButton(MouseEvent event) {
+        String nom = TNom.getText().trim();
+        String prenom = TPrenom.getText().trim();
+        LocalDate datanaissance = naissancePicker.getValue();
+        String mail = TMail.getText().trim();
+        String tel = TNumeroTel.getText().trim();
+        Boolean Fidel = BFidel.isSelected();
+//        String adresse = TAdresse.getText().trim();
+//        String
         if (!validate(TMail.getText().trim())) {
             showError("Adresse mail invalide");
             return;
