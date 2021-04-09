@@ -1,5 +1,6 @@
 package magasin;
 
+import database.QueryDB;
 import database.Transaction;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public interface IdbInterface {
     void create(Transaction tx);
 
     //TODO : add operand
-    ArrayList<Long> query(Transaction tx);
+    ArrayList<Long> query(Transaction tx, QueryDB qDB);
 
     void delete(Transaction tx);
 }

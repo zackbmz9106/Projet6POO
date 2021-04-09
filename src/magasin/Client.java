@@ -1,6 +1,7 @@
 package magasin;
 
 import commons.Adresse;
+import database.QueryDB;
 import database.Transaction;
 import javafx.scene.control.Alert;
 
@@ -127,9 +128,17 @@ public class Client extends DBObject implements IdbInterface {
     }
 
 
-    public ArrayList<Long> query(Transaction objt) {
+    public ArrayList<Long> query(Transaction tx, QueryDB qDB) {
         //TODO : finir l'implementation
         ArrayList<Long> out = new ArrayList<Long>();
+        Connection conn = tx.getdBi().getConnection();
+        try {
+            ResultSet rs = conn.prepareStatement(qDB.construcQuery(this.tableName)).executeQuery();
+            tx.succesfullMessage();
+        } catch (SQLException e) {
+            tx.setMessage(e.getMessage());
+            tx.setLevel(Alert.AlertType.ERROR);
+        }
         return out;
     }
 
