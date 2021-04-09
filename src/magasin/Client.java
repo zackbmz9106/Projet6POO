@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Client  extends DBObject implements IdbInterface{
+public class Client extends DBObject implements IdbInterface {
     private String nom;
     private String prenom;
     private Adresse adresse;
@@ -40,7 +40,7 @@ public class Client  extends DBObject implements IdbInterface{
         PreparedStatement stmt = null;
         java.sql.Date d = new java.sql.Date(this.dateDeNaissance.getTime());
         try {
-            String sql = "insert into "+ this.tableName +"(nom, prenom, adresse,dateDeNaissance,mail,numerotel,carteFidelite,pointFidelite) values(?,?,?,?,?,?,?,?)";
+            String sql = "insert into " + this.tableName + "(nom, prenom, adresse,dateDeNaissance,mail,numerotel,carteFidelite,pointFidelite) values(?,?,?,?,?,?,?,?)";
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, this.nom);
             stmt.setString(2, this.prenom);
@@ -72,7 +72,7 @@ public class Client  extends DBObject implements IdbInterface{
         //remplacer les elements modifier dans le l'inscription sql
         try {
             Connection conn = transaction.getdBi().getConnection();
-            String sql = "UPDATE "+this.tableName+" SET";
+            String sql = "UPDATE " + this.tableName + " SET";
             for (String champ : nomsDeChampsAMettreAjour) {
                 sql += champ + "=?";
             }
@@ -90,7 +90,7 @@ public class Client  extends DBObject implements IdbInterface{
                     case "pointFidelite" -> stmt.setInt(i, this.pointFidelite);
                 }
             }
-            stmt.executeUpdate() ;
+            stmt.executeUpdate();
             transaction.succesfullMessage();
         } catch (SQLException e) {
             transaction.setMessage(e.getMessage());
@@ -104,7 +104,7 @@ public class Client  extends DBObject implements IdbInterface{
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
             Connection conn = transaction.getdBi().getConnection();
-            ResultSet rs = conn.prepareStatement("SELECT * FROM "+this.tableName+" WHERE id =" + id).executeQuery();
+            ResultSet rs = conn.prepareStatement("SELECT * FROM " + this.tableName + " WHERE id =" + id).executeQuery();
             if (rs != null) {
                 while (rs.next()) {
                     this.nom = rs.getString("nom");
@@ -132,7 +132,6 @@ public class Client  extends DBObject implements IdbInterface{
         ArrayList<Long> out = new ArrayList<Long>();
         return out;
     }
-
 
 
     //GETER/SETTER+TOSTRING

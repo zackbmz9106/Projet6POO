@@ -2,7 +2,6 @@ package database;
 
 import ch.vorburger.mariadb4j.DB;
 import ch.vorburger.mariadb4j.DBConfigurationBuilder;
-import org.apache.commons.dbutils.QueryRunner;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -31,7 +30,7 @@ public class DatabaseInterface {
             Statement stmt = conn.createStatement();
             String sql = "CREATE TABLE Client(nom VARCHAR(100) , prenom VARCHAR(100) , adresse VARCHAR(100) ,dateDeNaissance DATE ,mail VARCHAR(100), numerotel VARCHAR(20),carteFidelite BOOL,pointFidelite INT(100))";
             stmt.executeUpdate(sql);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }

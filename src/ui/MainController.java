@@ -1,22 +1,37 @@
 package ui;
 
-import database.DatabaseInterface;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import logic.AppController;
+import javafx.scene.control.MenuItem;
+import logic.ApplicationEvent;
 
-import java.util.ArrayList;
-
-public class MainController extends AppController {
+public class MainController {
 
     @FXML
-    private AnchorPane PClient;
-    @FXML
-    private AnchorPane PVente;
-    @FXML
-    private AnchorPane PProduit;
+    private MenuItem prefItem;
 
+    @FXML
+    private MenuItem quitItem;
+
+    @FXML
+    private MenuItem queryCommandItem;
+
+    @FXML
+    private MenuItem creerClientItem;
+
+    @FXML
+    private MenuItem aboutItem;
+
+    @FXML
+    void quit(ActionEvent event) {
+        Platform.exit();
+        System.exit(0);
+    }
+
+    @FXML
+    void oncreateClient(ActionEvent event) {
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT,true);
+    }
 }
