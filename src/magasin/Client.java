@@ -128,18 +128,24 @@ public class Client extends DBObject implements IdbInterface {
     }
 
 
-    public ArrayList<Long> query(Transaction tx, QueryDB qDB) {
+    public void query(Transaction tx, QueryDB qDB) {
         //TODO : finir l'implementation
         ArrayList<Long> out = new ArrayList<Long>();
         Connection conn = tx.getdBi().getConnection();
+        ResultSet rs;
         try {
-            ResultSet rs = conn.prepareStatement(qDB.construcQuery(this.tableName)).executeQuery();
+            rs = conn.prepareStatement(qDB.construcQuery(this.tableName)).executeQuery();
             tx.succesfullMessage();
+            while (rs.next()) {
+                out.add(rs.getLong(1));
+            }
         } catch (SQLException e) {
             tx.setMessage(e.getMessage());
             tx.setLevel(Alert.AlertType.ERROR);
         }
-        return out;
+        tx.setCreatedObj(out);
+
+
     }
 
 

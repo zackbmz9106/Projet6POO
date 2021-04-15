@@ -1,4 +1,4 @@
-package ui;
+package ui.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,6 +44,7 @@ public class commandeController extends ShowHideDialog implements Initializable 
         String prix = Prix.getText().trim();
         String solde = */
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initAppDispatch(ApplicationEvent.appWindows.CREATE_COMMANDE);

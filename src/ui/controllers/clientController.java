@@ -1,4 +1,4 @@
-package ui;
+package ui.controllers;
 
 import commons.Adresse;
 import javafx.fxml.FXML;
@@ -6,9 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 import logic.ApplicationEvent;
-import logic.IApplicationEventDispatcherListener;
+import ui.Main;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -42,9 +41,6 @@ public class clientController extends ShowHideDialog implements Initializable {
     private TextField TCodePostal;
     @FXML
     private CheckBox BFidel;
-    @FXML
-    private ProgressBar BProcessBar;
-
     private Date convertToDateViaInstant(LocalDate dateToConvert) {
         return java.util.Date.from(dateToConvert.atStartOfDay()
                 .atZone(ZoneId.systemDefault())
@@ -57,13 +53,6 @@ public class clientController extends ShowHideDialog implements Initializable {
         return matcher.find();
     }
 
-    private void showError(String errorMessage) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Erreur de saisie");
-        //alert.setHeaderText("Erreur d'inscription dans la base de donnée");
-        alert.setContentText(errorMessage);
-        alert.showAndWait();
-    }
 
     @FXML
     void clickonButton(MouseEvent event) {
@@ -76,15 +65,15 @@ public class clientController extends ShowHideDialog implements Initializable {
         String adresse = TAdresse.getText().trim();
         String nVoie = TNvoie.getText().trim();
         String codePostal = TCodePostal.getText().trim();
-        if (!validate(mail)) {
+        if (!validate(mail) && mail.length() != 0) {
             showError("Adresse mail invalide");
             return;
         }
-        if(nom.length() == 0 || prenom.length() == 0){
+        if (nom.length() == 0 || prenom.length() == 0) {
             showError("Nom/Prenom invalide");
             return;
         }
-        if(mail.length() == 0 && tel.length() ==0){
+        if (mail.length() == 0 && tel.length() == 0) {
             showError("Au moins le mail ou le téléphone doivent etre valide");
             return;
         }
@@ -92,7 +81,6 @@ public class clientController extends ShowHideDialog implements Initializable {
         Main.getAppC().createClient(nom, prenom, a, convertToDateViaInstant(datanaissance), mail, tel, Fidel);
 
     }
-
 
 
     @Override

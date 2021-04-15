@@ -1,11 +1,11 @@
-package ui;
+package ui.controllers;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuItem;
 import logic.ApplicationEvent;
+import ui.Main;
 
 public class MainController {
 
@@ -13,7 +13,7 @@ public class MainController {
     private MenuItem prefItem;
 
     @FXML
-    private MenuItem creerCommandeItem;
+    private MenuItem creerProduitItem;
 
     @FXML
     private MenuItem quitItem;
@@ -23,6 +23,10 @@ public class MainController {
 
     @FXML
     private MenuItem creerClientItem;
+
+
+    @FXML
+    private MenuItem creerEmployeItem;
 
     @FXML
     private MenuItem aboutItem;
@@ -35,10 +39,15 @@ public class MainController {
 
     @FXML
     void oncreateClient(ActionEvent event) {
-        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT,true);
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT, true);
+    }
+
+    @FXML
+    void oncreateProduit(ActionEvent event) {
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_PRODUIT, true);
     }
     @FXML
-    void oncreateCommande(ActionEvent event) {
-        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_COMMANDE,true);
+    void oncreateEmploye(ActionEvent event) {
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_EMPLOYE,true);
     }
 }

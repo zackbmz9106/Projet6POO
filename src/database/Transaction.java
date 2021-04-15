@@ -6,6 +6,13 @@ public class Transaction {
     private final DatabaseInterface DBi;
     private Alert.AlertType level;
     private String message;
+    private Object createdObj;
+
+    public Transaction(DatabaseInterface dbi) {
+        this.DBi = dbi;
+        this.message = "";
+        this.level = Alert.AlertType.NONE;
+    }
 
     public Object getCreatedObj() {
         return createdObj;
@@ -13,14 +20,6 @@ public class Transaction {
 
     public void setCreatedObj(Object createdObj) {
         this.createdObj = createdObj;
-    }
-
-    private Object createdObj;
-
-    public Transaction(DatabaseInterface dbi) {
-        this.DBi = dbi;
-        this.message = "";
-        this.level = Alert.AlertType.NONE;
     }
 
     public void succesfullMessage() {

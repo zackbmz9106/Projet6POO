@@ -38,34 +38,35 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MainController">
-  <children>
-    <MenuBar VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="Fichier">
-          <items>
-            <MenuItem fx:id="prefItem" mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="quitItem" mnemonicParsing="false" onAction="#quit" text="Quit" />
-          </items>
-        </Menu>
-            <Menu mnemonicParsing="false" text="Rechercher...">
-              <items>
-                <MenuItem fx:id="queryCommandItem" mnemonicParsing="false" text="Commande" />
-              </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Créer...">
-              <items>
-                <MenuItem fx:id="creerClientItem" mnemonicParsing="false" onAction="#oncreateClient" text="Client" />
-                  <MenuItem fx:id="creerCommandeItem" mnemonicParsing="false" onAction="#oncreateCommande" text="Commande" />
-              </items>
-            </Menu>
-        <Menu mnemonicParsing="false" text="Aide">
-          <items>
-            <MenuItem fx:id="aboutItem" mnemonicParsing="false" text="A propos ..." />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
-  </children>
+<VBox prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.MainController">
+    <children>
+        <MenuBar VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" text="Fichier">
+                    <items>
+                        <MenuItem fx:id="prefItem" mnemonicParsing="false" text="Preferences…" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="quitItem" mnemonicParsing="false" onAction="#quit" text="Quit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Rechercher...">
+                    <items>
+                        <MenuItem fx:id="queryCommandItem" mnemonicParsing="false" text="Commande" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Créer...">
+                    <items>
+                        <MenuItem fx:id="creerClientItem" mnemonicParsing="false" onAction="#oncreateClient" text="Client" />
+                  <MenuItem fx:id="creerEmployeItem" mnemonicParsing="false" onAction="#oncreateEmploye" text="Employe" />
+                        <MenuItem fx:id="creerProduitItem" mnemonicParsing="false" onAction="#oncreateProduit" text="Produit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Aide">
+                    <items>
+                        <MenuItem fx:id="aboutItem" mnemonicParsing="false" text="A propos ..." />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </children>
 </VBox>

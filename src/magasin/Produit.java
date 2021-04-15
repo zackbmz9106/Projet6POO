@@ -33,7 +33,7 @@ public class Produit extends DBObject implements IdbInterface {
         //remplacer les elements modifier dans le l'inscription sql
         try {
             Connection conn = tx.getdBi().getConnection();
-            String sql = "UPDATE "+ this.tableName+ " SET";
+            String sql = "UPDATE " + this.tableName + " SET";
             for (String champ : nomsDeChampsAMettreAjour) {
                 sql += champ + "=?";
             }
@@ -50,7 +50,7 @@ public class Produit extends DBObject implements IdbInterface {
                     case "ID_fournisseur" -> stmt.setLong(i, this.ID_fournisseur);
                 }
             }
-            stmt.executeUpdate() ;
+            stmt.executeUpdate();
             tx.succesfullMessage();
         } catch (SQLException e) {
             tx.setMessage(e.getMessage());
@@ -63,7 +63,7 @@ public class Produit extends DBObject implements IdbInterface {
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
             Connection conn = tx.getdBi().getConnection();
-            ResultSet rs = conn.prepareStatement("SELECT * FROM "+ this.tableName+ " WHERE id =" + id).executeQuery();
+            ResultSet rs = conn.prepareStatement("SELECT * FROM " + this.tableName + " WHERE id =" + id).executeQuery();
             if (rs != null) {
                 while (rs.next()) {
                     this.typeArticle = rs.getString("typeArticle");
@@ -90,7 +90,7 @@ public class Produit extends DBObject implements IdbInterface {
         PreparedStatement stmt = null;
         try {
             stmt = conn.prepareStatement(
-                    "insert into "+ this.tableName+ "(typeArticle,marque,nomArticle,prixArticle,isSolde,solde,ID) values(?,?,?,?,?,?)",
+                    "insert into " + this.tableName + "(typeArticle,marque,nomArticle,prixArticle,isSolde,solde,ID_fournisseur) values(?,?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, this.typeArticle);
             stmt.setString(2, this.marque);
@@ -98,6 +98,7 @@ public class Produit extends DBObject implements IdbInterface {
             stmt.setFloat(4, this.prixArticle);
             stmt.setBoolean(5, this.isSolde);
             stmt.setFloat(6, this.solde);
+            stmt.setLong(7,this.ID_fournisseur);
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -113,12 +114,25 @@ public class Produit extends DBObject implements IdbInterface {
     }
 
     @Override
-    public ArrayList<Long> query(Transaction objt, QueryDB qDB) {
+    public void query(Transaction tx, QueryDB qDB) {
         //TODO : finir l'implementation
         ArrayList<Long> out = new ArrayList<Long>();
-        return out;
-    }
+        Connection conn = tx.getdBi().getConnection();
+        ResultSet rs;
+        try {
+            rs = conn.prepareStatement(qDB.construcQuery(this.tableName)).executeQuery();
+            tx.succesfullMessage();
+            while (rs.next()) {
+                out.add(rs.getLong(1));
+            }
+        } catch (SQLException e) {
+            tx.setMessage(e.getMessage());
+            tx.setLevel(Alert.AlertType.ERROR);
+        }
+        tx.setCreatedObj(out);
 
+
+    }
 
 
     public String getTypeArticle() {

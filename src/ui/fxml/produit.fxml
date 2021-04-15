@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="0.0" minWidth="0.0" prefHeight="468.0" prefWidth="580.0"
+            xmlns="http://javafx.com/javafx/15.0.1" fx:controller="ui.controllers.produitController">
+    <children>
+        <Button fx:id="myButton" layoutX="468.0" layoutY="426.0" mnemonicParsing="false" onAction="#buttonClicked"
+                text="Create Object" AnchorPane.leftAnchor="468.0" AnchorPane.topAnchor="426.0"/>
+        <Label layoutX="10.0" layoutY="27.0" prefHeight="18.0" prefWidth="125.0" text="Type Article "/>
+        <Label layoutX="10.0" layoutY="78.0" prefHeight="18.0" prefWidth="125.0" text="Nom "/>
+        <Label layoutX="275.0" layoutY="27.0" prefHeight="18.0" prefWidth="69.0" text="Marque "/>
+        <TextField fx:id="TypeArticle" layoutX="83.0" layoutY="22.0"/>
+        <TextField fx:id="Nom" layoutX="83.0" layoutY="73.0"/>
+        <TextField fx:id="Marque" layoutX="363.0" layoutY="22.0"/>
+        <TextField fx:id="Prix" layoutX="363.0" layoutY="75.0"/>
+        <Label layoutX="275.0" layoutY="77.0" prefHeight="18.0" prefWidth="95.0" text="Prix "/>
+        <Label layoutX="275.0" layoutY="146.0" prefHeight="18.0" prefWidth="70.0" text="Solde (%)"/>
+        <TextField fx:id="Solde" layoutX="363.0" layoutY="143.0"/>
+        <CheckBox fx:id="Iss" layoutX="88.0" layoutY="146.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="140.0"
+                  text="Is solde ?"/>
+        <ProgressBar fx:id="BProcessBar" layoutX="49.0" layoutY="427.0" prefHeight="23.0" prefWidth="378.0"
+                     progress="0.0"/>
+        <Label layoutX="25.0" layoutY="294.0" prefHeight="18.0" prefWidth="162.0" text="Nom du fournisseur :"/>
+        <TextField fx:id="TfourName" layoutX="209.0" layoutY="289.0"/>
+    </children>
+</AnchorPane>

@@ -5,14 +5,17 @@ public class QueryDB {
     String valeur;
     String sortType;
 
-    public QueryDB(String nomChampDB,String valeur,String sortType){
+    public QueryDB(String nomChampDB, Object valeur, String sortType) {
         this.nomChampDB = nomChampDB;
-        this.valeur = valeur;
-        if(sortType.equals("")) {
-            this.sortType = "ASC";
-        }
+        this.valeur = String.valueOf(valeur);
+        this.sortType = sortType;
     }
-    public String construcQuery(String tableName){
-        return "SELECT * FROM " + tableName + " WHERE " + nomChampDB +"="+ valeur + "ORDER BY " + sortType;
+
+    public String construcQuery(String tableName) {
+        if (sortType.equals("")) {
+            return "SELECT id FROM " + tableName + " WHERE " + nomChampDB + "= \"" + valeur + "\"";
+        } else {
+            return "SELECT id FROM " + tableName + " WHERE " + nomChampDB + "= \"" + valeur + "\" SORT BY " + sortType;
+        }
     }
 }

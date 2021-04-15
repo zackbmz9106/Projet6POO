@@ -2,10 +2,12 @@ package logic;
 
 import commons.Adresse;
 import database.DatabaseInterface;
+import database.QueryDB;
 import database.Transaction;
-import magasin.Client;
+import magasin.*;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class AppModel {
     private DatabaseInterface dBi;
@@ -22,4 +24,38 @@ public class AppModel {
         tx.setCreatedObj(c);
         return tx;
     }
+
+    public Transaction createProduit(String typeArticle, String marque, String nomArticle, float prixArticle, boolean isSolde, float solde, long ID_fournisseur) {
+        Produit p = new Produit(typeArticle, marque, nomArticle, prixArticle, isSolde, solde, ID_fournisseur);
+        Transaction tx = new Transaction(dBi);
+        p.create(tx);
+        tx.setCreatedObj(p);
+        return tx;
+    }
+
+    public Transaction searchFournisseur(String nomFournisseur) {
+        Transaction tx = new Transaction(dBi);
+        QueryDB qDB = new QueryDB("nomFournisseur", nomFournisseur, "");
+        Fournisseur f = new Fournisseur();
+        f.query(tx, qDB);
+        return tx;
+    }
+
+    public Transaction searchEmployeExist(int numEmployee){
+        Transaction tx = new Transaction(dBi);
+        QueryDB qDB = new QueryDB("numEmploye",numEmployee,"");
+        Employe e = new Employe();
+        e.query(tx,qDB);
+        return tx;
+
+    }
+
+    public Transaction createEmploye(String nomEmploye, int numEmploye, String typePoste) {
+        Employe e = new Employe(nomEmploye,numEmploye,typePoste);
+        Transaction tx = new Transaction(dBi);
+        e.create(tx);
+        tx.setCreatedObj(e);
+        return tx;
+    }
+
 }

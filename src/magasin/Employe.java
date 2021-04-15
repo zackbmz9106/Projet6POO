@@ -7,17 +7,22 @@ import javafx.scene.control.Alert;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class Fournisseur extends DBObject implements IdbInterface {
+public class Employe extends DBObject implements IdbInterface{
+    String nomEmploye;
+    int numEmploye;
+    String typePoste;
     long id;
-    String nomFournisseur;
 
-    public Fournisseur(String nomFournisseur) {
-        super("Fournisseur");
-        this.nomFournisseur = nomFournisseur;
+    public Employe(String nomEmploye,int numEmploye,String typePoste){
+        super("Employe");
+        this.nomEmploye = nomEmploye;
+        this.numEmploye = numEmploye;
+        this.typePoste = typePoste;
     }
 
-    public Fournisseur() {
-        super("Fournisseur");
+    public Employe() {
+//        A utiliser pour rechercher dans la base
+        super("Employe");
     }
 
     @Override
@@ -33,10 +38,33 @@ public class Fournisseur extends DBObject implements IdbInterface {
             PreparedStatement stmt = conn.prepareStatement(sql);
             for (int i = 1; i >= nomsDeChampsAMettreAjour.length; i++) {
                 switch (nomsDeChampsAMettreAjour[i]) {
-                    case "nomFournisseur" -> stmt.setString(i, this.nomFournisseur);
+                    case "nomEmploye" -> stmt.setString(i, this.nomEmploye);
+                    case "numEmploye" -> stmt.setInt(i, this.numEmploye);
+                    case "typePoste" -> stmt.setString(i, this.typePoste);
                 }
             }
             stmt.executeUpdate();
+            tx.succesfullMessage();
+        } catch (SQLException e) {
+            tx.setMessage(e.getMessage());
+            tx.setLevel(Alert.AlertType.ERROR);
+        }
+    }
+
+    @Override
+    public void load(Transaction tx, int id) {
+        //cherche l'inscription avec son id et copie les valeurs dans l'obj
+        try {
+            Connection conn = tx.getdBi().getConnection();
+            ResultSet rs = conn.prepareStatement("SELECT * FROM " + this.tableName + " WHERE id =" + id).executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    this.nomEmploye = rs.getString("nomEmploye");
+                    this.numEmploye = rs.getInt("numEmploye");
+                    this.typePoste= rs.getString("dateDeNaissance");
+                    this.ID = rs.getLong("id");
+                }
+            }
             tx.succesfullMessage();
         } catch (SQLException e) {
             tx.setMessage(e.getMessage());
@@ -46,36 +74,16 @@ public class Fournisseur extends DBObject implements IdbInterface {
     }
 
     @Override
-    public void load(Transaction tx, int id) {
-        //cherche l'inscription avec son id et copie les valeurs dans l'obj
-        try {
-            Connection conn = tx.getdBi().getConnection();
-            ResultSet rs = conn.prepareStatement("SELECT * FROM Client WHERE id =" + id).executeQuery();
-            if (rs != null) {
-                while (rs.next()) {
-                    this.nomFournisseur = rs.getString("listeArticle");
-                }
-                tx.succesfullMessage();
-            }
-        } catch (SQLException e) {
-            tx.setMessage(e.getMessage());
-            tx.setLevel(Alert.AlertType.ERROR);
-        }
-
-
-    }
-
-    @Override
     public void create(Transaction tx) {
         //creer l'incsrpition depuis les valeurs de l'object
         Connection conn = tx.getdBi().getConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = conn.prepareStatement(
-                    "insert into " + this.tableName + "(nomFournisseur) values(?)",
-                    Statement.RETURN_GENERATED_KEYS);
-
-            stmt.setString(1, nomFournisseur);
+            String sql = "insert into " + this.tableName + "(nomEmploye,numEmploye,typePoste) values(?,?,?)";
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, this.nomEmploye);
+            stmt.setInt(2, this.numEmploye);
+            stmt.setString(3, this.typePoste);
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -87,8 +95,10 @@ public class Fournisseur extends DBObject implements IdbInterface {
         } catch (SQLException e) {
             tx.setMessage(e.getMessage());
             tx.setLevel(Alert.AlertType.ERROR);
+
         }
 
     }
+
 
 }
