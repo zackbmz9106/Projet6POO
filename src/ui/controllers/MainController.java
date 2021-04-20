@@ -46,8 +46,24 @@ public class MainController {
     void oncreateProduit(ActionEvent event) {
         Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_PRODUIT, true);
     }
+
     @FXML
     void oncreateEmploye(ActionEvent event) {
-        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_EMPLOYE,true);
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_EMPLOYE, true);
+    }
+
+    @FXML
+    void OnRechercherClient(ActionEvent event) {
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT_QUERY, true);
+    }
+
+    @FXML
+    void onClientGraph(ActionEvent event) {
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT_CHART, true);
+    }
+
+    @FXML
+    void onLoadSqlSample(ActionEvent event) {
+         loadSample ls =  new loadSample(Main.getAppM().getdBi());
     }
 }

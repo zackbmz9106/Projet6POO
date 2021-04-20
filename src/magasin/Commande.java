@@ -94,10 +94,10 @@ public class Commande extends DBObject implements IdbInterface {
     }
 
     @Override
-    public void load(Transaction tx, int id) {
+    public void load(Transaction transaction, long id) {
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
-            Connection conn = tx.getdBi().getConnection();
+            Connection conn = transaction.getdBi().getConnection();
             ResultSet rs = conn.prepareStatement("SELECT * FROM Client WHERE id =" + id).executeQuery();
             if (rs != null) {
                 while (rs.next()) {
@@ -108,13 +108,18 @@ public class Commande extends DBObject implements IdbInterface {
                     this.dateLivraison = rs.getDate("dateLivraison");
                     this.ID_client = rs.getLong("ID_Client");
                 }
-                tx.succesfullMessage();
+                transaction.succesfullMessage();
             }
         } catch (SQLException e) {
-            tx.setMessage(e.getMessage());
-            tx.setLevel(Alert.AlertType.ERROR);
+            transaction.setMessage(e.getMessage());
+            transaction.setLevel(Alert.AlertType.ERROR);
         }
 
+    }
+
+    @Override
+    public String getObjectDescriptor() {
+        return String.valueOf(this.ID);
     }
 
     @Override

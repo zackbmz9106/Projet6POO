@@ -71,7 +71,7 @@ public class produitController extends ShowHideDialog implements Initializable {
             showError("Verifier les nombres");
             return;
         }
-        if(typeArticle.equals("")||marque.equals("")||nom.equals("")){
+        if (typeArticle.equals("") || marque.equals("") || nom.equals("")) {
             showError("Les champs ne peuvent etre vide");
             return;
         }

@@ -50,7 +50,6 @@ public class commandeController extends ShowHideDialog implements Initializable 
         initAppDispatch(ApplicationEvent.appWindows.CREATE_COMMANDE);
     }
 
-    @Override
     protected Window getWindow() {
         return myButton.getScene().getWindow();
     }

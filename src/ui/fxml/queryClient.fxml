@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="711.0" prefWidth="964.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.ClientQueryController">
+   <children>
+      <ListView fx:id="LElement" layoutX="14.0" layoutY="52.0" onMouseClicked="#onMouseClickedOnList" prefHeight="624.0" prefWidth="320.0" />
+      <Text fx:id="Tname" layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clients : " wrappingWidth="236.13000106811523" />
+      <AnchorPane fx:id="ASelectionData" layoutX="334.0" layoutY="43.0">
+         <fx:include fx:id="PClient" source="client.fxml" />
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -38,7 +38,7 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.MainController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="1072.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.MainController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -46,14 +46,22 @@
                     <items>
                         <MenuItem fx:id="prefItem" mnemonicParsing="false" text="Preferences…" />
                         <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="IsqlSample" mnemonicParsing="false" onAction="#onLoadSqlSample" text="Charger le sample SQL" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="quitItem" mnemonicParsing="false" onAction="#quit" text="Quit" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Rechercher...">
                     <items>
                         <MenuItem fx:id="queryCommandItem" mnemonicParsing="false" text="Commande" />
+                  <MenuItem fx:id="rechercherClient" mnemonicParsing="false" onAction="#OnRechercherClient" text="Client" />
                     </items>
                 </Menu>
+            <Menu mnemonicParsing="false" text="Graphiques">
+              <items>
+                <MenuItem fx:id="IClientGraph" mnemonicParsing="false" onAction="#onClientGraph" text="Client" />
+              </items>
+            </Menu>
                 <Menu mnemonicParsing="false" text="Créer...">
                     <items>
                         <MenuItem fx:id="creerClientItem" mnemonicParsing="false" onAction="#oncreateClient" text="Client" />

@@ -12,6 +12,7 @@ import logic.AppController;
 import logic.AppModel;
 import logic.ApplicationEvent;
 import logic.ApplicationEventDispatcher;
+import ui.controllers.ClientQueryController;
 
 import java.io.IOException;
 
@@ -20,6 +21,7 @@ public class Main extends Application {
     private static AppModel appM;
     private static ApplicationEventDispatcher appEventDisp;
     private static Scene primaryScene;
+    private ClientQueryController CQC = new ClientQueryController();
 
     public static ApplicationEventDispatcher getAppEventDisp() {
         return appEventDisp;
@@ -64,6 +66,8 @@ public class Main extends Application {
         createShowHideDialog("./fxml/client.fxml", "Client", ApplicationEvent.appWindows.CREATE_CLIENT);
         createShowHideDialog("./fxml/produit.fxml", "Produit", ApplicationEvent.appWindows.CREATE_PRODUIT);
         createShowHideDialog("./fxml/employe.fxml","Employe",ApplicationEvent.appWindows.CREATE_EMPLOYE);
+        createShowHideDialog("./fxml/queryClient.fxml","Liste des clients", ApplicationEvent.appWindows.CREATE_CLIENT_QUERY);
+        createShowHideDialog("./fxml/chartClient.fxml","Graphique des clients",ApplicationEvent.appWindows.CREATE_CLIENT_CHART);
     }
 
     private void createShowHideDialog(String fxmlRessource, String title, ApplicationEvent.appWindows appWindow) {

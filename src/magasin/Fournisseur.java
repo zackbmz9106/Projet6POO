@@ -1,11 +1,9 @@
 package magasin;
 
-import database.QueryDB;
 import database.Transaction;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class Fournisseur extends DBObject implements IdbInterface {
     long id;
@@ -14,6 +12,11 @@ public class Fournisseur extends DBObject implements IdbInterface {
     public Fournisseur(String nomFournisseur) {
         super("Fournisseur");
         this.nomFournisseur = nomFournisseur;
+    }
+
+    @Override
+    public String getObjectDescriptor() {
+        return this.nomFournisseur;
     }
 
     public Fournisseur() {
@@ -46,20 +49,20 @@ public class Fournisseur extends DBObject implements IdbInterface {
     }
 
     @Override
-    public void load(Transaction tx, int id) {
+    public void load(Transaction transaction, long id) {
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
-            Connection conn = tx.getdBi().getConnection();
+            Connection conn = transaction.getdBi().getConnection();
             ResultSet rs = conn.prepareStatement("SELECT * FROM Client WHERE id =" + id).executeQuery();
             if (rs != null) {
                 while (rs.next()) {
                     this.nomFournisseur = rs.getString("listeArticle");
                 }
-                tx.succesfullMessage();
+                transaction.succesfullMessage();
             }
         } catch (SQLException e) {
-            tx.setMessage(e.getMessage());
-            tx.setLevel(Alert.AlertType.ERROR);
+            transaction.setMessage(e.getMessage());
+            transaction.setLevel(Alert.AlertType.ERROR);
         }
 
 

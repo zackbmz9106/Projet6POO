@@ -4,6 +4,9 @@ import ch.vorburger.mariadb4j.DB;
 import ch.vorburger.mariadb4j.DBConfigurationBuilder;
 import magasin.Fournisseur;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -14,8 +17,16 @@ public class DatabaseInterface {
 
     public void lauchDatabase() {
         DBConfigurationBuilder configBuilder = DBConfigurationBuilder.newBuilder();
+        String prefix = "project6";
+        Path tempDirWithPrefix = null;
+        try {
+             tempDirWithPrefix = Files.createTempDirectory(prefix);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
         configBuilder.setPort(3306); // OR, default: setPort(0); => autom. detect free port
-        configBuilder.setDataDir("/tmp/app"); // just an example
+        configBuilder.setDataDir(tempDirWithPrefix.toFile().getAbsolutePath()); // just an example
         DB db = null;
         String dbName = "test"; // never test
         try {

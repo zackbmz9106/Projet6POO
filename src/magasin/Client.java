@@ -32,6 +32,10 @@ public class Client extends DBObject implements IdbInterface {
         this.pointFidelite = 0;
 
     }
+//For query
+    public Client() {
+        super("Client");
+    }
 
 
     @Override
@@ -101,7 +105,7 @@ public class Client extends DBObject implements IdbInterface {
     }
 
     @Override
-    public void load(Transaction transaction, int id) {
+    public void load(Transaction transaction, long id) {
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
             Connection conn = transaction.getdBi().getConnection();
@@ -127,6 +131,11 @@ public class Client extends DBObject implements IdbInterface {
 
     }
 
+
+    @Override
+    public String getObjectDescriptor() {
+        return this.nom + this.prenom;
+    }
 
     public void query(Transaction tx, QueryDB qDB) {
         //TODO : finir l'implementation

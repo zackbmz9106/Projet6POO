@@ -3,10 +3,14 @@ package ui.controllers;
 import commons.Adresse;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Window;
 import logic.ApplicationEvent;
+import magasin.Client;
 import ui.Main;
 
 import java.net.URL;
@@ -41,11 +45,47 @@ public class clientController extends ShowHideDialog implements Initializable {
     private TextField TCodePostal;
     @FXML
     private CheckBox BFidel;
+
     private Date convertToDateViaInstant(LocalDate dateToConvert) {
         return java.util.Date.from(dateToConvert.atStartOfDay()
                 .atZone(ZoneId.systemDefault())
                 .toInstant());
 
+    }
+
+    private LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {
+        return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
+    }
+
+
+    public void setForClientRead(boolean b) {
+        naissancePicker.setEditable(b);
+        TNom.setEditable(b);
+        TNumeroTel.setEditable(b);
+        TPrenom.setEditable(b);
+        TMail.setEditable(b);
+        TAdresse.setEditable(b);
+        TNvoie.setEditable(b);
+        TCodePostal.setEditable(b);
+        BFidel.setDisable(b);
+//        myButton.setVisible(b);
+    }
+
+    public Button getActionButton() {
+        return myButton;
+    }
+
+    public void clientReadout(Client c) {
+        naissancePicker.setValue(convertToLocalDateViaSqlDate(c.getDateDeNaissance()));
+        TNom.setText(c.getNom());
+        TNumeroTel.setText(c.getNumerotel());
+        TPrenom.setText(c.getPrenom());
+        TMail.setText(c.getMail());
+        Adresse a = c.getAdresse();
+        TAdresse.setText(a.getVoie());
+        TNvoie.setText(a.getnVoie());
+        TCodePostal.setText(a.getCodePostal());
+        BFidel.setSelected(c.isCarteFidelite());
     }
 
     private boolean validate(String emailStr) {

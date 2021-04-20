@@ -7,7 +7,7 @@ public interface IdbInterface {
 
     void update(Transaction tx, String[] nomsDeChampsAMettreAjour);
 
-    void load(Transaction tx, int id);
+    void load(Transaction transaction, long id);
 
     void create(Transaction tx);
 

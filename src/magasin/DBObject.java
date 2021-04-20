@@ -17,7 +17,7 @@ public abstract class DBObject implements IdbInterface{
         this.tableName = tableName;
     }
 
-    public DBObject(Object ... args){}
+    public abstract String getObjectDescriptor();
 
     public void delete(Transaction transaction) {
         Connection conn = transaction.getdBi().getConnection();

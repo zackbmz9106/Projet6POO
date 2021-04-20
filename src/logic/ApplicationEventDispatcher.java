@@ -1,6 +1,7 @@
 package logic;
 
 import magasin.Client;
+import magasin.DBObject;
 import magasin.Employe;
 import magasin.Produit;
 
@@ -15,6 +16,12 @@ public class ApplicationEventDispatcher {
         listeners.add(itf);
     }
 
+
+    public void notifyDeletedObj(DBObject o){
+        listeners.forEach((l) -> {
+            l.dispatchEvent(ApplicationEvent.events.DELETED,o);
+        });
+    }
     public void showWindow(ApplicationEvent.appWindows window, boolean bShow) {
         listeners.forEach((l) -> {
             l.dispatchEvent(ApplicationEvent.events.SHOW_WINDOW, window, bShow);

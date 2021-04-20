@@ -1,11 +1,9 @@
 package magasin;
 
-import database.QueryDB;
 import database.Transaction;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class Employe extends DBObject implements IdbInterface{
     String nomEmploye;
@@ -52,10 +50,10 @@ public class Employe extends DBObject implements IdbInterface{
     }
 
     @Override
-    public void load(Transaction tx, int id) {
+    public void load(Transaction transaction, long id) {
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
-            Connection conn = tx.getdBi().getConnection();
+            Connection conn = transaction.getdBi().getConnection();
             ResultSet rs = conn.prepareStatement("SELECT * FROM " + this.tableName + " WHERE id =" + id).executeQuery();
             if (rs != null) {
                 while (rs.next()) {
@@ -65,10 +63,10 @@ public class Employe extends DBObject implements IdbInterface{
                     this.ID = rs.getLong("id");
                 }
             }
-            tx.succesfullMessage();
+            transaction.succesfullMessage();
         } catch (SQLException e) {
-            tx.setMessage(e.getMessage());
-            tx.setLevel(Alert.AlertType.ERROR);
+            transaction.setMessage(e.getMessage());
+            transaction.setLevel(Alert.AlertType.ERROR);
         }
 
     }
@@ -99,6 +97,8 @@ public class Employe extends DBObject implements IdbInterface{
         }
 
     }
-
-
+    @Override
+    public String getObjectDescriptor() {
+        return this.nomEmploye;
+    }
 }

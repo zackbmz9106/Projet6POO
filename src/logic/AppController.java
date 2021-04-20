@@ -4,10 +4,12 @@ import commons.Adresse;
 import database.Transaction;
 import javafx.scene.control.Alert;
 import magasin.Client;
+import magasin.DBObject;
 import magasin.Employe;
 import magasin.Produit;
 import ui.Main;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -86,6 +88,47 @@ public class AppController {
                 notifyNewEmploye((Employe) tx.getCreatedObj());
             }
         }
+    }
+    public void removeDBObject(DBObject o){
+        Transaction tx = Main.getAppM().deleteDBObject(o);
+        if (tx.getLevel() != Alert.AlertType.NONE) {
+            String e = tx.getMessage();
+            Alert alert = new Alert(tx.getLevel());
+            alert.setTitle("Suppression");
+            alert.setContentText(e);
+            alert.showAndWait();
+            if (tx.getLevel() != Alert.AlertType.ERROR) {
+                notifyDeletedDBObject((DBObject) tx.getCreatedObj());
+            }
+        }
+
+    }
+
+    public ArrayList<Client> searchClient(){
+        Transaction tx = Main.getAppM().searchAll("Client");
+        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel()!= Alert.AlertType.ERROR) {
+            ArrayList<Client> out = new ArrayList<Client>();
+            ArrayList<Long> objsid = (ArrayList<Long>) tx.getCreatedObj();
+            for(long l : objsid){
+                Client loadedClient = new Client();
+                loadedClient.load(tx,l);
+                if(tx.getLevel() != Alert.AlertType.ERROR){
+                 out.add(loadedClient);
+                }else {
+                    System.err.println("Client avec id : " + l + " introuvable");
+                }
+
+            }
+            return out;
+        }else {
+            ArrayList<Client> cl = new ArrayList<>();
+            return cl;
+        }
+        }
+
+
+    private void notifyDeletedDBObject(DBObject deletedObject) {
+        Main.getAppEventDisp().notifyDeletedObj(deletedObject);
     }
 
     public void showWindow(ApplicationEvent.appWindows appWindow, boolean b) {

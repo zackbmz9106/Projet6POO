@@ -10,6 +10,12 @@ import java.util.Date;
 import java.util.Objects;
 
 public class AppModel {
+
+    @Deprecated
+    public DatabaseInterface getdBi() {
+        return dBi;
+    }
+
     private DatabaseInterface dBi;
 
     public void initDB() {
@@ -35,7 +41,7 @@ public class AppModel {
 
     public Transaction searchFournisseur(String nomFournisseur) {
         Transaction tx = new Transaction(dBi);
-        QueryDB qDB = new QueryDB("nomFournisseur", nomFournisseur, "");
+        QueryDB qDB = new QueryDB("nomFournisseur", nomFournisseur, "","id");
         Fournisseur f = new Fournisseur();
         f.query(tx, qDB);
         return tx;
@@ -43,7 +49,7 @@ public class AppModel {
 
     public Transaction searchEmployeExist(int numEmployee){
         Transaction tx = new Transaction(dBi);
-        QueryDB qDB = new QueryDB("numEmploye",numEmployee,"");
+        QueryDB qDB = new QueryDB("numEmploye",numEmployee,"","id");
         Employe e = new Employe();
         e.query(tx,qDB);
         return tx;
@@ -55,6 +61,24 @@ public class AppModel {
         Transaction tx = new Transaction(dBi);
         e.create(tx);
         tx.setCreatedObj(e);
+        return tx;
+    }
+
+    public Transaction searchAll(String NomTable){
+        Transaction tx = new Transaction(dBi);
+        QueryDB qDB = new QueryDB("","","","");
+        switch(NomTable){
+            case "Client":
+                Client c = new Client();
+                c.query(tx,qDB);
+                break;
+        }
+        return tx;
+    }
+
+    public Transaction deleteDBObject(DBObject o){
+        Transaction tx = new Transaction(dBi);
+        o.delete(tx);
         return tx;
     }
 

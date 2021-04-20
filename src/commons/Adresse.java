@@ -27,4 +27,16 @@ public class Adresse {
         this.codePostal = split[2];
 
     }
+
+    public String getVoie() {
+        return voie;
+    }
+
+    public String getnVoie() {
+        return nVoie;
+    }
+
+    public String getCodePostal() {
+        return codePostal;
+    }
 }

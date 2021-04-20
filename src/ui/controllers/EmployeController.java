@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Window;
 import logic.ApplicationEvent;
 import ui.Main;
@@ -28,29 +27,30 @@ public class EmployeController extends ShowHideDialog implements Initializable {
     @FXML
     private TextField Ttype;
 
-    boolean onNumberEmployeeExist(int numEmployee){
-        return Main.getAppC().searchEmployeExist(numEmployee) == -1 ;
+    boolean onNumberEmployeeExist(int numEmployee) {
+        return Main.getAppC().searchEmployeExist(numEmployee) == -1;
     }
+
     @FXML
     void buttonClicked(ActionEvent event) {
         String nom = TNomEmploye.getText().trim();
         int id = -1;
         String type = Ttype.getText().trim();
-        try{
+        try {
             id = Integer.parseInt(TNumEmploye.getText().trim());
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             showError("Verifier l'id");
             return;
         }
-        if(nom.equals("")||type.equals("")){
+        if (nom.equals("") || type.equals("")) {
             showError("Les champs ne peuvent etre vide");
             return;
         }
-        if(!onNumberEmployeeExist(id)){
+        if (!onNumberEmployeeExist(id)) {
             showError("Ce numero d'employer est deja utilisé");
             return;
         }
-        Main.getAppC().createEmploye(nom,id,type);
+        Main.getAppC().createEmploye(nom, id, type);
     }
 
     @Override
