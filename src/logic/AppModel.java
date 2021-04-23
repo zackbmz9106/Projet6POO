@@ -23,7 +23,7 @@ public class AppModel {
         dBi.lauchDatabase();
     }
 
-    public Transaction createClient(String nom, String prenom, Adresse adresse, Date dateDeNaissance, String mail, String numerotel, boolean carteFidelite) {
+    public Transaction createClient(String prenom, String nom, Adresse adresse, Date dateDeNaissance, String mail, String numerotel, boolean carteFidelite) {
         Client c = new Client(nom, prenom, adresse, dateDeNaissance, mail, numerotel, carteFidelite);
         Transaction tx = new Transaction(dBi);
         c.create(tx);

@@ -4,6 +4,7 @@ import commons.Adresse;
 import database.QueryDB;
 import database.Transaction;
 import javafx.scene.control.Alert;
+import org.junit.jupiter.api.Test;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,6 +19,12 @@ public class Client extends DBObject implements IdbInterface {
     private String numerotel;
     private boolean carteFidelite;
     private int pointFidelite;
+
+    @Test
+    public long getID() {
+        return ID;
+    }
+
     private long ID;
 
     public Client(String nom, String prenom, Adresse adresse, Date dateDeNaissance, String mail, String numerotel, boolean cartefidelite) {
