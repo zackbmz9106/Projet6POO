@@ -23,6 +23,7 @@ public class ClientQueryController extends QueryBaseController {
     public void initialize(URL location, ResourceBundle resources) {
         initAppDispatch(ApplicationEvent.appWindows.CREATE_CLIENT_QUERY);
         PClientController.setForClientRead(false);
+        PClientController.setStandalone(false);
         Button actionButton = PClientController.getActionButton();
         actionButton.setOnAction((ActionEvent) -> {
             removeCurrentObj();

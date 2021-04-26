@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -15,6 +16,7 @@ import logic.ApplicationEventDispatcher;
 import ui.controllers.ClientQueryController;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
     private static AppController appC;
@@ -22,6 +24,7 @@ public class Main extends Application {
     private static ApplicationEventDispatcher appEventDisp;
     private static Scene primaryScene;
     private ClientQueryController CQC = new ClientQueryController();
+    private final Image APP_ICON = new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/ui/comp.png")));
 
     public static ApplicationEventDispatcher getAppEventDisp() {
         return appEventDisp;
@@ -62,7 +65,9 @@ public class Main extends Application {
         primaryStage.setTitle("Project 6");
         primaryScene = new Scene(root, 590, 516);
         primaryStage.setScene(primaryScene);
+        primaryStage.getIcons().add(APP_ICON);
         primaryStage.show();
+
         createShowHideDialog("./fxml/client.fxml", "Client", ApplicationEvent.appWindows.CREATE_CLIENT);
         createShowHideDialog("./fxml/produit.fxml", "Produit", ApplicationEvent.appWindows.CREATE_PRODUIT);
         createShowHideDialog("./fxml/employe.fxml","Employe",ApplicationEvent.appWindows.CREATE_EMPLOYE);
@@ -81,9 +86,8 @@ public class Main extends Application {
         }
 
         Scene dlgScene = new Scene(root);
-
         Stage stage = new Stage();
-//        stage.getIcons().add(APP_ICON);
+        stage.getIcons().add(APP_ICON);
         stage.setScene(dlgScene);
         stage.initStyle(StageStyle.DECORATED);
         stage.setTitle(title);

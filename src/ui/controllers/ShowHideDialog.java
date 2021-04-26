@@ -12,6 +12,12 @@ public abstract class ShowHideDialog {
 
     protected abstract Window getWindow();
 
+    public void setStandalone(boolean standalone) {
+        isStandalone = standalone;
+    }
+
+    private boolean isStandalone = true;
+
     protected void showError(String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Erreur de saisie");
@@ -38,13 +44,15 @@ public abstract class ShowHideDialog {
         Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
             switch (event) {
                 case SHOW_WINDOW:
-                    ApplicationEvent.appWindows window = (ApplicationEvent.appWindows) params[0];
-                    Boolean bShow = (Boolean) params[1];
-                    if (window == ShowHideDialog.this.appWindow) {
-                        if (bShow) {
-                            show();
-                        } else {
-                            hide();
+                    if(isStandalone) {
+                        ApplicationEvent.appWindows window = (ApplicationEvent.appWindows) params[0];
+                        Boolean bShow = (Boolean) params[1];
+                        if (window == ShowHideDialog.this.appWindow) {
+                            if (bShow) {
+                                show();
+                            } else {
+                                hide();
+                            }
                         }
                     }
                     break;
