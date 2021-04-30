@@ -22,8 +22,8 @@ public abstract class QueryBaseController extends ShowHideDialog implements Init
     @FXML
     protected ListView<String> LElement ;
 
-    @FXML
-    protected Text Tname;
+//    @FXML
+//    protected Text Tname;
 
     @FXML
     protected AnchorPane ASelectionData;
@@ -34,7 +34,7 @@ public abstract class QueryBaseController extends ShowHideDialog implements Init
 
     @Override
     protected Window getWindow() {
-        return this.Tname.getScene().getWindow();
+        return this.LElement.getScene().getWindow();
     }
 
     @FXML

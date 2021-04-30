@@ -9,6 +9,10 @@ import ui.Main;
 
 public class MainController {
 
+
+    @FXML
+    private MenuItem queryProduitItem;
+
     @FXML
     private MenuItem prefItem;
 
@@ -65,5 +69,10 @@ public class MainController {
     @FXML
     void onLoadSqlSample(ActionEvent event) {
          loadSample ls =  new loadSample(Main.getAppM().getdBi());
+    }
+
+    @FXML
+    void onqueryProduit(ActionEvent event) {
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_PRODUIT_QUERY,true);
     }
 }

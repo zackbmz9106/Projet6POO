@@ -9,7 +9,6 @@ public class Employe extends DBObject implements IdbInterface{
     String nomEmploye;
     int numEmploye;
     String typePoste;
-    long id;
 
     public Employe(String nomEmploye,int numEmploye,String typePoste){
         super("Employe");
@@ -71,7 +70,6 @@ public class Employe extends DBObject implements IdbInterface{
 
     }
 
-    @Override
     public void create(Transaction tx) {
         //creer l'incsrpition depuis les valeurs de l'object
         Connection conn = tx.getdBi().getConnection();
@@ -96,9 +94,5 @@ public class Employe extends DBObject implements IdbInterface{
 
         }
 
-    }
-    @Override
-    public String getObjectDescriptor() {
-        return this.nomEmploye;
     }
 }

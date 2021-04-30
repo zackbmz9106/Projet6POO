@@ -118,11 +118,6 @@ public class Commande extends DBObject implements IdbInterface {
     }
 
     @Override
-    public String getObjectDescriptor() {
-        return String.valueOf(this.ID);
-    }
-
-    @Override
     public void query(Transaction tx, QueryDB qDB) {
         //TODO : finir l'implementation
         ArrayList<Long> out = new ArrayList<Long>();

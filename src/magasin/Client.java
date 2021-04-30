@@ -25,7 +25,6 @@ public class Client extends DBObject implements IdbInterface {
         return ID;
     }
 
-    private long ID;
 
     public Client(String nom, String prenom, Adresse adresse, Date dateDeNaissance, String mail, String numerotel, boolean cartefidelite) {
         super("Client");
@@ -138,11 +137,6 @@ public class Client extends DBObject implements IdbInterface {
 
     }
 
-
-    @Override
-    public String getObjectDescriptor() {
-        return this.nom + this.prenom;
-    }
 
     public void query(Transaction tx, QueryDB qDB) {
         //TODO : finir l'implementation

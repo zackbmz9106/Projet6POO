@@ -3,10 +3,11 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.queryProduitController">
    <children>
-      <ListView layoutX="14.0" layoutY="14.0" prefHeight="373.0" prefWidth="240.0" />
-      <AnchorPane layoutX="261.0" layoutY="14.0" prefHeight="381.0" prefWidth="332.0" />
+      <ListView fx:id="LElement" layoutX="14.0" layoutY="14.0" onMouseClicked="#onMouseClickedOnList" prefHeight="373.0" prefWidth="240.0" />
+      <AnchorPane fx:id="ASelectionData" layoutX="261.0" layoutY="14.0" prefHeight="381.0" prefWidth="332.0">
+         <fx:include fx:id="PProduit" source="produit.fxml" />
+      </AnchorPane>
    </children>
 </AnchorPane>

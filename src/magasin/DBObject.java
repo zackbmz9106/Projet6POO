@@ -5,11 +5,12 @@ import database.Transaction;
 import javafx.scene.control.Alert;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public abstract class DBObject implements IdbInterface{
+public class DBObject {
     protected long ID;
     protected String tableName;
 
@@ -17,22 +18,23 @@ public abstract class DBObject implements IdbInterface{
         this.tableName = tableName;
     }
 
-    public abstract String getObjectDescriptor();
-
     public void delete(Transaction transaction) {
         Connection conn = transaction.getdBi().getConnection();
         try {
-            ResultSet rs = conn.prepareStatement("DELETE FROM " + this.tableName + " WHERE id =" + this.ID).executeQuery();
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM " + this.tableName + " WHERE id =" + this.ID);
+            preparedStatement.execute();
             transaction.succesfullMessage();
+            transaction.setCreatedObj(this);
         } catch (SQLException e) {
             transaction.setMessage(e.getMessage());
             transaction.setLevel(Alert.AlertType.ERROR);
+
         }
 
     }
     public void query(Transaction tx, QueryDB qDB) {
         //TODO : finir l'implementation
-        ArrayList<Long> out = new ArrayList<Long>();
+        ArrayList<Object> out = new ArrayList<Object>();
         Connection conn = tx.getdBi().getConnection();
         ResultSet rs;
         try {
@@ -40,7 +42,7 @@ public abstract class DBObject implements IdbInterface{
             rs = conn.prepareStatement(sql).executeQuery();
             tx.succesfullMessage();
             while (rs.next()) {
-                out.add(rs.getLong(1));
+                out.add(rs.getObject(1));
             }
         } catch (SQLException e) {
             tx.setMessage(e.getMessage());

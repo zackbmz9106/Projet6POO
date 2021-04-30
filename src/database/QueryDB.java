@@ -14,8 +14,11 @@ public class QueryDB {
     }
 
     public String construcQuery(String tableName) {
+        if(table.equals("")){
+            table = "*";
+        }
         if(valeur.equals("") || nomChampDB.equals("")){
-            return "SELECT * FROM " + tableName;
+            return "SELECT "+ table +" FROM " + tableName;
         }
         if (sortType.equals("")) {
             return "SELECT " + table + " FROM " + tableName + " WHERE " + nomChampDB + "= \"" + valeur + "\"";

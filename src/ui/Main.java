@@ -73,6 +73,7 @@ public class Main extends Application {
         createShowHideDialog("./fxml/employe.fxml","Employe",ApplicationEvent.appWindows.CREATE_EMPLOYE);
         createShowHideDialog("./fxml/queryClient.fxml","Liste des clients", ApplicationEvent.appWindows.CREATE_CLIENT_QUERY);
         createShowHideDialog("./fxml/chartClient.fxml","Graphique des clients",ApplicationEvent.appWindows.CREATE_CLIENT_CHART);
+        createShowHideDialog("./fxml/queryProduit.fxml","Liste des articles", ApplicationEvent.appWindows.CREATE_PRODUIT_QUERY);
     }
 
     private void createShowHideDialog(String fxmlRessource, String title, ApplicationEvent.appWindows appWindow) {

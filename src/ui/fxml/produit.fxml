@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="468.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.produitController">
+<AnchorPane minHeight="468.0" minWidth="580.0" prefHeight="468.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.produitController">
     <children>
         <Button fx:id="myButton" layoutX="468.0" layoutY="426.0" mnemonicParsing="false" onAction="#buttonClicked" text="Create Object" AnchorPane.leftAnchor="468.0" AnchorPane.topAnchor="426.0" />
         <Label layoutX="10.0" layoutY="27.0" prefHeight="18.0" prefWidth="125.0" text="Type Article " />

@@ -146,4 +146,37 @@ public class AppController {
     public  void notifyNewEmploye(Employe e) {
         Main.getAppEventDisp().notifyNewEmploye(e);
     }
+
+    public ArrayList<Produit> searchProduits() {
+        Transaction tx = Main.getAppM().searchAll("Produit");
+        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel()!= Alert.AlertType.ERROR) {
+            ArrayList<Produit> out = new ArrayList<Produit>();
+            ArrayList<Long> objsid = (ArrayList<Long>) tx.getCreatedObj();
+            for(long l : objsid){
+                Produit loadedClient = new Produit();
+                loadedClient.load(tx,l);
+                if(tx.getLevel() != Alert.AlertType.ERROR){
+                    out.add(loadedClient);
+                }else {
+                    System.err.println("Produit avec id : " + l + " introuvable");
+                }
+
+            }
+            return out;
+        }else {
+            ArrayList<Produit> cl = new ArrayList<Produit>();
+            return cl;
+        }
     }
+
+    public String searchFournisseurNumber(float idfournisseur) {
+        Transaction tx = Main.getAppM().searchFournisseurNumber(idfournisseur);
+        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel()!= Alert.AlertType.ERROR) {
+            ArrayList<String> name = (ArrayList<String>) tx.getCreatedObj();
+            if(name.size() != 0){
+                return name.get(0);
+            }
+        }
+        return "";
+    }
+}

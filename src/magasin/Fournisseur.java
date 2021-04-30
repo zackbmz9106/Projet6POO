@@ -6,7 +6,6 @@ import javafx.scene.control.Alert;
 import java.sql.*;
 
 public class Fournisseur extends DBObject implements IdbInterface {
-    long id;
     String nomFournisseur;
 
     public Fournisseur(String nomFournisseur) {
@@ -14,10 +13,6 @@ public class Fournisseur extends DBObject implements IdbInterface {
         this.nomFournisseur = nomFournisseur;
     }
 
-    @Override
-    public String getObjectDescriptor() {
-        return this.nomFournisseur;
-    }
 
     public Fournisseur() {
         super("Fournisseur");

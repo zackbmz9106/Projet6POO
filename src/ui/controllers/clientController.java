@@ -89,6 +89,18 @@ public class clientController extends ShowHideDialog implements Initializable {
         BFidel.setSelected(c.isCarteFidelite());
     }
 
+    public void clean() {
+        naissancePicker.setValue(null);
+        TNom.setText("");
+        TNumeroTel.setText("");
+        TPrenom.setText("");
+        TMail.setText("");
+        TAdresse.setText("");
+        TNvoie.setText("");
+        TCodePostal.setText("");
+        BFidel.setSelected(false);
+    }
+
     private boolean validate(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.find();
@@ -119,7 +131,7 @@ public class clientController extends ShowHideDialog implements Initializable {
             return;
         }
         Adresse a = new Adresse(adresse, nVoie, codePostal);
-        Main.getAppC().createClient(nom, prenom, a, convertToDateViaInstant(datanaissance), mail, tel, Fidel);
+        Main.getAppC().createClient(prenom,nom, a, convertToDateViaInstant(datanaissance), mail, tel, Fidel);
 
     }
 

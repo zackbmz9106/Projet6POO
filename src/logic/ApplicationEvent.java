@@ -7,7 +7,7 @@ public class ApplicationEvent {
         QUERRY_CLIENT,
         CREATE_PRODUIT, CREATE_EMPLOYE,
         CREATE_CLIENT_QUERY,
-        CREATE_CLIENT_CHART, CREATE_COMMANDE
+        CREATE_CLIENT_CHART, CREATE_PRODUIT_QUERY, CREATE_COMMANDE
     }
 
     public enum events {

@@ -38,7 +38,7 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="1072.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.MainController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="943.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.MainController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -54,6 +54,7 @@
                 <Menu mnemonicParsing="false" text="Rechercher...">
                     <items>
                         <MenuItem fx:id="queryCommandItem" mnemonicParsing="false" text="Commande" />
+                  <MenuItem fx:id="queryProduitItem" mnemonicParsing="false" onAction="#onqueryProduit" text="Produit" />
                   <MenuItem fx:id="rechercherClient" mnemonicParsing="false" onAction="#OnRechercherClient" text="Client" />
                     </items>
                 </Menu>

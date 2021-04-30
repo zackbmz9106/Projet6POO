@@ -4,6 +4,7 @@ import commons.Adresse;
 import database.DatabaseInterface;
 import database.QueryDB;
 import database.Transaction;
+import jdk.jfr.Experimental;
 import magasin.*;
 
 import java.util.Date;
@@ -63,16 +64,14 @@ public class AppModel {
         tx.setCreatedObj(e);
         return tx;
     }
-
+    /*
+    * Return Tx contenant un Arraylist de Long contenant les ids des différents objs trouvés
+    * */
     public Transaction searchAll(String NomTable){
         Transaction tx = new Transaction(dBi);
         QueryDB qDB = new QueryDB("","","","");
-        switch(NomTable){
-            case "Client":
-                Client c = new Client();
-                c.query(tx,qDB);
-                break;
-        }
+        DBObject obj = new DBObject(NomTable);
+        obj.query(tx,qDB);
         return tx;
     }
 
@@ -82,4 +81,10 @@ public class AppModel {
         return tx;
     }
 
+    public Transaction searchFournisseurNumber(float idFournisseur) {
+        Transaction tx = new Transaction(dBi);
+        DBObject dbo = new DBObject("Fournisseur");
+        dbo.query(tx,new QueryDB("","","","nomFournisseur"));
+        return tx;
+    }
 }

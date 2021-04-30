@@ -36,6 +36,14 @@ public class ClientQueryController extends QueryBaseController {
                     doList.add(affichClient(c));
                     dbObjects.add(c);
                     break;
+                case DELETED:
+                    DBObject dbo = (DBObject) params[0];
+                    if(dbo.getClass().getSimpleName().equals("Client")){
+                        doList.remove(affichClient((Client) dbo));
+                        dbObjects.remove(dbo);
+                        PClientController.clean();
+                    }
+                    break;
             }
         });
         LElement.setItems(doList);
@@ -52,7 +60,7 @@ public class ClientQueryController extends QueryBaseController {
     }
 
     private String affichClient(Client c) {
-        return c.getNom() + c.getPrenom();
+        return c.getNom() +" "+ c.getPrenom();
     }
 
     @Override

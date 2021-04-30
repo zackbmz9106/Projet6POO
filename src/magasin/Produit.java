@@ -3,6 +3,7 @@ package magasin;
 import database.QueryDB;
 import database.Transaction;
 import javafx.scene.control.Alert;
+import ui.Main;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ public class Produit extends DBObject implements IdbInterface {
     private float prixArticle;
     private boolean isSolde;
     private float solde;
-    private long ID;
     private long ID_fournisseur;
 
     public Produit(String typeArticle, String marque, String nomArticle, float prixArticle, boolean isSolde, float solde, long ID_fournisseur) {
@@ -26,6 +26,11 @@ public class Produit extends DBObject implements IdbInterface {
         this.isSolde = isSolde;
         this.solde = solde;
         this.ID_fournisseur = ID_fournisseur;
+    }
+
+//    Search Only
+    public Produit() {
+        super("Produit");
     }
 
     @Override
@@ -112,12 +117,6 @@ public class Produit extends DBObject implements IdbInterface {
             tx.setLevel(Alert.AlertType.ERROR);
         }
     }
-
-    @Override
-    public String getObjectDescriptor() {
-        return this.nomArticle;
-    }
-
     @Override
     public void query(Transaction tx, QueryDB qDB) {
         //TODO : finir l'implementation
@@ -163,4 +162,7 @@ public class Produit extends DBObject implements IdbInterface {
     public float getSolde() {
         return solde;
     }
+
+    public String getFourName() {
+        return Main.getAppC().searchFournisseurNumber(this.ID_fournisseur);}
 }
