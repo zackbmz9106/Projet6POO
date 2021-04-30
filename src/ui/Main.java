@@ -81,7 +81,7 @@ public class Main extends Application {
         try {
             root = loader.load();
         } catch (IOException ex) {
-            System.err.println(ex.getMessage());
+            System.err.println("Error while loading fxml : " + ex.getMessage());
             return;
         }
 

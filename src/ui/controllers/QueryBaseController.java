@@ -12,20 +12,23 @@ import javafx.stage.Window;
 import magasin.DBObject;
 import ui.Main;
 
+import java.util.ArrayList;
+
 public abstract class QueryBaseController extends ShowHideDialog implements Initializable {
 
-    @FXML
-    protected ListView<String> LElement;
 
     protected ObservableList<String> doList = FXCollections.observableArrayList();
-    ;
+
+    @FXML
+    protected ListView<String> LElement ;
+
     @FXML
     protected Text Tname;
 
     @FXML
     protected AnchorPane ASelectionData;
 
-    protected ListView<String> NameList = new ListView<String>(doList);
+    protected  ArrayList<DBObject> dbObjects = new ArrayList<DBObject>();
 
     protected DBObject currentSelectedObj;
 
@@ -35,7 +38,13 @@ public abstract class QueryBaseController extends ShowHideDialog implements Init
     }
 
     @FXML
-    abstract void onMouseClickedOnList(MouseEvent event);
+    void onMouseClickedOnList(MouseEvent event) {
+        int index = LElement.getSelectionModel().getSelectedIndex();
+        if (index >= 0) {
+            currentSelectedObj = dbObjects.get(index);
+            setToInternPane(currentSelectedObj);
+        }
+    }
 
     abstract void setToInternPane(DBObject o);
 

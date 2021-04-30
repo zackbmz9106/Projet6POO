@@ -17,7 +17,6 @@ public class ClientQueryController extends QueryBaseController {
     @FXML
     private clientController PClientController;
 
-    private ArrayList<Client> clientList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,16 +34,20 @@ public class ClientQueryController extends QueryBaseController {
                 case NEW_CLIENT:
                     Client c = (Client) params[0];
                     doList.add(affichClient(c));
+                    dbObjects.add(c);
                     break;
             }
         });
+        LElement.setItems(doList);
     }
 
     private void launchInitialSearch() {
-        clientList = Main.getAppC().searchClient();
-        for (Client c : clientList) {
-            doList.add(affichClient(c));
-        }
+        ArrayList<Client> results = new ArrayList<Client>();
+        results = Main.getAppC().searchClient();
+            dbObjects.addAll(results);
+            for (DBObject c : dbObjects) {
+                doList.add(affichClient((Client) c));
+            }
 
     }
 
@@ -53,13 +56,7 @@ public class ClientQueryController extends QueryBaseController {
     }
 
     @Override
-    void onMouseClickedOnList(MouseEvent event) {
-        int index = NameList.getSelectionModel().getSelectedIndex();
-        if (index > 0) {
-            currentSelectedObj = clientList.get(index);
-            setToInternPane(currentSelectedObj);
-        }
-    }
+
 
     void setToInternPane(DBObject o) {
         PClientController.clientReadout((Client) o);

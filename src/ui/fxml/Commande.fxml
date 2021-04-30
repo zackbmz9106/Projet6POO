@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="805.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.Commande">
+   <children>
+      <ListView fx:id="LcommandeView" layoutX="14.0" layoutY="43.0" prefHeight="752.0" prefWidth="574.0" />
+      <Text layoutX="13.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commande en cours : " wrappingWidth="574.0" />
+   </children>
+</AnchorPane>

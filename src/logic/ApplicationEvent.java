@@ -11,6 +11,7 @@ public class ApplicationEvent {
     }
 
     public enum events {
-        SHOW_WINDOW, NEW_CLIENT, NEW_PRODUIT, NEW_EMPLOYE, DELETED,
+        SHOW_WINDOW, NEW_CLIENT, NEW_PRODUIT, NEW_EMPLOYE, DELETED,ADDED_PRODUIT
+        ;
     }
 }
