@@ -45,7 +45,7 @@ public class Commande extends DBObject implements IdbInterface {
             stmt.setFloat(2, this.reduction);
             stmt.setString(3, this.typePaiement);
             stmt.setString(4, this.adresseLivr.toDB());
-            stmt.setDate(5, (java.sql.Date) this.dateLivraison);
+            stmt.setDate(5, new java.sql.Date(this.dateLivraison.getTime()));
             stmt.setLong(6, this.ID_client);
             stmt.executeUpdate();
 
@@ -56,6 +56,7 @@ public class Commande extends DBObject implements IdbInterface {
             }
             tx.succesfullMessage();
         } catch (SQLException e) {
+            tx.setEx(e);
             tx.setMessage(e.getMessage());
             tx.setLevel(Alert.AlertType.ERROR);
         }
@@ -87,6 +88,7 @@ public class Commande extends DBObject implements IdbInterface {
             stmt.executeUpdate();
             tx.succesfullMessage();
         } catch (SQLException e) {
+            tx.setEx(e);
             tx.setMessage(e.getMessage());
             tx.setLevel(Alert.AlertType.ERROR);
         }
@@ -111,30 +113,10 @@ public class Commande extends DBObject implements IdbInterface {
                 transaction.succesfullMessage();
             }
         } catch (SQLException e) {
+            transaction.setEx(e);
             transaction.setMessage(e.getMessage());
             transaction.setLevel(Alert.AlertType.ERROR);
         }
-
-    }
-
-    @Override
-    public void query(Transaction tx, QueryDB qDB) {
-        //TODO : finir l'implementation
-        ArrayList<Long> out = new ArrayList<Long>();
-        Connection conn = tx.getdBi().getConnection();
-        ResultSet rs;
-        try {
-            rs = conn.prepareStatement(qDB.construcQuery(this.tableName)).executeQuery();
-            tx.succesfullMessage();
-            while (rs.next()) {
-                out.add(rs.getLong(1));
-            }
-        } catch (SQLException e) {
-            tx.setMessage(e.getMessage());
-            tx.setLevel(Alert.AlertType.ERROR);
-        }
-        tx.setCreatedObj(out);
-
 
     }
 

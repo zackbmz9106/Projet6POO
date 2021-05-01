@@ -2,7 +2,6 @@ package ui.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import logic.ApplicationEvent;
 import magasin.Client;
 import magasin.DBObject;
@@ -44,6 +43,8 @@ public class ClientQueryController extends QueryBaseController {
                         if(currentSelectedObj.equals(dbo)){PClientController.clean();}
                     }
                     break;
+                case FORCE_RELOAD:
+                    launchInitialSearch();
             }
         });
         LElement.setItems(doList);

@@ -58,6 +58,7 @@ public class Produit extends DBObject implements IdbInterface {
             stmt.executeUpdate();
             tx.succesfullMessage();
         } catch (SQLException e) {
+            tx.setEx(e);
             tx.setMessage(e.getMessage());
             tx.setLevel(Alert.AlertType.ERROR);
         }
@@ -83,6 +84,7 @@ public class Produit extends DBObject implements IdbInterface {
                 transaction.succesfullMessage();
             }
         } catch (SQLException e) {
+            transaction.setEx(e);
             transaction.setMessage(e.getMessage());
             transaction.setLevel(Alert.AlertType.ERROR);
         }
@@ -113,31 +115,11 @@ public class Produit extends DBObject implements IdbInterface {
             }
             tx.succesfullMessage();
         } catch (SQLException e) {
+            tx.setEx(e);
             tx.setMessage(e.getMessage());
             tx.setLevel(Alert.AlertType.ERROR);
         }
     }
-    @Override
-    public void query(Transaction tx, QueryDB qDB) {
-        //TODO : finir l'implementation
-        ArrayList<Long> out = new ArrayList<Long>();
-        Connection conn = tx.getdBi().getConnection();
-        ResultSet rs;
-        try {
-            rs = conn.prepareStatement(qDB.construcQuery(this.tableName)).executeQuery();
-            tx.succesfullMessage();
-            while (rs.next()) {
-                out.add(rs.getLong(1));
-            }
-        } catch (SQLException e) {
-            tx.setMessage(e.getMessage());
-            tx.setLevel(Alert.AlertType.ERROR);
-        }
-        tx.setCreatedObj(out);
-
-
-    }
-
 
     public String getTypeArticle() {
         return typeArticle;
@@ -172,5 +154,9 @@ public class Produit extends DBObject implements IdbInterface {
         }else{
             return prixArticle;
         }
+    }
+
+    public long getId() {
+        return this.ID;
     }
 }

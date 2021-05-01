@@ -9,6 +9,7 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Window;
 import logic.ApplicationEvent;
 import magasin.Client;
+import magasin.DBObject;
 import ui.Main;
 
 import java.net.URL;
@@ -50,6 +51,15 @@ public class ClientChart extends ShowHideDialog implements Initializable {
                     clientList.add(c);
                     showLineClient();
                     break;
+                case DELETED:
+                    DBObject dbo = (DBObject) params[0];
+                    if(dbo.getClass().getSimpleName().equals("Client")) {
+                        clientList.remove(dbo);
+                        showLineClient();
+                        break;
+                    }
+                case FORCE_RELOAD:
+                    clientList = Main.getAppC().searchClient();
             }
         });
     }

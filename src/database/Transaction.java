@@ -8,11 +8,20 @@ public class Transaction {
     private String message;
     private Object createdObj;
 
+    public Exception getEx() {
+        return ex;
+    }
+
+    public void setEx(Exception ex) {
+        this.ex = ex;
+    }
+
+    private Exception ex = null;
+
     public Transaction(DatabaseInterface dbi) {
         this.DBi = dbi;
         this.message = "";
         this.level = Alert.AlertType.NONE;
-//        add exeption too
     }
 
     public Object getCreatedObj() {

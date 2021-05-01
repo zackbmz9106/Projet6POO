@@ -37,6 +37,7 @@ public class Fournisseur extends DBObject implements IdbInterface {
             stmt.executeUpdate();
             tx.succesfullMessage();
         } catch (SQLException e) {
+            tx.setEx(e);
             tx.setMessage(e.getMessage());
             tx.setLevel(Alert.AlertType.ERROR);
         }
@@ -56,6 +57,7 @@ public class Fournisseur extends DBObject implements IdbInterface {
                 transaction.succesfullMessage();
             }
         } catch (SQLException e) {
+            transaction.setEx(e);
             transaction.setMessage(e.getMessage());
             transaction.setLevel(Alert.AlertType.ERROR);
         }
@@ -83,6 +85,7 @@ public class Fournisseur extends DBObject implements IdbInterface {
             }
             tx.succesfullMessage();
         } catch (SQLException e) {
+            tx.setEx(e);
             tx.setMessage(e.getMessage());
             tx.setLevel(Alert.AlertType.ERROR);
         }

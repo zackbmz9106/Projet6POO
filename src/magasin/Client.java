@@ -70,6 +70,7 @@ public class Client extends DBObject implements IdbInterface {
             }
             transaction.succesfullMessage();
         } catch (SQLException e) {
+            transaction.setEx(e);
             transaction.setMessage(e.getMessage());
             transaction.setLevel(Alert.AlertType.ERROR);
 
@@ -104,6 +105,7 @@ public class Client extends DBObject implements IdbInterface {
             stmt.executeUpdate();
             transaction.succesfullMessage();
         } catch (SQLException e) {
+            transaction.setEx(e);
             transaction.setMessage(e.getMessage());
             transaction.setLevel(Alert.AlertType.ERROR);
         }
@@ -120,6 +122,7 @@ public class Client extends DBObject implements IdbInterface {
                 while (rs.next()) {
                     this.nom = rs.getString("nom");
                     this.prenom = rs.getString("prenom");
+                    this.adresse = new Adresse("","","");
                     this.adresse.fromDB(rs.getString("adresse"));
                     this.dateDeNaissance = rs.getDate("dateDeNaissance");
                     this.mail = rs.getString("mail");
@@ -131,6 +134,7 @@ public class Client extends DBObject implements IdbInterface {
             }
             transaction.succesfullMessage();
         } catch (SQLException e) {
+            transaction.setEx(e);
             transaction.setMessage(e.getMessage());
             transaction.setLevel(Alert.AlertType.ERROR);
         }
@@ -150,6 +154,7 @@ public class Client extends DBObject implements IdbInterface {
                 out.add(rs.getLong(1));
             }
         } catch (SQLException e) {
+            tx.setEx(e);
             tx.setMessage(e.getMessage());
             tx.setLevel(Alert.AlertType.ERROR);
         }

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane minHeight="468.0" minWidth="580.0" prefHeight="468.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.produitController">
     <children>
@@ -22,5 +23,7 @@
         <CheckBox fx:id="Iss" layoutX="88.0" layoutY="146.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="140.0" text="Is solde ?" />
         <Label layoutX="25.0" layoutY="294.0" prefHeight="18.0" prefWidth="162.0" text="Nom du fournisseur :" />
         <TextField fx:id="TfourName" layoutX="209.0" layoutY="289.0" />
+      <TextField fx:id="Tstock" layoutX="113.0" layoutY="374.0" />
+      <Text layoutX="59.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stock" />
     </children>
 </AnchorPane>

@@ -13,12 +13,18 @@ import logic.AppController;
 import logic.AppModel;
 import logic.ApplicationEvent;
 import logic.ApplicationEventDispatcher;
+import magasin.Stock;
 import ui.controllers.ClientQueryController;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class Main extends Application {
+    public static Stock getStock() {
+        return stock;
+    }
+
+    private static Stock stock = new Stock();
     private static AppController appC;
     private static AppModel appM;
     private static ApplicationEventDispatcher appEventDisp;
@@ -73,7 +79,8 @@ public class Main extends Application {
         createShowHideDialog("./fxml/employe.fxml","Employe",ApplicationEvent.appWindows.CREATE_EMPLOYE);
         createShowHideDialog("./fxml/queryClient.fxml","Liste des clients", ApplicationEvent.appWindows.CREATE_CLIENT_QUERY);
         createShowHideDialog("./fxml/chartClient.fxml","Graphique des clients",ApplicationEvent.appWindows.CREATE_CLIENT_CHART);
-        createShowHideDialog("./fxml/queryProduit.fxml","Liste des articles", ApplicationEvent.appWindows.CREATE_PRODUIT_QUERY);
+        createShowHideDialog("./fxml/stockGestion.fxml","Gestion du stock", ApplicationEvent.appWindows.CREATE_PRODUIT_QUERY);
+        createShowHideDialog("./fxml/searchProduit.fxml","Selection un produit a ajouter au panier", ApplicationEvent.appWindows.CREATE_PRODUIT_ADDER);
     }
 
     private void createShowHideDialog(String fxmlRessource, String title, ApplicationEvent.appWindows appWindow) {
@@ -82,7 +89,8 @@ public class Main extends Application {
         try {
             root = loader.load();
         } catch (IOException ex) {
-            System.err.println("Error while loading fxml : " + ex.getMessage());
+            System.err.println("The following error occur while loading fxml : " + ex.getMessage());
+            System.err.println(ex.getCause().toString());
             return;
         }
 

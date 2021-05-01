@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import logic.ApplicationEvent;
 import magasin.Client;
 import magasin.Produit;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class Commande implements Initializable {
+public class CommandeController implements Initializable {
 
 
     @FXML
@@ -28,6 +29,8 @@ public class Commande implements Initializable {
     private ObservableList<String> commandeList = FXCollections.observableArrayList();
 
     private ArrayList<Produit> productList = new ArrayList<Produit>();
+
+    private Produit currentSelectedObj;
 
     private long total = 0;
 
@@ -50,13 +53,30 @@ public class Commande implements Initializable {
     }
 
     @FXML
-    void onContinue(ActionEvent event) {
+    void add(ActionEvent event) {
+        Main.getAppEventDisp().showWindow(ApplicationEvent.appWindows.CREATE_PRODUIT_ADDER,true);
+    }
 
+    @FXML
+    void onContinue(ActionEvent event) {
+//        Main.getAppC().createCommande();
+    }
+
+    @FXML
+    void onMouseClickedOnList(MouseEvent event) {
+        int index = LcommandeView.getSelectionModel().getSelectedIndex();
+        if (index >= 0) {
+            currentSelectedObj = productList.get(index);
+        }
     }
 
     @FXML
     void onSelectedDelete(ActionEvent event) {
-
+        if(currentSelectedObj != null) {
+            commandeList.remove(affichProduit(currentSelectedObj));
+            productList.remove(currentSelectedObj);
+            currentSelectedObj = null;
+        }
     }
 
     @Override

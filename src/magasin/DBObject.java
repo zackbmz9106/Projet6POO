@@ -11,6 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DBObject {
+    public long getID() {
+        return ID;
+    }
+
     protected long ID;
     protected String tableName;
 
@@ -26,6 +30,7 @@ public class DBObject {
             transaction.succesfullMessage();
             transaction.setCreatedObj(this);
         } catch (SQLException e) {
+            transaction.setEx(e);
             transaction.setMessage(e.getMessage());
             transaction.setLevel(Alert.AlertType.ERROR);
 
@@ -45,12 +50,36 @@ public class DBObject {
                 out.add(rs.getObject(1));
             }
         } catch (SQLException e) {
+            tx.setEx(e);
             tx.setMessage(e.getMessage());
             tx.setLevel(Alert.AlertType.ERROR);
         }
         tx.setCreatedObj(out);
 
     }
+/*
+
+    public String DoubleArrayToDB(ArrayList<ArrayList<Long>> array){
+        StringBuilder bob = new StringBuilder();
+        for(ArrayList<Long> ar : array){
+            bob.append(arrayToDB(ar)).append(";");
+        }
+        return bob.toString();
+    }
+
+    public ArrayList<ArrayList<Long>> DBtoDoubleArray(String fromDB){
+        String[] largeSplit = fromDB.split(";");
+        ArrayList<ArrayList<Long>> out = new ArrayList<ArrayList<Long>>(largeSplit.length());
+        int i = 0 ;
+        for(String s : largeSplit){
+            String[] split = s.split("\\^");
+            out.get(i).add(Long.valueOf(split[0]));
+            out.get(i).add(Long.valueOf(split[1]));
+            i++;
+        }
+        return out;
+    }
+*/
 
     public String arrayToDB(ArrayList<Long> l) {
         StringBuilder out = new StringBuilder();

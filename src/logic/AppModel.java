@@ -4,9 +4,12 @@ import commons.Adresse;
 import database.DatabaseInterface;
 import database.QueryDB;
 import database.Transaction;
+import javafx.scene.control.Alert;
 import jdk.jfr.Experimental;
 import magasin.*;
+import ui.Main;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
@@ -69,7 +72,7 @@ public class AppModel {
     * */
     public Transaction searchAll(String NomTable){
         Transaction tx = new Transaction(dBi);
-        QueryDB qDB = new QueryDB("","","","");
+        QueryDB qDB = new QueryDB("","","","id");
         DBObject obj = new DBObject(NomTable);
         obj.query(tx,qDB);
         return tx;
@@ -85,6 +88,27 @@ public class AppModel {
         Transaction tx = new Transaction(dBi);
         DBObject dbo = new DBObject("Fournisseur");
         dbo.query(tx,new QueryDB("","","","nomFournisseur"));
+        return tx;
+    }
+
+    public Transaction searchQtyOfProduit(float id) {
+        Transaction tx = new Transaction(dBi);
+        QueryDB qdb = new QueryDB("id_produit",id,"","quantite");
+        Main.getStock().query(tx,qdb);
+        return tx;
+    }
+
+    public Transaction createCommande(ArrayList<Long> listearticle, float reduction, String typepaiement, Adresse adresselivr, Date datelivraison, long id_client) {
+        Commande c = new Commande(listearticle,reduction,typepaiement,adresselivr,datelivraison,id_client);
+        Transaction tx = new Transaction(dBi);
+        c.create(tx);
+        tx.setCreatedObj(c);
+        return tx;
+    }
+
+    public Transaction removeOneOfProduct(long l) {
+        Transaction tx = new Transaction(dBi);
+        Main.getStock().removeOne(tx,l);
         return tx;
     }
 }

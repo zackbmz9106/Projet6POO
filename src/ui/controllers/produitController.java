@@ -17,6 +17,9 @@ import java.util.ResourceBundle;
 public class produitController extends ShowHideDialog implements Initializable {
 
     @FXML
+    private TextField Tstock;
+
+    @FXML
     private Button myButton;
 
     @FXML
@@ -62,9 +65,11 @@ public class produitController extends ShowHideDialog implements Initializable {
         String marque = Marque.getText().trim();
         float prix;
         float solde = 0;
+        long stock = 0 ;
         boolean iss = Iss.isSelected();
         try {
             prix = Float.parseFloat(Prix.getText().trim());
+            stock = Long.parseLong(Tstock.getText().trim());
             if (iss) {
                 solde = Float.parseFloat(Solde.getText().trim());
             }
@@ -84,13 +89,17 @@ public class produitController extends ShowHideDialog implements Initializable {
             showError("Verifier le prix");
             return;
         }
+        if(stock <= 0){
+            showError("Verifier le stock");
+            return;
+        }
         long IDFournissseur = searchIDFournisseur();
         if (IDFournissseur == -1) {
             showError("Fournisseur introuvable");
             return;
         }
 
-        Main.getAppC().createProduit(typeArticle, marque, nom, prix, iss, solde, IDFournissseur);
+        Main.getAppC().createProduit(typeArticle, marque, nom, prix, iss, solde, IDFournissseur,stock);
 
 
     }
@@ -116,6 +125,8 @@ public class produitController extends ShowHideDialog implements Initializable {
         }
         Iss.setSelected(p.isSolde());
         TfourName.setText(p.getFourName());
+        long qty = Main.getAppC().searchQtyOfProduit(p.getId());
+        Tstock.setText(String.valueOf(qty));
     }
 
     public void setForProduitRead(boolean b) {

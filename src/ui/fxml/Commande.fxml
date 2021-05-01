@@ -6,14 +6,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="805.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.Commande">
+<AnchorPane prefHeight="805.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.CommandeController">
    <children>
-      <ListView fx:id="LcommandeView" layoutX="14.0" layoutY="43.0" prefHeight="688.0" prefWidth="567.0" />
+      <ListView fx:id="LcommandeView" layoutX="14.0" layoutY="43.0" onMouseClicked="#onMouseClickedOnList" prefHeight="688.0" prefWidth="567.0" />
       <Text layoutX="13.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commande en cours : " wrappingWidth="574.0" />
       <Button layoutX="22.0" layoutY="763.0" mnemonicParsing="false" onAction="#onAllDelete" text="Tout supprimer" />
-      <Button layoutX="500.0" layoutY="763.0" mnemonicParsing="false" text="Continuer" />
+      <Button layoutX="500.0" layoutY="763.0" mnemonicParsing="false" onAction="#onContinue" text="Continuer" />
       <Button layoutX="156.0" layoutY="763.0" mnemonicParsing="false" onAction="#onSelectedDelete" text="Supprimer le produit selectionné" />
       <TextField fx:id="totalTArea" editable="false" layoutX="419.0" layoutY="731.0" />
       <Text layoutX="371.0" layoutY="750.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" wrappingWidth="47.130001068115234" />
+      <Button layoutX="385.0" layoutY="763.0" mnemonicParsing="false" onAction="#add" prefHeight="28.0" prefWidth="94.0" text="Ajouter" />
    </children>
 </AnchorPane>

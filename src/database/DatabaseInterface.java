@@ -50,6 +50,8 @@ public class DatabaseInterface {
             stmt.executeUpdate(sqlProduit);
             String sqlCommande = "CREATE TABLE Commande(listeArticle LONGTEXT, reduction FLOAT, typePaiement VARCHAR(20), adresseLivre VARCHAR(200),dateLivraison DATE,ID_client bigint ,id bigint auto_increment primary key, FOREIGN KEY (ID_client) REFERENCES Client(id)) ";
             stmt.executeUpdate(sqlCommande);
+            String sqlStock = "CREATE TABLE Stock(id_produit bigint , quantite bigint, FOREIGN KEY (id_produit) REFERENCES Produit(id))";
+            stmt.executeUpdate(sqlStock);
             Fournisseur f = new Fournisseur("Inconnu");
             Transaction tx = new Transaction(this);
             f.create(tx);

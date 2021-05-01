@@ -1,9 +1,6 @@
 package logic;
 
-import magasin.Client;
-import magasin.DBObject;
-import magasin.Employe;
-import magasin.Produit;
+import magasin.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +14,11 @@ public class ApplicationEventDispatcher {
     }
 
 
+    public void notifyAddedProduct(Produit p){
+        listeners.forEach((l) -> {
+            l.dispatchEvent(ApplicationEvent.events.ADDED_PRODUIT,p);
+        });
+    }
     public void notifyDeletedObj(DBObject o){
         listeners.forEach((l) -> {
             l.dispatchEvent(ApplicationEvent.events.DELETED,o);
@@ -43,6 +45,18 @@ public class ApplicationEventDispatcher {
     public void notifyNewEmploye(Employe e) {
         listeners.forEach((l) -> {
             l.dispatchEvent(ApplicationEvent.events.NEW_EMPLOYE, e);
+        });
+    }
+
+    public void notifyNewCommande(Commande c) {
+        listeners.forEach((l) -> {
+            l.dispatchEvent(ApplicationEvent.events.NEW_COMMAND, c);
+        });
+    }
+
+    public void notifyForceReload() {
+        listeners.forEach((l) -> {
+           l.dispatchEvent(ApplicationEvent.events.FORCE_RELOAD);
         });
     }
 }

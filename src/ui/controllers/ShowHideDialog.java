@@ -26,7 +26,7 @@ public abstract class ShowHideDialog {
         alert.showAndWait();
     }
 
-    private void hide() {
+    void hide() {
         Stage stage = (Stage) getWindow();
         stage.hide();
     }

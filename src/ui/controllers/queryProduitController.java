@@ -1,9 +1,10 @@
 package ui.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import logic.ApplicationEvent;
-import magasin.Client;
 import magasin.DBObject;
 import magasin.Produit;
 import ui.Main;
@@ -15,8 +16,21 @@ import java.util.ResourceBundle;
 public class queryProduitController extends QueryBaseController{
 
     @FXML
+    private Button updateButton;
+    @FXML
     private produitController PProduitController;
 
+    public Button getActionButton() {
+        return PProduitController.getActionButton();
+    }
+
+    public Produit getCurrentSelectedProduit(){
+        return (Produit) currentSelectedObj;
+    }
+
+    void setforadd(boolean b){
+        updateButton.setVisible(b);
+    }
     @Override
     void setToInternPane(DBObject o) {
         PProduitController.produitReadout((Produit) o);
@@ -48,7 +62,8 @@ public class queryProduitController extends QueryBaseController{
                     if(currentSelectedObj.equals(dbo)){PProduitController.clean();}
                 }
                 break;
-
+                case FORCE_RELOAD:
+                    launchInitialSearch();
             }
         });
         LElement.setItems(doList);
@@ -65,5 +80,9 @@ public class queryProduitController extends QueryBaseController{
 
     private String affichProduit(Produit p ){
         return p.getNomArticle();
+    }
+
+    public void update(ActionEvent actionEvent) {
+        System.out.println("INOP");
     }
 }
