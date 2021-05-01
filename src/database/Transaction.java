@@ -12,6 +12,7 @@ public class Transaction {
         this.DBi = dbi;
         this.message = "";
         this.level = Alert.AlertType.NONE;
+//        add exeption too
     }
 
     public Object getCreatedObj() {

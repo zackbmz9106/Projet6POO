@@ -41,7 +41,7 @@ public class ClientQueryController extends QueryBaseController {
                     if(dbo.getClass().getSimpleName().equals("Client")){
                         doList.remove(affichClient((Client) dbo));
                         dbObjects.remove(dbo);
-                        PClientController.clean();
+                        if(currentSelectedObj.equals(dbo)){PClientController.clean();}
                     }
                     break;
             }

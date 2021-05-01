@@ -165,4 +165,12 @@ public class Produit extends DBObject implements IdbInterface {
 
     public String getFourName() {
         return Main.getAppC().searchFournisseurNumber(this.ID_fournisseur);}
+
+    public float getPrixReel(){
+        if(isSolde){
+            return prixArticle *solde;
+        }else{
+            return prixArticle;
+        }
+    }
 }

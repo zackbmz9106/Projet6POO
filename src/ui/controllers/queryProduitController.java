@@ -45,7 +45,7 @@ public class queryProduitController extends QueryBaseController{
                 if(dbo.getClass().getSimpleName().equals("Produit")){
                     doList.remove(affichProduit((Produit) dbo));
                     dbObjects.remove(dbo);
-                    PProduitController.clean();
+                    if(currentSelectedObj.equals(dbo)){PProduitController.clean();}
                 }
                 break;
 
