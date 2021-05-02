@@ -77,4 +77,11 @@ public class MainController {
     void onqueryProduit(ActionEvent event) {
         Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_PRODUIT_QUERY,true);
     }
+
+
+    @FXML
+    void onCreateCommande(ActionEvent event) {
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_COMMANDE,true);
+    }
+
 }

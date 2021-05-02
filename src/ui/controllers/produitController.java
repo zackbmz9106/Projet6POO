@@ -122,6 +122,8 @@ public class produitController extends ShowHideDialog implements Initializable {
         float solde = p.getSolde();
         if(solde != 0.0) {
             Solde.setText(String.valueOf(solde));
+        }else{
+            Solde.setText("");
         }
         Iss.setSelected(p.isSolde());
         TfourName.setText(p.getFourName());

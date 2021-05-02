@@ -10,6 +10,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Window;
 import logic.ApplicationEvent;
 import magasin.Client;
 import magasin.Produit;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class CommandeController implements Initializable {
+public class CommandeController extends ShowHideDialog implements Initializable {
 
 
     @FXML
@@ -46,6 +47,8 @@ public class CommandeController implements Initializable {
         if (result.get() == ButtonType.OK){
             commandeList = FXCollections.observableArrayList();
             productList = new ArrayList<Produit>();
+            total=0;
+            totalTArea.setText(String.valueOf(total));
         } else {
             return ;
         }
@@ -73,6 +76,8 @@ public class CommandeController implements Initializable {
     @FXML
     void onSelectedDelete(ActionEvent event) {
         if(currentSelectedObj != null) {
+            total -= currentSelectedObj.getPrixArticle();
+            totalTArea.setText(String.valueOf(total));
             commandeList.remove(affichProduit(currentSelectedObj));
             productList.remove(currentSelectedObj);
             currentSelectedObj = null;
@@ -81,6 +86,7 @@ public class CommandeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initAppDispatch(ApplicationEvent.appWindows.CREATE_COMMANDE);
         LcommandeView.setItems(commandeList);
         Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
             switch (event) {
@@ -94,7 +100,13 @@ public class CommandeController implements Initializable {
             }
         });
     }
+
     private String affichProduit(Produit p ){
         return p.getNomArticle();
+    }
+
+    @Override
+    protected Window getWindow() {
+        return LcommandeView.getScene().getWindow();
     }
 }

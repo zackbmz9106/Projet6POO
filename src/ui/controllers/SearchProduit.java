@@ -23,6 +23,7 @@ public class SearchProduit extends ShowHideDialog implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initAppDispatch(ApplicationEvent.appWindows.CREATE_PRODUIT_ADDER);
         PQueryProduitController.setforadd(false);
+        PQueryProduitController.setStandalone(false);
         Button actionButton = PQueryProduitController.getActionButton();
         actionButton.setOnAction((ActionEvent)-> {
             selectedProduit = PQueryProduitController.getCurrentSelectedProduit();
