@@ -122,7 +122,7 @@ public class Client extends DBObject implements IdbInterface {
                 while (rs.next()) {
                     this.nom = rs.getString("nom");
                     this.prenom = rs.getString("prenom");
-                    this.adresse = new Adresse("","","");
+                    this.adresse = new Adresse("","","","");
                     this.adresse.fromDB(rs.getString("adresse"));
                     this.dateDeNaissance = rs.getDate("dateDeNaissance");
                     this.mail = rs.getString("mail");

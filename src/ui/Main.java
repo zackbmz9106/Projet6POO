@@ -73,6 +73,7 @@ public class Main extends Application {
         primaryStage.setScene(primaryScene);
         primaryStage.getIcons().add(APP_ICON);
         primaryStage.show();
+        primaryStage.setMaximized(true);
 
         createShowHideDialog("./fxml/client.fxml", "Client", ApplicationEvent.appWindows.CREATE_CLIENT);
         createShowHideDialog("./fxml/produit.fxml", "Produit", ApplicationEvent.appWindows.CREATE_PRODUIT);

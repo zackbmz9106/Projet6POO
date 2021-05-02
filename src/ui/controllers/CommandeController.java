@@ -5,15 +5,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Window;
 import logic.ApplicationEvent;
 import magasin.Client;
 import magasin.Produit;
+import org.springframework.lang.Nullable;
 import ui.Main;
 
 import java.net.URL;
@@ -33,10 +31,24 @@ public class CommandeController extends ShowHideDialog implements Initializable 
 
     private Produit currentSelectedObj;
 
-    private long total = 0;
+
+    @FXML
+    private clientController PClientController;
 
     @FXML
     private TextField totalTArea;
+
+    private Client currentClient;
+
+    @FXML
+    private TextField reductionField;
+
+    private float reduction = 0;
+
+    private float totalSansReduc = 0;
+
+    @FXML
+    private DatePicker dateLivraison;
 
     @FXML
     void onAllDelete(ActionEvent event) {
@@ -47,8 +59,8 @@ public class CommandeController extends ShowHideDialog implements Initializable 
         if (result.get() == ButtonType.OK){
             commandeList = FXCollections.observableArrayList();
             productList = new ArrayList<Produit>();
-            total=0;
-            totalTArea.setText(String.valueOf(total));
+            totalSansReduc=0;
+            setPrice(0);
         } else {
             return ;
         }
@@ -60,6 +72,10 @@ public class CommandeController extends ShowHideDialog implements Initializable 
         Main.getAppEventDisp().showWindow(ApplicationEvent.appWindows.CREATE_PRODUIT_ADDER,true);
     }
 
+    @FXML
+    void onClientCreate(ActionEvent event) {
+        Main.getAppEventDisp().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT, true);
+    }
     @FXML
     void onContinue(ActionEvent event) {
 //        Main.getAppC().createCommande();
@@ -76,8 +92,7 @@ public class CommandeController extends ShowHideDialog implements Initializable 
     @FXML
     void onSelectedDelete(ActionEvent event) {
         if(currentSelectedObj != null) {
-            total -= currentSelectedObj.getPrixArticle();
-            totalTArea.setText(String.valueOf(total));
+            setPrice(-currentSelectedObj.getPrixArticle());
             commandeList.remove(affichProduit(currentSelectedObj));
             productList.remove(currentSelectedObj);
             currentSelectedObj = null;
@@ -88,19 +103,39 @@ public class CommandeController extends ShowHideDialog implements Initializable 
     public void initialize(URL location, ResourceBundle resources) {
         initAppDispatch(ApplicationEvent.appWindows.CREATE_COMMANDE);
         LcommandeView.setItems(commandeList);
+        PClientController.setStandalone(false);
+        PClientController.setForClientRead(false);
+        Button ClientActionButton  = PClientController.getActionButton();
+        ClientActionButton.setDisable(true);
+        ClientActionButton.setVisible(false);
         Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
             switch (event) {
                 case ADDED_PRODUIT:
                     Produit p = (Produit) params[0];
                     commandeList.add(affichProduit(p));
                     productList.add(p);
-                    total += p.getPrixReel();
-                    totalTArea.setText(String.valueOf(total));
+                    setPrice(p.getPrixReel());
+                    break;
+                case SELECTED_CLIENT:
+                case NEW_CLIENT:
+                    Client c = (Client) params[0];
+                    currentClient = c;
+                    PClientController.clientReadout(c);
                     break;
             }
         });
     }
 
+    private void setPrice(float price){
+        totalSansReduc += price;
+        try {
+            reduction = Float.parseFloat(reductionField.getText()) / 100;
+        }catch (NumberFormatException e){
+            showError("Reduction invalide");
+            return;
+        }
+        totalTArea.setText(String.valueOf(totalSansReduc - (reduction*totalSansReduc)));
+    }
     private String affichProduit(Produit p ){
         return p.getNomArticle();
     }

@@ -23,7 +23,7 @@ class ClientTest {
     void testClient(){
         String prenom="Toto";
         String nom="Titi";
-        Adresse a = new Adresse("Av du President","12","10100");
+        Adresse a = new Adresse("Av du President","12","10100","Icilesmoulineaux");
         Date naissance = new Date(2000,2,4);
         String mail = "toto@mail.fr";
         String numerotel= "+33234432";

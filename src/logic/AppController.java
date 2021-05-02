@@ -233,4 +233,8 @@ public class AppController {
             }
         }
     }
+
+    public void notifySelectedClient(Client c) {
+        Main.getAppEventDisp().notifySelectedClient(c);
+    }
 }

@@ -17,7 +17,7 @@ public class loadSample {
         Fournisseur Tishiba = new Fournisseur("Tishiba");
         Tishiba.create(tx);
 
-        Adresse a = new Adresse("Avenue des fleurs", "21", "32400");
+        Adresse a = new Adresse("Avenue des fleurs", "21", "32400","Villeux");
         Date d = new Date(1981, 10, 11);
         Client c = new Client("SCHMITT", "Marc", a, d, "marc.schmitt14@gmail.com", "0607265678", false);
         c.create(tx);

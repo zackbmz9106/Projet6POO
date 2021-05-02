@@ -27,6 +27,8 @@ public class clientController extends ShowHideDialog implements Initializable {
     private final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     @FXML
+    private TextField villeText;
+    @FXML
     private Button myButton;
     @FXML
     private DatePicker naissancePicker;
@@ -69,6 +71,7 @@ public class clientController extends ShowHideDialog implements Initializable {
         TNvoie.setEditable(b);
         TCodePostal.setEditable(b);
         BFidel.setDisable(b);
+        villeText.setEditable(b);
 //        myButton.setVisible(b);
     }
 
@@ -86,6 +89,7 @@ public class clientController extends ShowHideDialog implements Initializable {
         TAdresse.setText(a.getVoie());
         TNvoie.setText(a.getnVoie());
         TCodePostal.setText(a.getCodePostal());
+        villeText.setText(a.getVille());
         BFidel.setSelected(c.isCarteFidelite());
     }
 
@@ -118,6 +122,7 @@ public class clientController extends ShowHideDialog implements Initializable {
         String adresse = TAdresse.getText().trim();
         String nVoie = TNvoie.getText().trim();
         String codePostal = TCodePostal.getText().trim();
+        String ville = villeText.getText().trim();
         if (!validate(mail) && mail.length() != 0) {
             showError("Adresse mail invalide");
             return;
@@ -129,8 +134,11 @@ public class clientController extends ShowHideDialog implements Initializable {
         if (mail.length() == 0 && tel.length() == 0) {
             showError("Au moins le mail ou le téléphone doivent etre valide");
             return;
+        }if(adresse.length() == 0||nVoie.length() == 0||codePostal.length() == 0||ville.length() == 0){
+            showError("Veuilliez verifier l'adresse");
+            return;
         }
-        Adresse a = new Adresse(adresse, nVoie, codePostal);
+        Adresse a = new Adresse(adresse, nVoie, codePostal,ville);
         Main.getAppC().createClient(prenom,nom, a, convertToDateViaInstant(datanaissance), mail, tel, Fidel);
 
     }

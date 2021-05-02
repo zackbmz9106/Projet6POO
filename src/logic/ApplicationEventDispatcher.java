@@ -59,4 +59,10 @@ public class ApplicationEventDispatcher {
            l.dispatchEvent(ApplicationEvent.events.FORCE_RELOAD);
         });
     }
+
+    public void notifySelectedClient(Client c) {
+        listeners.forEach((l) -> {
+            l.dispatchEvent(ApplicationEvent.events.SELECTED_CLIENT,c);
+        });
+    }
 }

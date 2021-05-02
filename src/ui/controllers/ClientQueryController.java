@@ -17,6 +17,10 @@ public class ClientQueryController extends QueryBaseController {
     private clientController PClientController;
 
 
+    public Button getActionButton(){
+        return PClientController.getActionButton();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initAppDispatch(ApplicationEvent.appWindows.CREATE_CLIENT_QUERY);
@@ -65,8 +69,6 @@ public class ClientQueryController extends QueryBaseController {
     }
 
     @Override
-
-
     void setToInternPane(DBObject o) {
         PClientController.clientReadout((Client) o);
     }

@@ -5,19 +5,25 @@ public class Adresse {
     private String nVoie;
     private String codePostal;
 
-    public Adresse(String voie, String nVoie, String codePostal) {
+    public String getVille() {
+        return ville;
+    }
+
+    private String ville;
+    public Adresse(String voie, String nVoie, String codePostal,String ville) {
         this.voie = voie;
         this.nVoie = nVoie;
         this.codePostal = codePostal;
+        this.ville = ville;
     }
 
     @Override
     public String toString() {
-        return this.nVoie + this.voie + this.codePostal;
+        return this.nVoie +" "+ this.voie +" "+ this.ville +" "+ this.codePostal;
     }
 
     public String toDB() {
-        return this.nVoie + ";" + this.voie + ";" + this.codePostal;
+        return this.nVoie + ";" + this.voie + ";" + this.codePostal + ";" + this.ville;
     }
 
     public void fromDB(String in) {
@@ -25,6 +31,7 @@ public class Adresse {
         this.nVoie = split[0];
         this.voie = split[1];
         this.codePostal = split[2];
+        this.ville = split[3];
 
     }
 

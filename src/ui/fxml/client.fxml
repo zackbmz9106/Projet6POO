@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane minHeight="468.0" minWidth="580.0" prefHeight="468.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.clientController">
     <Button fx:id="myButton" layoutX="467.0" layoutY="426.0" mnemonicParsing="false" onMouseClicked="#clickonButton" text="Create Object" AnchorPane.leftAnchor="467.0" AnchorPane.topAnchor="426.0" />
@@ -26,4 +27,6 @@
     <Label layoutX="14.0" layoutY="194.0" prefHeight="18.0" prefWidth="70.0" text="Adresse" />
     <TextField fx:id="TCodePostal" layoutX="90.0" layoutY="234.0" />
     <Label layoutX="8.0" layoutY="239.0" prefHeight="18.0" prefWidth="82.0" text="Code Postal" />
+   <Text layoutX="9.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ville" wrappingWidth="69.0" />
+   <TextField fx:id="villeText" layoutX="90.0" layoutY="275.0" />
 </AnchorPane>

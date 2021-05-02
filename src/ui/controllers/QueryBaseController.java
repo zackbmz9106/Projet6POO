@@ -30,6 +30,10 @@ public abstract class QueryBaseController extends ShowHideDialog implements Init
 
     protected  ArrayList<DBObject> dbObjects = new ArrayList<DBObject>();
 
+    public DBObject getCurrentSelectedObj() {
+        return currentSelectedObj;
+    }
+
     protected DBObject currentSelectedObj;
 
     @Override
