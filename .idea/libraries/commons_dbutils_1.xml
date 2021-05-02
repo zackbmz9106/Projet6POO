@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="commons-dbutils-1">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/commons-dbutils-1.7" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$PROJECT_DIR$/lib/commons-dbutils-1.7/apidocs" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/commons-dbutils-1.7/commons-dbutils-1.7-src/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/commons-dbutils-1.7/commons-dbutils-1.7-src/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/commons-dbutils-1.7" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/lib/commons-dbutils-1.7" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/commons-dbutils-1.7" recursive="false" type="SOURCES" />
+  </library>
+</component>
