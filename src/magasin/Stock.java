@@ -6,7 +6,9 @@ import javafx.scene.control.Alert;
 import org.springframework.lang.Nullable;
 import ui.Main;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Stock extends DBObject implements IdbInterface {
@@ -14,13 +16,13 @@ public class Stock extends DBObject implements IdbInterface {
     private long id_produit;
     private long qty;
 
+    public Stock() {
+        super("Stock");
+    }
+
     public void setProduit(Produit p, long qty) {
         id_produit = p.getId();
         this.qty = qty;
-    }
-
-    public Stock() {
-        super("Stock");
     }
 
     @Override
@@ -85,20 +87,21 @@ public class Stock extends DBObject implements IdbInterface {
 
     }
 
-    public void removeOne(Transaction tx,long l) {
-        QueryDB qdb = new QueryDB("quantite",l,"","id_produit");
-        Main.getStock().query(tx,qdb);
-        if(tx.getLevel() != Alert.AlertType.NONE && tx.getLevel()!= Alert.AlertType.ERROR){
+    public void removeOne(Transaction tx, long l) {
+        QueryDB qdb = new QueryDB("quantite", l, "", "id_produit");
+        Main.getStock().query(tx, qdb);
+        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
             ArrayList<Long> results = (ArrayList<Long>) tx.getCreatedObj();
             this.id_produit = l;
             this.qty = results.get(0) - 1;
-            Main.getStock().update(tx,null);
-        }else{
-            return ;
+            Main.getStock().update(tx, null);
+        } else {
+            return;
         }
     }
+
     @Deprecated
-    public void createStockOfId(Transaction tx , long id, long stock){
+    public void createStockOfId(Transaction tx, long id, long stock) {
         this.id_produit = id;
         this.qty = stock;
         this.create(tx);

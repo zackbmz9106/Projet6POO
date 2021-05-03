@@ -5,9 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -18,12 +15,9 @@ import logic.ApplicationEvent;
 import logic.ApplicationEventDispatcher;
 import magasin.Stock;
 import oshi.SystemInfo;
-import oshi.hardware.CentralProcessor;
 import oshi.hardware.HardwareAbstractionLayer;
 import ui.controllers.ClientQueryController;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -33,18 +27,17 @@ public class Main extends Application {
     public static final int BUILDNUMBER = 1;
     public static HardwareAbstractionLayer hal;
     public static SystemInfo si;
-
-
-    public static Stock getStock() {
-        return stock;
-    }
-    private static Stock stock = new Stock();
+    private static final Stock stock = new Stock();
     private static AppController appC;
     private static AppModel appM;
     private static ApplicationEventDispatcher appEventDisp;
     private static Scene primaryScene;
-    private ClientQueryController CQC = new ClientQueryController();
     private final Image APP_ICON = new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/ui/comp.png")));
+    private final ClientQueryController CQC = new ClientQueryController();
+
+    public static Stock getStock() {
+        return stock;
+    }
 
     public static ApplicationEventDispatcher getAppEventDisp() {
         return appEventDisp;
@@ -87,7 +80,7 @@ public class Main extends Application {
         Parent root = null;
         try {
             root = loader.load();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
         }
@@ -100,13 +93,14 @@ public class Main extends Application {
 
         createShowHideDialog("./fxml/client.fxml", "Client", ApplicationEvent.appWindows.CREATE_CLIENT);
         createShowHideDialog("./fxml/produit.fxml", "Produit", ApplicationEvent.appWindows.CREATE_PRODUIT);
-        createShowHideDialog("./fxml/employe.fxml","Employe",ApplicationEvent.appWindows.CREATE_EMPLOYE);
-        createShowHideDialog("./fxml/queryClient.fxml","Liste des clients", ApplicationEvent.appWindows.CREATE_CLIENT_QUERY);
-        createShowHideDialog("./fxml/chartClient.fxml","Graphique des clients",ApplicationEvent.appWindows.CREATE_CLIENT_CHART);
-        createShowHideDialog("./fxml/stockGestion.fxml","Gestion du stock", ApplicationEvent.appWindows.CREATE_PRODUIT_QUERY);
-        createShowHideDialog("./fxml/searchProduit.fxml","Selection un produit a ajouter au panier", ApplicationEvent.appWindows.CREATE_PRODUIT_ADDER);
-        createShowHideDialog("./fxml/Commande.fxml","Creation d'une commande",ApplicationEvent.appWindows.CREATE_COMMANDE);
-        createShowHideDialog("./fxml/about.fxml","A propos",ApplicationEvent.appWindows.CREATE_ABOUT);
+        createShowHideDialog("./fxml/employe.fxml", "Employe", ApplicationEvent.appWindows.CREATE_EMPLOYE);
+        createShowHideDialog("./fxml/queryClient.fxml", "Liste des clients", ApplicationEvent.appWindows.CREATE_CLIENT_QUERY);
+        createShowHideDialog("./fxml/chartClient.fxml", "Graphique des clients", ApplicationEvent.appWindows.CREATE_CLIENT_CHART);
+        createShowHideDialog("./fxml/stockGestion.fxml", "Gestion du stock", ApplicationEvent.appWindows.CREATE_PRODUIT_QUERY);
+        createShowHideDialog("./fxml/searchProduit.fxml", "Selection un produit a ajouter au panier", ApplicationEvent.appWindows.CREATE_PRODUIT_ADDER);
+        createShowHideDialog("./fxml/Commande.fxml", "Creation d'une commande", ApplicationEvent.appWindows.CREATE_COMMANDE);
+        createShowHideDialog("./fxml/about.fxml", "A propos", ApplicationEvent.appWindows.CREATE_ABOUT);
+        createShowHideDialog("./fxml/commandFiling.fxml","Selectionner un client",ApplicationEvent.appWindows.CREATE_CLIENT_COMMANDE_FILLER);
     }
 
     private void createShowHideDialog(String fxmlRessource, String title, ApplicationEvent.appWindows appWindow) {
@@ -116,7 +110,7 @@ public class Main extends Application {
             root = loader.load();
         } catch (Exception ex) {
             System.err.println("The following error occur while loading fxml : " + ex.getMessage());
-            System.err.println(ex.getCause().toString());
+            ex.printStackTrace();
             return;
         }
 

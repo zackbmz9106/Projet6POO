@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="659.0" prefWidth="965.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.CommandQueryController">
+   <children>
+      <ListView fx:id="LElement" layoutX="14.0" layoutY="76.0" onMouseClicked="#onMouseClickedOnList" prefHeight="723.0" prefWidth="320.0" />
+      <AnchorPane fx:id="ASelectionData" layoutX="350.0" layoutY="31.0">
+         <children>
+            <fx:include fx:id="PCommande" source="Commande.fxml" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

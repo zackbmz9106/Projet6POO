@@ -11,15 +11,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DBObject {
-    public long getID() {
-        return ID;
-    }
-
     protected long ID;
     protected String tableName;
-
     public DBObject(String tableName) {
         this.tableName = tableName;
+    }
+
+    public long getID() {
+        return ID;
     }
 
     public void delete(Transaction transaction) {
@@ -37,6 +36,7 @@ public class DBObject {
         }
 
     }
+
     public void query(Transaction tx, QueryDB qDB) {
         //TODO : finir l'implementation
         ArrayList<Object> out = new ArrayList<Object>();

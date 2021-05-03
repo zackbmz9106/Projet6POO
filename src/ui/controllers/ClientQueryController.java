@@ -17,7 +17,7 @@ public class ClientQueryController extends QueryBaseController {
     private clientController PClientController;
 
 
-    public Button getActionButton(){
+    public Button getActionButton() {
         return PClientController.getActionButton();
     }
 
@@ -41,10 +41,12 @@ public class ClientQueryController extends QueryBaseController {
                     break;
                 case DELETED:
                     DBObject dbo = (DBObject) params[0];
-                    if(dbo.getClass().getSimpleName().equals("Client")){
+                    if (dbo.getClass().getSimpleName().equals("Client")) {
                         doList.remove(affichClient((Client) dbo));
                         dbObjects.remove(dbo);
-                        if(currentSelectedObj.equals(dbo)){PClientController.clean();}
+                        if (currentSelectedObj.equals(dbo)) {
+                            PClientController.clean();
+                        }
                     }
                     break;
                 case FORCE_RELOAD:
@@ -56,16 +58,16 @@ public class ClientQueryController extends QueryBaseController {
 
     private void launchInitialSearch() {
         ArrayList<Client> results = new ArrayList<Client>();
-        results = Main.getAppC().searchClient();
-            dbObjects.addAll(results);
-            for (DBObject c : dbObjects) {
-                doList.add(affichClient((Client) c));
-            }
+        results = Main.getAppC().searchAllClient();
+        dbObjects.addAll(results);
+        for (DBObject c : dbObjects) {
+            doList.add(affichClient((Client) c));
+        }
 
     }
 
     private String affichClient(Client c) {
-        return c.getNom() +" "+ c.getPrenom();
+        return c.getNom() + " " + c.getPrenom();
     }
 
     @Override

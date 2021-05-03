@@ -5,12 +5,12 @@ import javafx.scene.control.Alert;
 
 import java.sql.*;
 
-public class Employe extends DBObject implements IdbInterface{
+public class Employe extends DBObject implements IdbInterface {
     String nomEmploye;
     int numEmploye;
     String typePoste;
 
-    public Employe(String nomEmploye,int numEmploye,String typePoste){
+    public Employe(String nomEmploye, int numEmploye, String typePoste) {
         super("Employe");
         this.nomEmploye = nomEmploye;
         this.numEmploye = numEmploye;
@@ -58,7 +58,7 @@ public class Employe extends DBObject implements IdbInterface{
                 while (rs.next()) {
                     this.nomEmploye = rs.getString("nomEmploye");
                     this.numEmploye = rs.getInt("numEmploye");
-                    this.typePoste= rs.getString("dateDeNaissance");
+                    this.typePoste = rs.getString("dateDeNaissance");
                     this.ID = rs.getLong("id");
                 }
             }

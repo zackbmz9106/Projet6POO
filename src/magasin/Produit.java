@@ -1,12 +1,10 @@
 package magasin;
 
-import database.QueryDB;
 import database.Transaction;
 import javafx.scene.control.Alert;
 import ui.Main;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class Produit extends DBObject implements IdbInterface {
     private String typeArticle;
@@ -28,7 +26,7 @@ public class Produit extends DBObject implements IdbInterface {
         this.ID_fournisseur = ID_fournisseur;
     }
 
-//    Search Only
+    //    Search Only
     public Produit() {
         super("Produit");
     }
@@ -105,7 +103,7 @@ public class Produit extends DBObject implements IdbInterface {
             stmt.setFloat(4, this.prixArticle);
             stmt.setBoolean(5, this.isSolde);
             stmt.setFloat(6, this.solde);
-            stmt.setLong(7,this.ID_fournisseur);
+            stmt.setLong(7, this.ID_fournisseur);
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -146,12 +144,13 @@ public class Produit extends DBObject implements IdbInterface {
     }
 
     public String getFourName() {
-        return Main.getAppC().searchFournisseurNumber(this.ID_fournisseur);}
+        return Main.getAppC().searchFournisseurNumber(this.ID_fournisseur);
+    }
 
-    public float getPrixReel(){
-        if(isSolde){
-            return prixArticle *solde;
-        }else{
+    public float getPrixReel() {
+        if (isSolde) {
+            return prixArticle * solde;
+        } else {
             return prixArticle;
         }
     }

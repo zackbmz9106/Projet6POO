@@ -134,12 +134,13 @@ public class clientController extends ShowHideDialog implements Initializable {
         if (mail.length() == 0 && tel.length() == 0) {
             showError("Au moins le mail ou le téléphone doivent etre valide");
             return;
-        }if(adresse.length() == 0||nVoie.length() == 0||codePostal.length() == 0||ville.length() == 0){
+        }
+        if (adresse.length() == 0 || nVoie.length() == 0 || codePostal.length() == 0 || ville.length() == 0) {
             showError("Veuilliez verifier l'adresse");
             return;
         }
-        Adresse a = new Adresse(adresse, nVoie, codePostal,ville);
-        Main.getAppC().createClient(prenom,nom, a, convertToDateViaInstant(datanaissance), mail, tel, Fidel);
+        Adresse a = new Adresse(adresse, nVoie, codePostal, ville);
+        Main.getAppC().createClient(prenom, nom, a, convertToDateViaInstant(datanaissance), mail, tel, Fidel);
 
     }
 

@@ -12,19 +12,18 @@ import ui.Main;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class AppController {
 
-    private void showDialog(Transaction tx , String name){
+    private void showDialog(Transaction tx, String name) {
         Alert alert = new Alert(tx.getLevel());
         alert.setTitle(name);
         alert.setHeaderText(tx.getMessage());
 
         Exception ex = tx.getEx();
-        if(ex != null) {
+        if (ex != null) {
             ex.printStackTrace();
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
@@ -56,14 +55,14 @@ public class AppController {
 
         Transaction tx = Main.getAppM().createClient(nom, prenom, adresse, dateDeNaissance, mail, numerotel, carteFidelite);
         if (tx.getLevel() != Alert.AlertType.NONE) {
-            showDialog(tx,"Creation client");
+            showDialog(tx, "Creation client");
             if (tx.getLevel() != Alert.AlertType.ERROR) {
                 notifyNewClient((Client) tx.getCreatedObj());
             }
         }
     }
 
-    public void createProduit(String typeArticle, String marque, String nomArticle, float prixArticle, boolean isSolde, float solde, long ID_fournisseur,long qty) {
+    public void createProduit(String typeArticle, String marque, String nomArticle, float prixArticle, boolean isSolde, float solde, long ID_fournisseur, long qty) {
         Transaction tx = Main.getAppM().createProduit(typeArticle, marque, nomArticle, prixArticle, isSolde, solde, ID_fournisseur);
         if (tx.getLevel() != Alert.AlertType.NONE) {
             Main.getStock().setProduit((Produit) tx.getCreatedObj(), qty);
@@ -74,7 +73,7 @@ public class AppController {
                 if (tx.getLevel() != Alert.AlertType.ERROR) {
                     notifyNewProduit((Produit) tx.getCreatedObj());
                 }
-            }else{
+            } else {
                 showDialog(stocktx, "Stock");
             }
         }
@@ -96,33 +95,34 @@ public class AppController {
         }
     }
 
-    public long searchEmployeExist(int numEmployee){
+    public long searchEmployeExist(int numEmployee) {
         Transaction tx = Main.getAppM().searchEmployeExist(numEmployee);
-        if(tx.getCreatedObj() != null){
+        if (tx.getCreatedObj() != null) {
             ArrayList<Long> results = (ArrayList<Long>) tx.getCreatedObj();
-            if(results.size() > 0) {
+            if (results.size() > 0) {
                 return results.get(0);
-            }else{
+            } else {
                 return -1;
             }
-        }else{
-            return -1 ;
+        } else {
+            return -1;
         }
     }
 
-    public void createEmploye(String nomEmploye,int numEmploye,String typePoste) {
+    public void createEmploye(String nomEmploye, int numEmploye, String typePoste) {
         Transaction tx = Main.getAppM().createEmploye(nomEmploye, numEmploye, typePoste);
         if (tx.getLevel() != Alert.AlertType.NONE) {
-            showDialog(tx,"Creation Employe");
+            showDialog(tx, "Creation Employe");
             if (tx.getLevel() != Alert.AlertType.ERROR) {
                 notifyNewEmploye((Employe) tx.getCreatedObj());
             }
         }
     }
-    public void removeDBObject(DBObject o){
+
+    public void removeDBObject(DBObject o) {
         Transaction tx = Main.getAppM().deleteDBObject(o);
         if (tx.getLevel() != Alert.AlertType.NONE) {
-            showDialog(tx,"Suppression");
+            showDialog(tx, "Suppression");
             if (tx.getLevel() != Alert.AlertType.ERROR) {
                 notifyDeletedDBObject((DBObject) tx.getCreatedObj());
             }
@@ -130,27 +130,27 @@ public class AppController {
 
     }
 
-    public ArrayList<Client> searchClient(){
+    public ArrayList<Client> searchAllClient() {
         Transaction tx = Main.getAppM().searchAll("Client");
-        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel()!= Alert.AlertType.ERROR) {
+        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
             ArrayList<Client> out = new ArrayList<Client>();
             ArrayList<Long> objsid = (ArrayList<Long>) tx.getCreatedObj();
-            for(long l : objsid){
+            for (long l : objsid) {
                 Client loadedClient = new Client();
-                loadedClient.load(tx,l);
-                if(tx.getLevel() != Alert.AlertType.ERROR){
-                 out.add(loadedClient);
-                }else {
+                loadedClient.load(tx, l);
+                if (tx.getLevel() != Alert.AlertType.ERROR) {
+                    out.add(loadedClient);
+                } else {
                     System.err.println("Client avec id : " + l + " introuvable");
                 }
 
             }
             return out;
-        }else {
+        } else {
             ArrayList<Client> cl = new ArrayList<>();
             return cl;
         }
-        }
+    }
 
 
     private void notifyDeletedDBObject(DBObject deletedObject) {
@@ -169,29 +169,31 @@ public class AppController {
         Main.getAppEventDisp().notifyNewProduit(p);
     }
 
-    public  void notifyNewEmploye(Employe e) {
+    public void notifyNewEmploye(Employe e) {
         Main.getAppEventDisp().notifyNewEmploye(e);
     }
-    public void notifyNewCommande(Commande c){
+
+    public void notifyNewCommande(Commande c) {
         Main.getAppEventDisp().notifyNewCommande(c);
     }
+
     public ArrayList<Produit> searchProduits() {
         Transaction tx = Main.getAppM().searchAll("Produit");
-        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel()!= Alert.AlertType.ERROR) {
+        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
             ArrayList<Produit> out = new ArrayList<Produit>();
             ArrayList<Long> objsid = (ArrayList<Long>) tx.getCreatedObj();
-            for(long l : objsid){
+            for (long l : objsid) {
                 Produit loadedClient = new Produit();
-                loadedClient.load(tx,l);
-                if(tx.getLevel() != Alert.AlertType.ERROR){
+                loadedClient.load(tx, l);
+                if (tx.getLevel() != Alert.AlertType.ERROR) {
                     out.add(loadedClient);
-                }else {
+                } else {
                     System.err.println("Produit avec id : " + l + " introuvable");
                 }
 
             }
             return out;
-        }else {
+        } else {
             ArrayList<Produit> cl = new ArrayList<Produit>();
             return cl;
         }
@@ -199,36 +201,36 @@ public class AppController {
 
     public String searchFournisseurNumber(float idfournisseur) {
         Transaction tx = Main.getAppM().searchFournisseurNumber(idfournisseur);
-        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel()!= Alert.AlertType.ERROR) {
+        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
             ArrayList<String> name = (ArrayList<String>) tx.getCreatedObj();
-            if(name.size() != 0){
+            if (name.size() != 0) {
                 return name.get(0);
             }
         }
         return "";
     }
 
-    public long searchQtyOfProduit(float id){
+    public long searchQtyOfProduit(float id) {
         Transaction tx = Main.getAppM().searchQtyOfProduit(id);
-        if(tx.getLevel() != Alert.AlertType.NONE && tx.getLevel()!= Alert.AlertType.ERROR){
+        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
             ArrayList<Long> results = new ArrayList<Long>();
             results = (ArrayList<Long>) tx.getCreatedObj();
             return results.get(0);
-        }else{
+        } else {
             return -1;
         }
     }
 
     public void createCommande(ArrayList<Long> listearticle, float reduction, String typepaiement, Adresse adresselivr, Date datelivraison, long ID_client) {
-        Transaction tx = Main.getAppM().createCommande(listearticle, reduction, typepaiement, adresselivr, datelivraison,ID_client);
+        Transaction tx = Main.getAppM().createCommande(listearticle, reduction, typepaiement, adresselivr, datelivraison, ID_client);
         if (tx.getLevel() != Alert.AlertType.NONE) {
-            showDialog(tx,"Creation commande");
+            showDialog(tx, "Creation commande");
             if (tx.getLevel() != Alert.AlertType.ERROR) {
                 notifyNewCommande((Commande) tx.getCreatedObj());
-                for(long l : listearticle){
+                for (long l : listearticle) {
                     Transaction tmp = Main.getAppM().removeOneOfProduct(l);
-                    if(tmp.getLevel() == Alert.AlertType.NONE && tmp.getLevel()== Alert.AlertType.ERROR){
-                        System.err.println("The following error happen during the stock operation of " + l +  " : " +  tmp.getMessage());
+                    if (tmp.getLevel() == Alert.AlertType.NONE && tmp.getLevel() == Alert.AlertType.ERROR) {
+                        System.err.println("The following error happen during the stock operation of " + l + " : " + tmp.getMessage());
                     }
                 }
             }
@@ -237,5 +239,16 @@ public class AppController {
 
     public void notifySelectedClient(Client c) {
         Main.getAppEventDisp().notifySelectedClient(c);
+    }
+
+    public Client searchClient(long id_client) {
+        Transaction tx = Main.getAppM().loadClient(id_client);
+        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
+            Client c = (Client) tx.getCreatedObj();
+            return c;
+        } else{
+            return null;
+
+        }
     }
 }

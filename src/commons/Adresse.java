@@ -4,22 +4,22 @@ public class Adresse {
     private String voie;
     private String nVoie;
     private String codePostal;
-
-    public String getVille() {
-        return ville;
-    }
-
     private String ville;
-    public Adresse(String voie, String nVoie, String codePostal,String ville) {
+
+    public Adresse(String voie, String nVoie, String codePostal, String ville) {
         this.voie = voie;
         this.nVoie = nVoie;
         this.codePostal = codePostal;
         this.ville = ville;
     }
 
+    public String getVille() {
+        return ville;
+    }
+
     @Override
     public String toString() {
-        return this.nVoie +" "+ this.voie +" "+ this.ville +" "+ this.codePostal;
+        return this.nVoie + " " + this.voie + " " + this.ville + " " + this.codePostal;
     }
 
     public String toDB() {

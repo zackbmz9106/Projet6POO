@@ -7,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.stage.Window;
 import magasin.DBObject;
 import ui.Main;
@@ -20,7 +19,7 @@ public abstract class QueryBaseController extends ShowHideDialog implements Init
     protected ObservableList<String> doList = FXCollections.observableArrayList();
 
     @FXML
-    protected ListView<String> LElement ;
+    protected ListView<String> LElement;
 
 //    @FXML
 //    protected Text Tname;
@@ -28,13 +27,12 @@ public abstract class QueryBaseController extends ShowHideDialog implements Init
     @FXML
     protected AnchorPane ASelectionData;
 
-    protected  ArrayList<DBObject> dbObjects = new ArrayList<DBObject>();
+    protected ArrayList<DBObject> dbObjects = new ArrayList<DBObject>();
+    protected DBObject currentSelectedObj;
 
     public DBObject getCurrentSelectedObj() {
         return currentSelectedObj;
     }
-
-    protected DBObject currentSelectedObj;
 
     @Override
     protected Window getWindow() {

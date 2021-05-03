@@ -7,6 +7,13 @@ public class Transaction {
     private Alert.AlertType level;
     private String message;
     private Object createdObj;
+    private Exception ex = null;
+
+    public Transaction(DatabaseInterface dbi) {
+        this.DBi = dbi;
+        this.message = "";
+        this.level = Alert.AlertType.NONE;
+    }
 
     public Exception getEx() {
         return ex;
@@ -14,14 +21,6 @@ public class Transaction {
 
     public void setEx(Exception ex) {
         this.ex = ex;
-    }
-
-    private Exception ex = null;
-
-    public Transaction(DatabaseInterface dbi) {
-        this.DBi = dbi;
-        this.message = "";
-        this.level = Alert.AlertType.NONE;
     }
 
     public Object getCreatedObj() {

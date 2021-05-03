@@ -3,7 +3,6 @@ package ui.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import logic.ApplicationEvent;
 import magasin.DBObject;
 import magasin.Produit;
@@ -13,7 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class queryProduitController extends QueryBaseController{
+public class queryProduitController extends QueryBaseController {
 
     @FXML
     private Button updateButton;
@@ -24,13 +23,14 @@ public class queryProduitController extends QueryBaseController{
         return PProduitController.getActionButton();
     }
 
-    public Produit getCurrentSelectedProduit(){
+    public Produit getCurrentSelectedProduit() {
         return (Produit) currentSelectedObj;
     }
 
-    void setforadd(boolean b){
+    void setforadd(boolean b) {
         updateButton.setVisible(b);
     }
+
     @Override
     void setToInternPane(DBObject o) {
         PProduitController.produitReadout((Produit) o);
@@ -54,14 +54,16 @@ public class queryProduitController extends QueryBaseController{
                     doList.add(affichProduit(p));
                     dbObjects.add(p);
                     break;
-            case DELETED:
-                DBObject dbo = (DBObject) params[0];
-                if(dbo.getClass().getSimpleName().equals("Produit")){
-                    doList.remove(affichProduit((Produit) dbo));
-                    dbObjects.remove(dbo);
-                    if(currentSelectedObj.equals(dbo)){PProduitController.clean();}
-                }
-                break;
+                case DELETED:
+                    DBObject dbo = (DBObject) params[0];
+                    if (dbo.getClass().getSimpleName().equals("Produit")) {
+                        doList.remove(affichProduit((Produit) dbo));
+                        dbObjects.remove(dbo);
+                        if (currentSelectedObj.equals(dbo)) {
+                            PProduitController.clean();
+                        }
+                    }
+                    break;
                 case FORCE_RELOAD:
                     launchInitialSearch();
             }
@@ -73,12 +75,12 @@ public class queryProduitController extends QueryBaseController{
         ArrayList<Produit> results = new ArrayList<Produit>();
         results = Main.getAppC().searchProduits();
         dbObjects.addAll(results);
-        for(DBObject p :dbObjects){
+        for (DBObject p : dbObjects) {
             doList.add(affichProduit((Produit) p));
         }
     }
 
-    private String affichProduit(Produit p ){
+    private String affichProduit(Produit p) {
         return p.getNomArticle();
     }
 

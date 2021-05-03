@@ -14,16 +14,18 @@ public class ApplicationEventDispatcher {
     }
 
 
-    public void notifyAddedProduct(Produit p){
+    public void notifyAddedProduct(Produit p) {
         listeners.forEach((l) -> {
-            l.dispatchEvent(ApplicationEvent.events.ADDED_PRODUIT,p);
+            l.dispatchEvent(ApplicationEvent.events.ADDED_PRODUIT, p);
         });
     }
-    public void notifyDeletedObj(DBObject o){
+
+    public void notifyDeletedObj(DBObject o) {
         listeners.forEach((l) -> {
-            l.dispatchEvent(ApplicationEvent.events.DELETED,o);
+            l.dispatchEvent(ApplicationEvent.events.DELETED, o);
         });
     }
+
     public void showWindow(ApplicationEvent.appWindows window, boolean bShow) {
         listeners.forEach((l) -> {
             l.dispatchEvent(ApplicationEvent.events.SHOW_WINDOW, window, bShow);
@@ -56,13 +58,13 @@ public class ApplicationEventDispatcher {
 
     public void notifyForceReload() {
         listeners.forEach((l) -> {
-           l.dispatchEvent(ApplicationEvent.events.FORCE_RELOAD);
+            l.dispatchEvent(ApplicationEvent.events.FORCE_RELOAD);
         });
     }
 
     public void notifySelectedClient(Client c) {
         listeners.forEach((l) -> {
-            l.dispatchEvent(ApplicationEvent.events.SELECTED_CLIENT,c);
+            l.dispatchEvent(ApplicationEvent.events.SELECTED_CLIENT, c);
         });
     }
 }

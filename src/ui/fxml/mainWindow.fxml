@@ -32,48 +32,53 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1089.0" prefWidth="1171.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.MainController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="1089.0" prefWidth="1171.0" xmlns="http://javafx.com/javafx/15.0.1"
+      fx:controller="ui.controllers.MainController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
                 <Menu mnemonicParsing="false" text="Fichier">
                     <items>
-                        <MenuItem fx:id="prefItem" mnemonicParsing="false" text="Preferences…" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="IsqlSample" mnemonicParsing="false" onAction="#onLoadSqlSample" text="Charger le sample SQL" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="quitItem" mnemonicParsing="false" onAction="#quit" text="Quit" />
+                        <MenuItem fx:id="prefItem" mnemonicParsing="false" text="Preferences…"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem fx:id="IsqlSample" mnemonicParsing="false" onAction="#onLoadSqlSample"
+                                  text="Charger le sample SQL"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem fx:id="quitItem" mnemonicParsing="false" onAction="#quit" text="Quit"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Rechercher...">
                     <items>
-                        <MenuItem fx:id="queryCommandItem" mnemonicParsing="false" text="Commande" />
-                  <MenuItem fx:id="queryProduitItem" mnemonicParsing="false" onAction="#onqueryProduit" text="Produit" />
-                  <MenuItem fx:id="rechercherClient" mnemonicParsing="false" onAction="#OnRechercherClient" text="Client" />
+                        <MenuItem fx:id="queryCommandItem" mnemonicParsing="false" text="Commande"/>
+                        <MenuItem fx:id="queryProduitItem" mnemonicParsing="false" onAction="#onqueryProduit"
+                                  text="Produit"/>
+                        <MenuItem fx:id="rechercherClient" mnemonicParsing="false" onAction="#OnRechercherClient"
+                                  text="Client"/>
                     </items>
                 </Menu>
-            <Menu mnemonicParsing="false" text="Graphiques">
-              <items>
-                <MenuItem fx:id="IClientGraph" mnemonicParsing="false" onAction="#onClientGraph" text="Client" />
-              </items>
-            </Menu>
+                <Menu mnemonicParsing="false" text="Graphiques">
+                    <items>
+                        <MenuItem fx:id="IClientGraph" mnemonicParsing="false" onAction="#onClientGraph" text="Client"/>
+                    </items>
+                </Menu>
                 <Menu mnemonicParsing="false" text="Créer...">
                     <items>
-                        <MenuItem fx:id="creerClientItem" mnemonicParsing="false" onAction="#oncreateClient" text="Client" />
-                  <MenuItem fx:id="creerEmployeItem" mnemonicParsing="false" onAction="#oncreateEmploye" text="Employe" />
-                  <MenuItem mnemonicParsing="false" onAction="#onCreateCommande" text="Commande" />
-                        <MenuItem fx:id="creerProduitItem" mnemonicParsing="false" onAction="#oncreateProduit" text="Produit" />
+                        <MenuItem fx:id="creerClientItem" mnemonicParsing="false" onAction="#oncreateClient"
+                                  text="Client"/>
+                        <MenuItem fx:id="creerEmployeItem" mnemonicParsing="false" onAction="#oncreateEmploye"
+                                  text="Employe"/>
+                        <MenuItem mnemonicParsing="false" onAction="#onCreateCommande" text="Commande"/>
+                        <MenuItem fx:id="creerProduitItem" mnemonicParsing="false" onAction="#oncreateProduit"
+                                  text="Produit"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Aide">
                     <items>
-                        <MenuItem fx:id="aboutItem" mnemonicParsing="false" onAction="#onCreateAbout" text="A propos ..." />
+                        <MenuItem fx:id="aboutItem" mnemonicParsing="false" onAction="#onCreateAbout"
+                                  text="A propos ..."/>
                     </items>
                 </Menu>
             </menus>

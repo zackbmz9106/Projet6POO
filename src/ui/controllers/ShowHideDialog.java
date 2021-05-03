@@ -9,14 +9,13 @@ import ui.Main;
 public abstract class ShowHideDialog {
 
     private ApplicationEvent.appWindows appWindow;
+    private boolean isStandalone = true;
 
     protected abstract Window getWindow();
 
     public void setStandalone(boolean standalone) {
         isStandalone = standalone;
     }
-
-    private boolean isStandalone = true;
 
     protected void showError(String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -44,7 +43,7 @@ public abstract class ShowHideDialog {
         Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
             switch (event) {
                 case SHOW_WINDOW:
-                    if(isStandalone) {
+                    if (isStandalone) {
                         ApplicationEvent.appWindows window = (ApplicationEvent.appWindows) params[0];
                         Boolean bShow = (Boolean) params[1];
                         if (window == ShowHideDialog.this.appWindow) {

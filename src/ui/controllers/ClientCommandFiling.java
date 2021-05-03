@@ -12,7 +12,7 @@ import ui.Main;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CommandFiling extends ShowHideDialog implements Initializable {
+public class ClientCommandFiling extends ShowHideDialog implements Initializable {
 
 
     @FXML
@@ -23,9 +23,9 @@ public class CommandFiling extends ShowHideDialog implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initAppDispatch(ApplicationEvent.appWindows.CREATE_COMMANDE_FILLER);
+        initAppDispatch(ApplicationEvent.appWindows.CREATE_CLIENT_COMMANDE_FILLER);
         Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
-            switch (event){
+            switch (event) {
                 case SELECTED_CLIENT:
                     hide();
             }

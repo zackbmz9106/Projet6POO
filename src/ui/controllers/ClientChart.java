@@ -23,20 +23,21 @@ public class ClientChart extends ShowHideDialog implements Initializable {
     @FXML
     private LineChart<?, ?> clientChart;
 
-    private ArrayList<Client >clientList;
+    private ArrayList<Client> clientList;
 
     @FXML
-    private CategoryAxis xAxis = new CategoryAxis();
+    private final CategoryAxis xAxis = new CategoryAxis();
 
     @FXML
-    private NumberAxis yAxis = new NumberAxis();
+    private final NumberAxis yAxis = new NumberAxis();
 
     private final LineChart<String, Number> lineChart =
             new LineChart<String, Number>(xAxis, yAxis);
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initAppDispatch(ApplicationEvent.appWindows.CREATE_CLIENT_CHART);
-        clientList = Main.getAppC().searchClient();
+        clientList = Main.getAppC().searchAllClient();
         yAxis.setAutoRanging(false);
         yAxis.setLowerBound(0);
         yAxis.setUpperBound(10);
@@ -53,13 +54,13 @@ public class ClientChart extends ShowHideDialog implements Initializable {
                     break;
                 case DELETED:
                     DBObject dbo = (DBObject) params[0];
-                    if(dbo.getClass().getSimpleName().equals("Client")) {
+                    if (dbo.getClass().getSimpleName().equals("Client")) {
                         clientList.remove(dbo);
                         showLineClient();
                         break;
                     }
                 case FORCE_RELOAD:
-                    clientList = Main.getAppC().searchClient();
+                    clientList = Main.getAppC().searchAllClient();
             }
         });
     }
@@ -72,10 +73,10 @@ public class ClientChart extends ShowHideDialog implements Initializable {
 
     }
 
-    private int max(int[] list){
+    private int max(int[] list) {
         int max = 0;
-        for (int i :list){
-            if(i>max){
+        for (int i : list) {
+            if (i > max) {
                 max = i;
             }
         }
@@ -86,12 +87,12 @@ public class ClientChart extends ShowHideDialog implements Initializable {
         XYChart.Series data = new XYChart.Series();
         int[] agesParindex = new int[120];
         for (Client c : clientList) {
-            int age  = calculateYearAge(c.getDateDeNaissance());
-            agesParindex[age] ++;
+            int age = calculateYearAge(c.getDateDeNaissance());
+            agesParindex[age]++;
         }
         yAxis.setUpperBound(max(agesParindex));
-        for(int i = 0 ; i < 120;i++){
-            data.getData().add(new XYChart.Data(Integer.toString(i),agesParindex[i]));
+        for (int i = 0; i < 120; i++) {
+            data.getData().add(new XYChart.Data(Integer.toString(i), agesParindex[i]));
         }
         clientChart.getData().add(data);
     }

@@ -4,23 +4,20 @@ import commons.Adresse;
 import database.DatabaseInterface;
 import database.QueryDB;
 import database.Transaction;
-import javafx.scene.control.Alert;
-import jdk.jfr.Experimental;
 import magasin.*;
 import ui.Main;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Objects;
 
 public class AppModel {
+
+    private DatabaseInterface dBi;
 
     @Deprecated
     public DatabaseInterface getdBi() {
         return dBi;
     }
-
-    private DatabaseInterface dBi;
 
     public void initDB() {
         dBi = new DatabaseInterface();
@@ -45,40 +42,41 @@ public class AppModel {
 
     public Transaction searchFournisseur(String nomFournisseur) {
         Transaction tx = new Transaction(dBi);
-        QueryDB qDB = new QueryDB("nomFournisseur", nomFournisseur, "","id");
+        QueryDB qDB = new QueryDB("nomFournisseur", nomFournisseur, "", "id");
         Fournisseur f = new Fournisseur();
         f.query(tx, qDB);
         return tx;
     }
 
-    public Transaction searchEmployeExist(int numEmployee){
+    public Transaction searchEmployeExist(int numEmployee) {
         Transaction tx = new Transaction(dBi);
-        QueryDB qDB = new QueryDB("numEmploye",numEmployee,"","id");
+        QueryDB qDB = new QueryDB("numEmploye", numEmployee, "", "id");
         Employe e = new Employe();
-        e.query(tx,qDB);
+        e.query(tx, qDB);
         return tx;
 
     }
 
     public Transaction createEmploye(String nomEmploye, int numEmploye, String typePoste) {
-        Employe e = new Employe(nomEmploye,numEmploye,typePoste);
+        Employe e = new Employe(nomEmploye, numEmploye, typePoste);
         Transaction tx = new Transaction(dBi);
         e.create(tx);
         tx.setCreatedObj(e);
         return tx;
     }
+
     /*
-    * Return Tx contenant un Arraylist de Long contenant les ids des différents objs trouvés
-    * */
-    public Transaction searchAll(String NomTable){
+     * Return Tx contenant un Arraylist de Long contenant les ids des différents objs trouvés
+     * */
+    public Transaction searchAll(String NomTable) {
         Transaction tx = new Transaction(dBi);
-        QueryDB qDB = new QueryDB("","","","id");
+        QueryDB qDB = new QueryDB("", "", "", "id");
         DBObject obj = new DBObject(NomTable);
-        obj.query(tx,qDB);
+        obj.query(tx, qDB);
         return tx;
     }
 
-    public Transaction deleteDBObject(DBObject o){
+    public Transaction deleteDBObject(DBObject o) {
         Transaction tx = new Transaction(dBi);
         o.delete(tx);
         return tx;
@@ -87,19 +85,19 @@ public class AppModel {
     public Transaction searchFournisseurNumber(float idFournisseur) {
         Transaction tx = new Transaction(dBi);
         DBObject dbo = new DBObject("Fournisseur");
-        dbo.query(tx,new QueryDB("","","","nomFournisseur"));
+        dbo.query(tx, new QueryDB("", "", "", "nomFournisseur"));
         return tx;
     }
 
     public Transaction searchQtyOfProduit(float id) {
         Transaction tx = new Transaction(dBi);
-        QueryDB qdb = new QueryDB("id_produit",id,"","quantite");
-        Main.getStock().query(tx,qdb);
+        QueryDB qdb = new QueryDB("id_produit", id, "", "quantite");
+        Main.getStock().query(tx, qdb);
         return tx;
     }
 
     public Transaction createCommande(ArrayList<Long> listearticle, float reduction, String typepaiement, Adresse adresselivr, Date datelivraison, long id_client) {
-        Commande c = new Commande(listearticle,reduction,typepaiement,adresselivr,datelivraison,id_client);
+        Commande c = new Commande(listearticle, reduction, typepaiement, adresselivr, datelivraison, id_client);
         Transaction tx = new Transaction(dBi);
         c.create(tx);
         tx.setCreatedObj(c);
@@ -108,7 +106,15 @@ public class AppModel {
 
     public Transaction removeOneOfProduct(long l) {
         Transaction tx = new Transaction(dBi);
-        Main.getStock().removeOne(tx,l);
+        Main.getStock().removeOne(tx, l);
+        return tx;
+    }
+
+    public Transaction loadClient(long id_client) {
+        Transaction tx = new Transaction(dBi);
+        Client c = new Client();
+        c.load(tx,id_client);
+        tx.setCreatedObj(c);
         return tx;
     }
 }

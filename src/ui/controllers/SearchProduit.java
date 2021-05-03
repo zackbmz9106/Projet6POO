@@ -14,20 +14,21 @@ import java.util.ResourceBundle;
 
 public class SearchProduit extends ShowHideDialog implements Initializable {
 
-    private Produit selectedProduit ;
+    private Produit selectedProduit;
     @FXML
     private queryProduitController PQueryProduitController;
     @FXML
     private AnchorPane pane;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initAppDispatch(ApplicationEvent.appWindows.CREATE_PRODUIT_ADDER);
         PQueryProduitController.setforadd(false);
         PQueryProduitController.setStandalone(false);
         Button actionButton = PQueryProduitController.getActionButton();
-        actionButton.setOnAction((ActionEvent)-> {
+        actionButton.setOnAction((ActionEvent) -> {
             selectedProduit = PQueryProduitController.getCurrentSelectedProduit();
-            if(selectedProduit != null) {
+            if (selectedProduit != null) {
                 Main.getAppEventDisp().notifyAddedProduct(selectedProduit);
                 hide();
             }

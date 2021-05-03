@@ -65,7 +65,7 @@ public class produitController extends ShowHideDialog implements Initializable {
         String marque = Marque.getText().trim();
         float prix;
         float solde = 0;
-        long stock = 0 ;
+        long stock = 0;
         boolean iss = Iss.isSelected();
         try {
             prix = Float.parseFloat(Prix.getText().trim());
@@ -89,7 +89,7 @@ public class produitController extends ShowHideDialog implements Initializable {
             showError("Verifier le prix");
             return;
         }
-        if(stock <= 0){
+        if (stock <= 0) {
             showError("Verifier le stock");
             return;
         }
@@ -99,7 +99,7 @@ public class produitController extends ShowHideDialog implements Initializable {
             return;
         }
 
-        Main.getAppC().createProduit(typeArticle, marque, nom, prix, iss, solde, IDFournissseur,stock);
+        Main.getAppC().createProduit(typeArticle, marque, nom, prix, iss, solde, IDFournissseur, stock);
 
 
     }
@@ -114,15 +114,15 @@ public class produitController extends ShowHideDialog implements Initializable {
         return TypeArticle.getScene().getWindow();
     }
 
-    public void produitReadout(Produit p ){
+    public void produitReadout(Produit p) {
         TypeArticle.setText(p.getTypeArticle());
         Nom.setText(p.getNomArticle());
         Marque.setText(p.getMarque());
         Prix.setText(String.valueOf(p.getPrixArticle()));
         float solde = p.getSolde();
-        if(solde != 0.0) {
+        if (solde != 0.0) {
             Solde.setText(String.valueOf(solde));
-        }else{
+        } else {
             Solde.setText("");
         }
         Iss.setSelected(p.isSolde());
@@ -140,6 +140,7 @@ public class produitController extends ShowHideDialog implements Initializable {
         Iss.setDisable(b);
         TfourName.setEditable(b);
     }
+
     public Button getActionButton() {
         return myButton;
     }

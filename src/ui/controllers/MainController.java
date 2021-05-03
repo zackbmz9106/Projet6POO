@@ -3,12 +3,19 @@ package ui.controllers;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import logic.ApplicationEvent;
 import ui.Main;
 
-public class MainController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MainController implements Initializable {
 
     @FXML
     private AnchorPane cartPane;
@@ -70,22 +77,27 @@ public class MainController {
 
     @FXML
     void onLoadSqlSample(ActionEvent event) {
-         loadSample ls =  new loadSample(Main.getAppM().getdBi());
+        loadSample ls = new loadSample(Main.getAppM().getdBi());
     }
 
     @FXML
     void onqueryProduit(ActionEvent event) {
-        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_PRODUIT_QUERY,true);
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_PRODUIT_QUERY, true);
     }
 
 
     @FXML
     void onCreateCommande(ActionEvent event) {
-        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_COMMANDE,true);
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_COMMANDE, true);
     }
 
     @FXML
-    void onCreateAbout(ActionEvent event){
-        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_ABOUT,true);
+    void onCreateAbout(ActionEvent event) {
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_ABOUT, true);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        quitItem.setAccelerator(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN));
     }
 }

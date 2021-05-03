@@ -1,7 +1,6 @@
 package magasin;
 
 import commons.Adresse;
-import database.QueryDB;
 import database.Transaction;
 import javafx.scene.control.Alert;
 
@@ -12,10 +11,34 @@ import java.util.Date;
 
 public class Commande extends DBObject implements IdbInterface {
 
+    public Adresse getAdresseLivr() {
+        return adresseLivr;
+    }
+
+    public ArrayList<Long> getListeArticle() {
+        return listeArticle;
+    }
+
+    public float getReduction() {
+        return reduction;
+    }
+
+    public String getTypePaiement() {
+        return typePaiement;
+    }
+
+    public Date getDateLivraison() {
+        return dateLivraison;
+    }
+
+    public long getID_client() {
+        return ID_client;
+    }
+
+    private final Adresse adresseLivr;
     private ArrayList<Long> listeArticle;
     private float reduction;
     private String typePaiement;
-    private final Adresse adresseLivr;
     private Date dateLivraison;
     private long ID;
     private long ID_client;
