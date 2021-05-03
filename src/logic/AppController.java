@@ -25,6 +25,7 @@ public class AppController {
 
         Exception ex = tx.getEx();
         if(ex != null) {
+            ex.printStackTrace();
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             ex.printStackTrace(pw);

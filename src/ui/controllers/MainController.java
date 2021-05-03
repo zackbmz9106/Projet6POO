@@ -84,4 +84,8 @@ public class MainController {
         Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_COMMANDE,true);
     }
 
+    @FXML
+    void onCreateAbout(ActionEvent event){
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_ABOUT,true);
+    }
 }
