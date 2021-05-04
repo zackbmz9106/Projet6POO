@@ -57,15 +57,15 @@ public class ClientChart extends ShowHideDialog implements Initializable {
                     }
                 case FORCE_RELOAD:
                     clientList = Main.getAppC().searchAllClient();
+                    showLineClient();
+                    break;
             }
         });
     }
 
     private int calculateYearAge(Date datedenaissance) {
         Date currentDate = new Date();
-        long diff = currentDate.getDate() - datedenaissance.getDate();
-        Date age = new Date(diff);
-        return age.getYear();
+        return currentDate.getYear() - datedenaissance.getYear();
 
     }
 

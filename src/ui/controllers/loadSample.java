@@ -36,12 +36,12 @@ public class loadSample {
         Adresse g = new Adresse("Boulevard Jean Jaures", "23", "91000","Evry");
         Adresse j = new Adresse("Rue des mozards", "66", "93120","La Courneuve");
 
-        Date d = new Date(1981, 10, 11);
-        Date d1 = new Date(2000, 4, 9);
-        Date d2 = new Date(1966, 9, 31);
-        Date d3 = new Date(1970, 12, 13);
-        Date d4 = new Date(2000, 6, 22);
-        Date d5 = new Date(1998, 1, 18);
+        Date d = new Date(1981 - 1900, 10 - 1, 11);
+        Date d1 = new Date(2000- 1900, 4- 1, 9);
+        Date d2 = new Date(1966- 1900, 9- 1, 31);
+        Date d3 = new Date(1970- 1900, 12- 1, 13);
+        Date d4 = new Date(2000- 1900, 6- 1, 22);
+        Date d5 = new Date(1998- 1900, 1- 1, 18);
 
         Client c = new Client("SCHMITT", "Marc", a, d, "marc.schmitt14@gmail.com", "0607265678", false);
         Client c1 = new Client("Musk", "Ellon", b, d1, "ellon.musk06@gmail.com", "0755829788", false);
@@ -94,7 +94,7 @@ public class loadSample {
 
         Commande com1 = new Commande(listecommande1,0,"CB",a,new Date(2020,12,24),c.getID());
         com1.create(tx);
-        Commande com2 = new Commande(listecommande1,20,"Especes",b,new Date(2021,05,03),c1.getID());
+        Commande com2 = new Commande(listecommande2,20,"Especes",b,new Date(2021,05,03),c1.getID());
         com2.create(tx);
         Commande com3 = new Commande(listecommande1,30,"Cheque",f,new Date(2021,05,02),c2.getID());
         com2.create(tx);

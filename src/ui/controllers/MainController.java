@@ -70,10 +70,12 @@ public class MainController implements Initializable {
         Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT_QUERY, true);
     }
 
+/*
     @FXML
     void onClientGraph(ActionEvent event) {
         Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT_CHART, true);
     }
+*/
 
     @FXML
     void onLoadSqlSample(ActionEvent event) {
