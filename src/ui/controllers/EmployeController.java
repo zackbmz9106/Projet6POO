@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
 import logic.ApplicationEvent;
+import magasin.Employe;
 import ui.Main;
 
 import java.net.URL;
@@ -61,5 +62,27 @@ public class EmployeController extends ShowHideDialog implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initAppDispatch(ApplicationEvent.appWindows.CREATE_EMPLOYE);
+    }
+
+    public Button getActionButton(){
+        return myButton;
+    }
+    public void setForReadout(boolean b) {
+        TNomEmploye.setEditable(b);
+        Ttype.setEditable(b);
+        TNumEmploye.setEditable(b);
+
+    }
+
+    public void clean() {
+        TNomEmploye.setText("");
+        Ttype.setText("");
+        TNumEmploye.setText("");
+    }
+
+    public void employeReadout(Employe o) {
+        TNomEmploye.setText(o.getNomEmploye());
+        Ttype.setText(o.getDesc());
+        TNumEmploye.setText(String.valueOf(o.getNumEmploye()));
     }
 }

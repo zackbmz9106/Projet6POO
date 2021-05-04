@@ -108,10 +108,12 @@ public class CommandeController extends ShowHideDialog implements Initializable 
                 .toInstant());
 
     }
+
     private LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {
         return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
     }
-    public void CommandeReadout(Commande c){
+
+    public void CommandeReadout(Commande c) {
         Adresse a = c.getAdresseLivr();
         TAdresse.setText(a.getVoie());
         TNvoie.setText(a.getnVoie());
@@ -120,7 +122,16 @@ public class CommandeController extends ShowHideDialog implements Initializable 
         dateLivraison.setValue(convertToLocalDateViaSqlDate(c.getDateLivraison()));
         paiementT.setText(c.getTypePaiement());
         PClientController.clientReadout(Main.getAppC().searchClient(c.getID_client()));
+        commandeList = FXCollections.observableArrayList();
+        productList = new ArrayList<Produit>();
+        ArrayList<Produit> pa = Main.getAppC().getProduitListFromCommande(c);
+        for (Produit p : pa) {
+            productList.add(p);
+            commandeList.add(p.getDesc());
+        }
+        LcommandeView.setItems(commandeList);
     }
+
     @FXML
     void onContinue(ActionEvent event) {
         String adresse = TAdresse.getText().trim();
@@ -129,34 +140,34 @@ public class CommandeController extends ShowHideDialog implements Initializable 
         String ville = villeText.getText().trim();
         LocalDate dateLivr = dateLivraison.getValue();
         String paiemenet = paiementT.getText().trim();
-        if(adresse.length() == 0|| nVoie.length() == 0 || codePostal.length() == 0 || ville.length() == 0){
+        if (adresse.length() == 0 || nVoie.length() == 0 || codePostal.length() == 0 || ville.length() == 0) {
             showError("Verifier l'adresse");
             return;
         }
-        LocalDate ld =  LocalDate.now();
-        if(dateLivr.isBefore(ld)){
+        LocalDate ld = LocalDate.now();
+        if (dateLivr.isBefore(ld)) {
             showError("Date de livraison invalide");
             return;
         }
-        if(paiemenet.length() == 0){
+        if (paiemenet.length() == 0) {
             showError("Verifier le moyen de paiement");
             return;
         }
-        if(currentClient == null){
+        if (currentClient == null) {
             showError("Veuillez selectionner un client");
             return;
         }
-        Adresse a = new Adresse(adresse,nVoie,codePostal,ville);
+        Adresse a = new Adresse(adresse, nVoie, codePostal, ville);
         ArrayList<Long> idProductList = new ArrayList<Long>();
-        for(Produit p : productList){
+        for (Produit p : productList) {
             idProductList.add(p.getId());
         }
-        Main.getAppC().createCommande(idProductList,reduction,paiemenet,a,convertToDateViaInstant(dateLivr),currentClient.getID());
+        Main.getAppC().createCommande(idProductList, reduction, paiemenet, a, convertToDateViaInstant(dateLivr), currentClient.getID());
     }
 
     @FXML
-    void onSearchClient(ActionEvent event){
-        Main.getAppEventDisp().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT_COMMANDE_FILLER,true);
+    void onSearchClient(ActionEvent event) {
+        Main.getAppEventDisp().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT_COMMANDE_FILLER, true);
     }
 
     @FXML
@@ -201,6 +212,7 @@ public class CommandeController extends ShowHideDialog implements Initializable 
                     currentClient = c;
                     PClientController.clientReadout(c);
                     break;
+
             }
         });
     }
@@ -225,22 +237,43 @@ public class CommandeController extends ShowHideDialog implements Initializable 
         return LcommandeView.getScene().getWindow();
     }
 
-    public Button getActionButton(){
+    public Button getActionButton() {
         return actionButton;
     }
-    public void setForReadout(boolean b){
+
+    public void setForReadout(boolean b) {
         allDeleteButton.setVisible(b);
         selectedDeleteButton.setVisible(b);
         addButton.setVisible(b);
         clientSearchButton.setVisible(b);
         createClientButton.setVisible(b);
-        TAdresse.setVisible(b);
-        TNvoie.setVisible(b);
-        TCodePostal.setVisible(b);
-        villeText.setVisible(b);
-        dateLivraison.setVisible(b);
-        paiementT.setVisible(b);
-        reductionField.setVisible(b);
+        TAdresse.setEditable(b);
+        TNvoie.setEditable(b);
+        TCodePostal.setEditable(b);
+        villeText.setEditable(b);
+        dateLivraison.setEditable(b);
+        paiementT.setEditable(b);
+        reductionField.setEditable(b);
+        PClientController.setForClientRead(b);
 
+    }
+
+    public void clean() {
+        allDeleteButton.setText("");
+        selectedDeleteButton.setText("");
+        addButton.setText("");
+        clientSearchButton.setText("");
+        createClientButton.setText("");
+        TAdresse.setText("");
+        TNvoie.setText("");
+        TCodePostal.setText("");
+        villeText.setText("");
+        dateLivraison.setValue(null);
+        paiementT.setText("");
+        reductionField.setText("");
+        PClientController.clean();
+        commandeList = FXCollections.observableArrayList();
+        productList = new ArrayList<Produit>();
+        LcommandeView.setItems(commandeList);
     }
 }

@@ -246,9 +246,67 @@ public class AppController {
         if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
             Client c = (Client) tx.getCreatedObj();
             return c;
-        } else{
+        } else {
             return null;
 
+        }
+    }
+
+
+    public ArrayList<Commande> searchAllCommande() {
+        Transaction tx = Main.getAppM().searchAll("Commande");
+        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
+            ArrayList<Commande> out = new ArrayList<Commande>();
+            ArrayList<Long> objsid = (ArrayList<Long>) tx.getCreatedObj();
+            for (long l : objsid) {
+                Commande loadedCommande = new Commande();
+                loadedCommande.load(tx, l);
+                if (tx.getLevel() != Alert.AlertType.ERROR) {
+                    out.add(loadedCommande);
+                } else {
+                    System.err.println("Commande avec id : " + l + " introuvable");
+                }
+
+            }
+            return out;
+        } else {
+            ArrayList<Commande> cl = new ArrayList<Commande>();
+            return cl;
+        }
+    }
+
+    public ArrayList<Produit> getProduitListFromCommande(Commande c) {
+        ArrayList<Produit> out = new ArrayList<>();
+        for (long l : c.getListeArticle()) {
+            Transaction tx = Main.getAppM().searchProduit(l);
+            if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
+                out.add((Produit) tx.getCreatedObj());
+            } else {
+                System.err.println("Produit avec id : " + l + " introuvable");
+            }
+        }
+        return out;
+    }
+
+    public ArrayList<Employe> searchAllEmploye() {
+        Transaction tx = Main.getAppM().searchAll("Employe");
+        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
+            ArrayList<Employe> out = new ArrayList<Employe>();
+            ArrayList<Long> objsid = (ArrayList<Long>) tx.getCreatedObj();
+            for (long l : objsid) {
+                Employe employe = new Employe();
+                employe.load(tx, l);
+                if (tx.getLevel() != Alert.AlertType.ERROR) {
+                    out.add(employe);
+                } else {
+                    System.err.println("Employe avec id : " + l + " introuvable");
+                }
+
+            }
+            return out;
+        } else {
+            ArrayList<Employe> cl = new ArrayList<Employe>();
+            return cl;
         }
     }
 }

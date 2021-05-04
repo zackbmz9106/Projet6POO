@@ -6,6 +6,18 @@ import javafx.scene.control.Alert;
 import java.sql.*;
 
 public class Employe extends DBObject implements IdbInterface {
+    public String getNomEmploye() {
+        return nomEmploye;
+    }
+
+    public int getNumEmploye() {
+        return numEmploye;
+    }
+
+    public String getTypePoste() {
+        return typePoste;
+    }
+
     String nomEmploye;
     int numEmploye;
     String typePoste;
@@ -58,7 +70,7 @@ public class Employe extends DBObject implements IdbInterface {
                 while (rs.next()) {
                     this.nomEmploye = rs.getString("nomEmploye");
                     this.numEmploye = rs.getInt("numEmploye");
-                    this.typePoste = rs.getString("dateDeNaissance");
+                    this.typePoste = rs.getString("typePoste");
                     this.ID = rs.getLong("id");
                 }
             }
@@ -94,5 +106,9 @@ public class Employe extends DBObject implements IdbInterface {
 
         }
 
+    }
+
+    public String getDesc() {
+        return this.nomEmploye;
     }
 }

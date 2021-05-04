@@ -25,9 +25,9 @@ public class Main extends Application {
     public static final int MAJORVERSION = 0;
     public static final int VERSION = 1;
     public static final int BUILDNUMBER = 1;
+    private static final Stock stock = new Stock();
     public static HardwareAbstractionLayer hal;
     public static SystemInfo si;
-    private static final Stock stock = new Stock();
     private static AppController appC;
     private static AppModel appM;
     private static ApplicationEventDispatcher appEventDisp;
@@ -100,7 +100,9 @@ public class Main extends Application {
         createShowHideDialog("./fxml/searchProduit.fxml", "Selection un produit a ajouter au panier", ApplicationEvent.appWindows.CREATE_PRODUIT_ADDER);
         createShowHideDialog("./fxml/Commande.fxml", "Creation d'une commande", ApplicationEvent.appWindows.CREATE_COMMANDE);
         createShowHideDialog("./fxml/about.fxml", "A propos", ApplicationEvent.appWindows.CREATE_ABOUT);
-        createShowHideDialog("./fxml/commandFiling.fxml","Selectionner un client",ApplicationEvent.appWindows.CREATE_CLIENT_COMMANDE_FILLER);
+        createShowHideDialog("./fxml/commandFiling.fxml", "Selectionner un client", ApplicationEvent.appWindows.CREATE_CLIENT_COMMANDE_FILLER);
+        createShowHideDialog("./fxml/commandQuery.fxml", "Liste des commandes", ApplicationEvent.appWindows.CREATE_COMMANDE_QUERY);
+        createShowHideDialog("./fxml/employeQuery.fxml","Liste des employe",ApplicationEvent.appWindows.CREATE_EMPLOYE_QUERY);
     }
 
     private void createShowHideDialog(String fxmlRessource, String title, ApplicationEvent.appWindows appWindow) {

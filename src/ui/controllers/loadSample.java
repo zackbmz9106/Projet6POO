@@ -86,6 +86,12 @@ public class loadSample {
         listecommande1.add(Enceinte1.getID());
         listecommande1.add(Tele1.getID());
 
+        ArrayList<Long> listecommande2 = new ArrayList<Long>();
+        listecommande2.add(Ecouteurs1.getID());
+        listecommande2.add(Ordi2.getID());
+        listecommande2.add(Ordi1.getID());
+
+
         Commande com1 = new Commande(listecommande1,0,"CB",a,new Date(2020,12,24),c.getID());
         com1.create(tx);
         Commande com2 = new Commande(listecommande1,20,"Especes",b,new Date(2021,05,03),c1.getID());

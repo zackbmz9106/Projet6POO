@@ -21,18 +21,14 @@ public class ClientChart extends ShowHideDialog implements Initializable {
 
 
     @FXML
-    private LineChart<?, ?> clientChart;
-
-    private ArrayList<Client> clientList;
-
-    @FXML
     private final CategoryAxis xAxis = new CategoryAxis();
-
     @FXML
     private final NumberAxis yAxis = new NumberAxis();
-
     private final LineChart<String, Number> lineChart =
             new LineChart<String, Number>(xAxis, yAxis);
+    @FXML
+    private LineChart<?, ?> clientChart;
+    private ArrayList<Client> clientList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

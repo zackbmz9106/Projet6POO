@@ -51,6 +51,7 @@ public class ClientQueryController extends QueryBaseController {
                     break;
                 case FORCE_RELOAD:
                     launchInitialSearch();
+                    break;
             }
         });
         LElement.setItems(doList);

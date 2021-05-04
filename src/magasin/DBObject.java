@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class DBObject {
     protected long ID;
     protected String tableName;
+
     public DBObject(String tableName) {
         this.tableName = tableName;
     }

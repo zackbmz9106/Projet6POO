@@ -3,13 +3,36 @@ package magasin;
 import commons.Adresse;
 import database.Transaction;
 import javafx.scene.control.Alert;
+import ui.Main;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 
 public class Commande extends DBObject implements IdbInterface {
+
+    private Adresse adresseLivr = new Adresse("", "", "", "");
+    private ArrayList<Long> listeArticle;
+    private float reduction;
+    private String typePaiement;
+    private Date dateLivraison;
+    private long ID;
+    private long ID_client;
+
+    public Commande() {
+        super("Commande");
+    }
+    public Commande(ArrayList<Long> listearticle, float reduction, String typepaiement, Adresse adresselivr, Date datelivraison, long ID_client) {
+        super("Commande");
+        this.listeArticle = listearticle;
+        this.reduction = reduction;
+        this.typePaiement = typepaiement;
+        this.adresseLivr = adresselivr;
+        this.dateLivraison = datelivraison;
+        this.ID_client = ID_client;
+    }
 
     public Adresse getAdresseLivr() {
         return adresseLivr;
@@ -33,25 +56,6 @@ public class Commande extends DBObject implements IdbInterface {
 
     public long getID_client() {
         return ID_client;
-    }
-
-    private final Adresse adresseLivr;
-    private ArrayList<Long> listeArticle;
-    private float reduction;
-    private String typePaiement;
-    private Date dateLivraison;
-    private long ID;
-    private long ID_client;
-
-
-    public Commande(ArrayList<Long> listearticle, float reduction, String typepaiement, Adresse adresselivr, Date datelivraison, long ID_client) {
-        super("Commande");
-        this.listeArticle = listearticle;
-        this.reduction = reduction;
-        this.typePaiement = typepaiement;
-        this.adresseLivr = adresselivr;
-        this.dateLivraison = datelivraison;
-        this.ID_client = ID_client;
     }
 
     @Override
@@ -123,7 +127,7 @@ public class Commande extends DBObject implements IdbInterface {
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
             Connection conn = transaction.getdBi().getConnection();
-            ResultSet rs = conn.prepareStatement("SELECT * FROM Client WHERE id =" + id).executeQuery();
+            ResultSet rs = conn.prepareStatement("SELECT * FROM " + this.tableName + " WHERE id =" + id).executeQuery();
             if (rs != null) {
                 while (rs.next()) {
                     this.listeArticle = DBtoArray(rs.getString("listeArticle"));
@@ -143,4 +147,10 @@ public class Commande extends DBObject implements IdbInterface {
 
     }
 
+    public String getDesc() {
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String date = simpleDateFormat.format(new Date());
+        return Main.getAppC().searchClient(this.getID_client()).getNom() + " " + date;
+    }
 }

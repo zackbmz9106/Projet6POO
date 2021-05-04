@@ -67,4 +67,5 @@ public class ApplicationEventDispatcher {
             l.dispatchEvent(ApplicationEvent.events.SELECTED_CLIENT, c);
         });
     }
+
 }

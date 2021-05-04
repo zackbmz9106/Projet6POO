@@ -158,4 +158,8 @@ public class Produit extends DBObject implements IdbInterface {
     public long getId() {
         return this.ID;
     }
+
+    public String getDesc() {
+        return nomArticle;
+    }
 }

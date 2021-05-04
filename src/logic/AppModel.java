@@ -113,8 +113,16 @@ public class AppModel {
     public Transaction loadClient(long id_client) {
         Transaction tx = new Transaction(dBi);
         Client c = new Client();
-        c.load(tx,id_client);
+        c.load(tx, id_client);
         tx.setCreatedObj(c);
+        return tx;
+    }
+
+    public Transaction searchProduit(long l) {
+        Transaction tx = new Transaction(dBi);
+        Produit p = new Produit();
+        p.load(tx, l);
+        tx.setCreatedObj(p);
         return tx;
     }
 }
