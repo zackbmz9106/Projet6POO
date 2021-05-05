@@ -79,6 +79,7 @@ public class ClientChart extends ShowHideDialog implements Initializable {
         return max;
     }
 
+
     private void showLineClient() {
         XYChart.Series data = new XYChart.Series();
         int[] agesParindex = new int[120];
