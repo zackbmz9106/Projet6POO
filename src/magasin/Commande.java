@@ -153,4 +153,13 @@ public class Commande extends DBObject implements IdbInterface {
         String date = simpleDateFormat.format(new Date());
         return Main.getAppC().searchClient(this.getID_client()).getNom() + " " + date;
     }
+
+    public float getEffectiveTotalPrice(){
+        float out = 0;
+        ArrayList<Produit> produitListFromCommande = Main.getAppC().getProduitListFromCommande(this);
+        for(Produit p : produitListFromCommande){
+            out += p.getPrixReel() * reduction;
+        }
+        return out;
+    }
 }

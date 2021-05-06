@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class ClientChart extends ShowHideDialog implements Initializable {
+public class ClientChart implements Initializable {
 
 
     @FXML
@@ -32,7 +32,6 @@ public class ClientChart extends ShowHideDialog implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initAppDispatch(ApplicationEvent.appWindows.CREATE_CLIENT_CHART);
         clientList = Main.getAppC().searchAllClient();
         yAxis.setAutoRanging(false);
         yAxis.setLowerBound(0);
@@ -79,6 +78,26 @@ public class ClientChart extends ShowHideDialog implements Initializable {
         return max;
     }
 
+    private int minIndex1(int[] list){
+        int min = 0;
+        for (int i = list.length - 1; i > 0;i--){
+            if(list[i] > 0){
+                min  = i;
+            }
+        }
+        return min;
+    }
+
+    private int maxIndex1(int[] list){
+        int max = 0;
+        for (int i = 0; i < list.length ;i++){
+            if(list[i] > 0){
+                max  = i;
+            }
+        }
+        return max;
+    }
+
 
     private void showLineClient() {
         XYChart.Series data = new XYChart.Series();
@@ -88,14 +107,10 @@ public class ClientChart extends ShowHideDialog implements Initializable {
             agesParindex[age]++;
         }
         yAxis.setUpperBound(max(agesParindex));
-        for (int i = 0; i < 120; i++) {
+        for (int i = 0; i < agesParindex.length; i++) {
             data.getData().add(new XYChart.Data(Integer.toString(i), agesParindex[i]));
         }
         clientChart.getData().add(data);
     }
 
-    @Override
-    protected Window getWindow() {
-        return clientChart.getScene().getWindow();
-    }
 }

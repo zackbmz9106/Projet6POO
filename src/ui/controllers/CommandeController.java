@@ -124,10 +124,12 @@ public class CommandeController extends ShowHideDialog implements Initializable 
         PClientController.clientReadout(Main.getAppC().searchClient(c.getID_client()));
         commandeList = FXCollections.observableArrayList();
         productList = new ArrayList<Produit>();
+        reductionField.setText(String.valueOf(c.getReduction()));
         ArrayList<Produit> pa = Main.getAppC().getProduitListFromCommande(c);
         for (Produit p : pa) {
             productList.add(p);
             commandeList.add(p.getDesc());
+            setPrice(p.getPrixReel());
         }
         LcommandeView.setItems(commandeList);
     }
