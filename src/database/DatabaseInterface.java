@@ -35,7 +35,7 @@ public class DatabaseInterface {
 //            db.createDB(dbName);
             this.conn = DriverManager.getConnection(configBuilder.getURL(dbName), "root", "");
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
             System.exit(1);
         }
         try {
