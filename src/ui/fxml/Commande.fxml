@@ -1,49 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="805.0" prefWidth="1096.0"
-            xmlns="http://javafx.com/javafx/15.0.1" fx:controller="ui.controllers.CommandeController">
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1056.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.CommandeController">
     <children>
-        <ListView fx:id="LcommandeView" layoutX="14.0" layoutY="43.0" onMouseClicked="#onMouseClickedOnList"
-                  prefHeight="688.0" prefWidth="567.0"/>
-        <Text layoutX="13.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commande en cours : "
-              wrappingWidth="574.0"/>
-        <Button fx:id="allDeleteButton" layoutX="22.0" layoutY="763.0" mnemonicParsing="false" onAction="#onAllDelete"
-                text="Tout supprimer"/>
-        <Button fx:id="actionButton" layoutX="1074.0" layoutY="759.0" mnemonicParsing="false" onAction="#onContinue"
-                text="Continuer"/>
-        <Button fx:id="selectedDeleteButton" layoutX="156.0" layoutY="763.0" mnemonicParsing="false"
-                onAction="#onSelectedDelete" text="Supprimer le produit selectionné"/>
-        <TextField fx:id="totalTArea" editable="false" layoutX="419.0" layoutY="731.0"/>
-        <Text layoutX="371.0" layoutY="750.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:"
-              wrappingWidth="47.130001068115234"/>
-        <Button fx:id="addButton" layoutX="385.0" layoutY="763.0" mnemonicParsing="false" onAction="#add"
-                prefHeight="28.0" prefWidth="94.0" text="Ajouter"/>
-        <AnchorPane fx:id="clientPane" layoutX="587.0" layoutY="43.0" prefHeight="365.0" prefWidth="456.0">
-            <fx:include fx:id="PClient" source="client.fxml"/>
-            <Button fx:id="createClientButton" layoutX="341.0" layoutY="426.0" mnemonicParsing="false"
-                    onAction="#onClientCreate" text="Creer le Client"/>
-            <Button fx:id="clientSearchButton" layoutX="179.0" layoutY="426.0" mnemonicParsing="false"
-                    onAction="#onSearchClient" text="Rechercher le client"/>
+        <ListView fx:id="LcommandeView" layoutX="14.0" layoutY="43.0" onMouseClicked="#onMouseClickedOnList" prefHeight="590.0" prefWidth="361.0" />
+        <Text layoutX="13.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commande en cours : " wrappingWidth="574.0" />
+        <Button fx:id="allDeleteButton" layoutX="24.0" layoutY="676.0" mnemonicParsing="false" onAction="#onAllDelete" text="Tout supprimer" />
+        <Button fx:id="actionButton" layoutX="950.0" layoutY="648.0" mnemonicParsing="false" onAction="#onContinue" text="Continuer" />
+        <Button fx:id="selectedDeleteButton" layoutX="158.0" layoutY="676.0" mnemonicParsing="false" onAction="#onSelectedDelete" text="Supprimer le produit selectionné" />
+        <TextField fx:id="totalTArea" editable="false" layoutX="213.0" layoutY="634.0" />
+        <Text layoutX="147.0" layoutY="653.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" wrappingWidth="47.130001068115234" />
+        <Button fx:id="addButton" layoutX="387.0" layoutY="676.0" mnemonicParsing="false" onAction="#add" prefHeight="28.0" prefWidth="94.0" text="Ajouter" />
+        <AnchorPane fx:id="clientPane" layoutX="486.0" layoutY="14.0" prefHeight="365.0" prefWidth="456.0">
+            <fx:include fx:id="PClient" source="client.fxml" />
+            <Button fx:id="createClientButton" layoutX="341.0" layoutY="426.0" mnemonicParsing="false" onAction="#onClientCreate" text="Creer le Client" />
+            <Button fx:id="clientSearchButton" layoutX="179.0" layoutY="426.0" mnemonicParsing="false" onAction="#onSearchClient" text="Rechercher le client" />
         </AnchorPane>
-        <TextField fx:id="reductionField" layoutX="659.0" layoutY="731.0" prefHeight="28.0" prefWidth="59.0"/>
-        <Text layoutX="587.0" layoutY="750.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reduction :"
-              wrappingWidth="105.0"/>
-        <Text layoutX="718.0" layoutY="750.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%"/>
-        <DatePicker fx:id="dateLivraison" layoutX="939.0" layoutY="543.0"/>
-        <Label layoutX="633.0" layoutY="545.0" prefHeight="18.0" prefWidth="70.0" text="N° de voie"/>
-        <TextField fx:id="TNvoie" layoutX="715.0" layoutY="540.0"/>
-        <TextField fx:id="TAdresse" layoutX="715.0" layoutY="589.0"/>
-        <Label layoutX="639.0" layoutY="594.0" prefHeight="18.0" prefWidth="70.0" text="Adresse"/>
-        <TextField fx:id="TCodePostal" layoutX="715.0" layoutY="634.0"/>
-        <Label layoutX="633.0" layoutY="639.0" prefHeight="18.0" prefWidth="82.0" text="Code Postal"/>
-        <Text layoutX="634.0" layoutY="694.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ville" wrappingWidth="69.0"/>
-        <TextField fx:id="villeText" layoutX="715.0" layoutY="675.0"/>
-        <Text layoutX="729.0" layoutY="525.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse de livraison"/>
-        <Text layoutX="982.0" layoutY="534.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date de livraison"/>
-        <TextField fx:id="paiementT" layoutX="952.0" layoutY="675.0"/>
-        <Text layoutX="979.0" layoutY="662.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type de paiement"/>
+        <TextField fx:id="reductionField" layoutX="456.0" layoutY="634.0" prefHeight="28.0" prefWidth="59.0" />
+        <Text layoutX="380.0" layoutY="653.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reduction :" wrappingWidth="105.0" />
+        <Text layoutX="536.0" layoutY="653.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%" />
+        <DatePicker fx:id="dateLivraison" layoutX="682.0" layoutY="508.0" />
+        <Label layoutX="385.0" layoutY="444.0" prefHeight="18.0" prefWidth="70.0" text="N° de voie" />
+        <TextField fx:id="TNvoie" layoutX="467.0" layoutY="439.0" />
+        <TextField fx:id="TAdresse" layoutX="467.0" layoutY="488.0" />
+        <Label layoutX="391.0" layoutY="493.0" prefHeight="18.0" prefWidth="70.0" text="Adresse" />
+        <TextField fx:id="TCodePostal" layoutX="467.0" layoutY="533.0" />
+        <Label layoutX="385.0" layoutY="538.0" prefHeight="18.0" prefWidth="82.0" text="Code Postal" />
+        <Text layoutX="386.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ville" wrappingWidth="69.0" />
+        <TextField fx:id="villeText" layoutX="467.0" layoutY="574.0" />
+        <Text layoutX="481.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse de livraison" />
+        <Text layoutX="725.0" layoutY="499.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date de livraison" />
+        <TextField fx:id="paiementT" layoutX="702.0" layoutY="579.0" />
+        <Text layoutX="729.0" layoutY="566.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type de paiement" />
     </children>
 </AnchorPane>

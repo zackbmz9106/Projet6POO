@@ -2,14 +2,13 @@
 
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="659.0" prefWidth="965.0"
-            xmlns="http://javafx.com/javafx/15.0.1" fx:controller="ui.controllers.CommandQueryController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="723.0" prefWidth="1427.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.CommandQueryController">
     <children>
-        <ListView fx:id="LElement" layoutX="14.0" layoutY="76.0" onMouseClicked="#onMouseClickedOnList"
-                  prefHeight="723.0" prefWidth="320.0"/>
-        <AnchorPane fx:id="ASelectionData" layoutX="350.0" layoutY="31.0">
+        <ListView fx:id="LElement" layoutX="30.0" layoutY="25.0" onMouseClicked="#onMouseClickedOnList" prefHeight="693.0" prefWidth="313.0" />
+        <AnchorPane fx:id="ASelectionData" layoutX="350.0" layoutY="16.0" prefHeight="700.0" prefWidth="1077.0">
             <children>
-                <fx:include fx:id="PCommande" source="Commande.fxml"/>
+                <fx:include fx:id="PCommande" source="Commande.fxml" />
             </children>
         </AnchorPane>
     </children>

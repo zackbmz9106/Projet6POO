@@ -85,11 +85,11 @@ public class Main extends Application {
             System.exit(1);
         }
         primaryStage.setTitle("Project 6");
-        primaryScene = new Scene(root, 590, 516);
+        primaryScene = new Scene(root, 1284, 811);
         primaryStage.setScene(primaryScene);
         primaryStage.getIcons().add(APP_ICON);
         primaryStage.show();
-        primaryStage.setMaximized(true);
+//        primaryStage.setMaximized(true);
 
         createShowHideDialog("./fxml/client.fxml", "Client", ApplicationEvent.appWindows.CREATE_CLIENT);
         createShowHideDialog("./fxml/produit.fxml", "Produit", ApplicationEvent.appWindows.CREATE_PRODUIT);
