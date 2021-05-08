@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="1113.0" prefWidth="1084.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.DemoController">
+   <children>
+      <AnchorPane fx:id="imagePane" layoutX="14.0" layoutY="14.0" prefHeight="952.0" prefWidth="1054.0">
+         <opaqueInsets>
+            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+         </opaqueInsets></AnchorPane>
+      <Button fx:id="next" layoutX="905.0" layoutY="1058.0" mnemonicParsing="false" onAction="#onAdvance" prefHeight="28.0" prefWidth="165.0" text="Avancer" />
+      <Button fx:id="back" layoutX="14.0" layoutY="1058.0" mnemonicParsing="false" onAction="#onBack" prefHeight="28.0" prefWidth="165.0" text="Reculer" />
+      <TextArea fx:id="imgDescArea" layoutX="223.0" layoutY="998.0" prefHeight="101.0" prefWidth="636.0" />
+   </children>
+</AnchorPane>

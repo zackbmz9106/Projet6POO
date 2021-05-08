@@ -4,6 +4,7 @@ import commons.Adresse;
 import database.DatabaseInterface;
 import database.QueryDB;
 import database.Transaction;
+import javafx.scene.control.Alert;
 import magasin.*;
 import ui.Main;
 
@@ -123,6 +124,43 @@ public class AppModel {
         Produit p = new Produit();
         p.load(tx, l);
         tx.setCreatedObj(p);
+        return tx;
+    }
+
+    private void setTxToInternalError(Transaction tx,String message){
+        tx.setMessage(message);
+        tx.setEx(null);
+        tx.setCreatedObj(null);
+        tx.setLevel(Alert.AlertType.ERROR);
+    }
+
+    public Transaction updateClient(String prenom, String nom, Adresse a, Date datanaissance, String mail, String tel, boolean fidel) {
+        Transaction tx = new Transaction(dBi);
+        Client c = new Client(nom, prenom, a, datanaissance, mail, tel, fidel);
+        QueryDB qDB = new QueryDB("numerotel",tel,"","id");
+        c.query(tx,qDB);
+        if(tx.getLevel() != Alert.AlertType.ERROR){
+            ArrayList<Long> results =(ArrayList<Long>)tx.getCreatedObj();
+            if(results.size() > 1){
+                setTxToInternalError(tx,"Something has gone terribly wrong multiple Client were found");
+                return tx;
+            }
+            Client del = new Client();
+            del.load(tx,results.get(0));
+            if(tx.getLevel() == Alert.AlertType.ERROR){
+                setTxToInternalError(tx,"Something has gone terribly wrong the Client was not loaded properly");
+                return tx;
+            }
+            del.delete(tx);
+            if(tx.getLevel() == Alert.AlertType.ERROR){
+                setTxToInternalError(tx,"Something has gone terribly wrong the Client was not deleted properly");
+                return tx;
+            }
+            tx.setDeleteObj(del);
+            c.create(tx);
+            tx.setCreatedObj(c);
+
+        }
         return tx;
     }
 }

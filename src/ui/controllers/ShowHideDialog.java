@@ -9,7 +9,7 @@ import ui.Main;
 public abstract class ShowHideDialog {
 
     private ApplicationEvent.appWindows appWindow;
-    private boolean isStandalone = true;
+    protected boolean isStandalone = true;
 
     protected abstract Window getWindow();
 

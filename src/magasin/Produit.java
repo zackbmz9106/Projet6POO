@@ -32,27 +32,20 @@ public class Produit extends DBObject implements IdbInterface {
     }
 
     @Override
-    public void update(Transaction tx, String[] nomsDeChampsAMettreAjour) {
+    public void update(Transaction tx) {
         //remplacer les elements modifier dans le l'inscription sql
+        Connection conn = tx.getdBi().getConnection();
+        PreparedStatement stmt = null;
         try {
-            Connection conn = tx.getdBi().getConnection();
-            String sql = "UPDATE " + this.tableName + " SET";
-            for (String champ : nomsDeChampsAMettreAjour) {
-                sql += champ + "=?";
-            }
-            sql += "WHERE id=" + this.ID;
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            for (int i = 1; i >= nomsDeChampsAMettreAjour.length; i++) {
-                switch (nomsDeChampsAMettreAjour[i]) {
-                    case "typeArticle" -> stmt.setString(i, this.typeArticle);
-                    case "marque" -> stmt.setString(i, this.marque);
-                    case "nomArticle" -> stmt.setString(i, this.nomArticle);
-                    case "prixArticle" -> stmt.setFloat(i, this.prixArticle);
-                    case "isSolde" -> stmt.setBoolean(i, this.isSolde);
-                    case "solde" -> stmt.setFloat(i, this.solde);
-                    case "ID_fournisseur" -> stmt.setLong(i, this.ID_fournisseur);
-                }
-            }
+            stmt = conn.prepareStatement(
+                    "insert into " + this.tableName + "(typeArticle,marque,nomArticle,prixArticle,isSolde,solde,ID_fournisseur) values(?,?,?,?,?,?,?)");
+            stmt.setString(1, this.typeArticle);
+            stmt.setString(2, this.marque);
+            stmt.setString(3, this.nomArticle);
+            stmt.setFloat(4, this.prixArticle);
+            stmt.setBoolean(5, this.isSolde);
+            stmt.setFloat(6, this.solde);
+            stmt.setLong(7, this.ID_fournisseur);
             stmt.executeUpdate();
             tx.succesfullMessage();
         } catch (SQLException e) {

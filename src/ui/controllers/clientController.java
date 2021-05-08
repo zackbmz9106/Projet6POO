@@ -140,7 +140,11 @@ public class clientController extends ShowHideDialog implements Initializable {
             return;
         }
         Adresse a = new Adresse(adresse, nVoie, codePostal, ville);
-        Main.getAppC().createClient(prenom, nom, a, convertToDateViaInstant(datanaissance), mail, tel, Fidel);
+        if(isStandalone) {
+            Main.getAppC().createClient(prenom, nom, a, convertToDateViaInstant(datanaissance), mail, tel, Fidel);
+        }else {
+            Main.getAppC().updateClient(prenom, nom, a, convertToDateViaInstant(datanaissance), mail, tel, Fidel);
+        }
 
     }
 

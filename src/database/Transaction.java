@@ -9,6 +9,16 @@ public class Transaction {
     private Object createdObj;
     private Exception ex = null;
 
+    public Object getDeleteObj() {
+        return deleteObj;
+    }
+
+    public void setDeleteObj(Object deleteObj) {
+        this.deleteObj = deleteObj;
+    }
+
+    private Object deleteObj;
+
     public Transaction(DatabaseInterface dbi) {
         this.DBi = dbi;
         this.message = "";

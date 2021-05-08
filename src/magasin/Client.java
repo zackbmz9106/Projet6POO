@@ -80,34 +80,29 @@ public class Client extends DBObject implements IdbInterface {
 
 
     @Override
-    public void update(Transaction transaction, String[] nomsDeChampsAMettreAjour) {
+    public void update(Transaction transaction) {
         //remplacer les elements modifier dans le l'inscription sql
+        Connection conn = transaction.getdBi().getConnection();
+        PreparedStatement stmt = null;
+        java.sql.Date d = new java.sql.Date(this.dateDeNaissance.getTime());
         try {
-            Connection conn = transaction.getdBi().getConnection();
-            String sql = "UPDATE " + this.tableName + " SET";
-            for (String champ : nomsDeChampsAMettreAjour) {
-                sql += champ + "=?";
-            }
-            sql += "WHERE id=" + this.ID;
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            for (int i = 1; i >= nomsDeChampsAMettreAjour.length; i++) {
-                switch (nomsDeChampsAMettreAjour[i]) {
-                    case "nom" -> stmt.setString(i, this.nom);
-                    case "prenom" -> stmt.setString(i, this.prenom);
-                    case "adresse" -> stmt.setString(i, this.adresse.toDB());
-                    case "dateDeNaissance" -> stmt.setDate(i, (java.sql.Date) this.dateDeNaissance);
-                    case "mail" -> stmt.setString(i, this.mail);
-                    case "numerotel" -> stmt.setString(i, this.numerotel);
-                    case "carteFidelite" -> stmt.setBoolean(i, this.carteFidelite);
-                    case "pointFidelite" -> stmt.setInt(i, this.pointFidelite);
-                }
-            }
+            String sql = "insert into " + this.tableName + "(nom, prenom, adresse,dateDeNaissance,mail,numerotel,carteFidelite,pointFidelite) values(?,?,?,?,?,?,?,?)";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, this.nom);
+            stmt.setString(2, this.prenom);
+            stmt.setString(3, this.adresse.toDB());
+            stmt.setDate(4, d);
+            stmt.setString(5, this.mail);
+            stmt.setString(6, this.numerotel);
+            stmt.setBoolean(7, this.carteFidelite);
+            stmt.setInt(8, this.pointFidelite);
             stmt.executeUpdate();
             transaction.succesfullMessage();
         } catch (SQLException e) {
             transaction.setEx(e);
             transaction.setMessage(e.getMessage());
             transaction.setLevel(Alert.AlertType.ERROR);
+
         }
 
     }

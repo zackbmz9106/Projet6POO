@@ -14,17 +14,20 @@ import logic.AppModel;
 import logic.ApplicationEvent;
 import logic.ApplicationEventDispatcher;
 import magasin.Stock;
+import org.ini4j.Ini;
 import oshi.SystemInfo;
 import oshi.hardware.HardwareAbstractionLayer;
 import ui.controllers.ClientQueryController;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 public class Main extends Application {
 
     public static final int MAJORVERSION = 0;
     public static final int VERSION = 1;
-    public static final int BUILDNUMBER = 1;
+    public static final int BUILDNUMBER = 2;
     private static final Stock stock = new Stock();
     public static HardwareAbstractionLayer hal;
     public static SystemInfo si;
@@ -32,6 +35,7 @@ public class Main extends Application {
     private static AppModel appM;
     private static ApplicationEventDispatcher appEventDisp;
     private static Scene primaryScene;
+    private static boolean isDemo;
     private final Image APP_ICON = new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/ui/comp.png")));
     private final ClientQueryController CQC = new ClientQueryController();
 
@@ -69,6 +73,15 @@ public class Main extends Application {
         appM = new AppModel();
         appEventDisp = new ApplicationEventDispatcher();
         appM.initDB();
+        Ini ini = null;
+        try {
+            ini = new Ini(new File("config.ini"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert ini != null;
+        isDemo = Boolean.parseBoolean(ini.get("Application Config", "runDemo"));
+//        ini.put("Application Config","runDemo","false");
         launch(args);
 
     }
@@ -103,6 +116,10 @@ public class Main extends Application {
         createShowHideDialog("./fxml/commandFiling.fxml", "Selectionner un client", ApplicationEvent.appWindows.CREATE_CLIENT_COMMANDE_FILLER);
         createShowHideDialog("./fxml/commandQuery.fxml", "Liste des commandes", ApplicationEvent.appWindows.CREATE_COMMANDE_QUERY);
         createShowHideDialog("./fxml/employeQuery.fxml","Liste des employe",ApplicationEvent.appWindows.CREATE_EMPLOYE_QUERY);
+        if(isDemo){
+//            createShowHideDialog("./fxml/demo.fxml","Demo", ApplicationEvent.appWindows.CREATE_DEMO);
+//            appEventDisp.showWindow(ApplicationEvent.appWindows.CREATE_DEMO,true);
+     }
     }
 
     private void createShowHideDialog(String fxmlRessource, String title, ApplicationEvent.appWindows appWindow) {

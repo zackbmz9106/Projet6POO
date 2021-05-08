@@ -19,21 +19,14 @@ public class Fournisseur extends DBObject implements IdbInterface {
     }
 
     @Override
-    public void update(Transaction tx, String[] nomsDeChampsAMettreAjour) {
+    public void update(Transaction tx) {
         //remplacer les elements modifier dans le l'inscription sql
+        Connection conn = tx.getdBi().getConnection();
+        PreparedStatement stmt = null;
         try {
-            Connection conn = tx.getdBi().getConnection();
-            String sql = "UPDATE " + this.tableName + " SET";
-            for (String champ : nomsDeChampsAMettreAjour) {
-                sql += champ + "=?";
-            }
-            sql += "WHERE id=" + this.ID;
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            for (int i = 1; i >= nomsDeChampsAMettreAjour.length; i++) {
-                switch (nomsDeChampsAMettreAjour[i]) {
-                    case "nomFournisseur" -> stmt.setString(i, this.nomFournisseur);
-                }
-            }
+            stmt = conn.prepareStatement(
+                    "insert into " + this.tableName + "(nomFournisseur) values(?)");
+            stmt.setString(1, nomFournisseur);
             stmt.executeUpdate();
             tx.succesfullMessage();
         } catch (SQLException e) {
@@ -41,7 +34,6 @@ public class Fournisseur extends DBObject implements IdbInterface {
             tx.setMessage(e.getMessage());
             tx.setLevel(Alert.AlertType.ERROR);
         }
-
     }
 
     @Override

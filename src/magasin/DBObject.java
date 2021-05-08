@@ -23,9 +23,13 @@ public class DBObject {
     }
 
     public void delete(Transaction transaction) {
+        deletefromId(transaction,this.ID);
+
+    }
+    public void deletefromId(Transaction transaction,long id) {
         Connection conn = transaction.getdBi().getConnection();
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM " + this.tableName + " WHERE id =" + this.ID);
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM " + this.tableName + " WHERE id =" + id);
             preparedStatement.execute();
             transaction.succesfullMessage();
             transaction.setCreatedObj(this);

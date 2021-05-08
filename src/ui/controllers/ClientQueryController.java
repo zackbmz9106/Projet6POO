@@ -1,7 +1,9 @@
 package ui.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import logic.ApplicationEvent;
 import magasin.Client;
 import magasin.DBObject;
@@ -13,6 +15,7 @@ import java.util.ResourceBundle;
 
 public class ClientQueryController extends QueryBaseController {
 
+    public CheckBox modifC;
     @FXML
     private clientController PClientController;
 
@@ -44,7 +47,7 @@ public class ClientQueryController extends QueryBaseController {
                     if (dbo.getClass().getSimpleName().equals("Client")) {
                         doList.remove(affichClient((Client) dbo));
                         dbObjects.remove(dbo);
-                        if (currentSelectedObj.equals(dbo)) {
+                        if (currentSelectedObj != null && currentSelectedObj.equals(dbo)) {
                             PClientController.clean();
                         }
                     }
@@ -77,4 +80,15 @@ public class ClientQueryController extends QueryBaseController {
     }
 
 
+    public void onUpdateButton(ActionEvent actionEvent) {
+        if(modifC.isSelected()){
+            PClientController.clickonButton(null);
+        }else {
+            return;
+        }
+    }
+
+    public void onAuthorizeModif(ActionEvent actionEvent) {
+        PClientController.setForClientRead(modifC.isSelected());
+    }
 }

@@ -46,7 +46,7 @@ public class EmployeQueryController extends QueryBaseController implements Initi
                         Employe em = (Employe) dbo;
                         doList.remove(em.getDesc());
                         dbObjects.remove(em);
-                        if (currentSelectedObj.equals(em)) {
+                        if (currentSelectedObj != null  && currentSelectedObj.equals(em)) {
                             PEmployeController.clean();
                         }
                     }

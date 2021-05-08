@@ -41,24 +41,7 @@ public class Stock extends DBObject implements IdbInterface {
     }
 
     @Override
-    public void update(Transaction tx, @Nullable String[] nomsDeChampsAMettreAjour) {
-        //remplacer les elements modifier dans le l'inscription sql
-        try {
-            Connection conn = tx.getdBi().getConnection();
-            String sql = "UPDATE " + this.tableName + " SET";
-            for (String champ : nomsDeChampsAMettreAjour) {
-                sql += champ + "=?";
-            }
-            sql += "WHERE id=" + this.id_produit;
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setLong(1, this.qty);
-            stmt.executeUpdate();
-            tx.succesfullMessage();
-        } catch (SQLException e) {
-            tx.setEx(e);
-            tx.setMessage(e.getMessage());
-            tx.setLevel(Alert.AlertType.ERROR);
-        }
+    public void update(Transaction tx) {
     }
 
     @Override
@@ -94,7 +77,7 @@ public class Stock extends DBObject implements IdbInterface {
             ArrayList<Long> results = (ArrayList<Long>) tx.getCreatedObj();
             this.id_produit = l;
             this.qty = results.get(0) - 1;
-            Main.getStock().update(tx, null);
+            Main.getStock().update(tx);
         } else {
             return;
         }

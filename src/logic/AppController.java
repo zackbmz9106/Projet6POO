@@ -309,4 +309,19 @@ public class AppController {
             return cl;
         }
     }
-}
+
+    public void updateClient(String prenom, String nom, Adresse a, Date datanaissance, String mail, String tel, boolean fidel) {
+        Transaction tx = Main.getAppM().updateClient(prenom, nom, a, datanaissance, mail, tel, fidel);
+            if (tx.getLevel() != Alert.AlertType.NONE) {
+                if (tx.getLevel() != Alert.AlertType.ERROR) {
+                    notifyDeletedDBObject((DBObject) tx.getDeleteObj());
+                    notifyNewClient((Client) tx.getCreatedObj());
+                    showDialog(tx, "Update Client ");
+                }
+            } else {
+                showDialog(tx, "Client");
+            }
+        }
+
+    }
+

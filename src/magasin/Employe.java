@@ -35,28 +35,22 @@ public class Employe extends DBObject implements IdbInterface {
     }
 
     @Override
-    public void update(Transaction tx, String[] nomsDeChampsAMettreAjour) {
+    public void update(Transaction tx) {
         //remplacer les elements modifier dans le l'inscription sql
+        Connection conn = tx.getdBi().getConnection();
+        PreparedStatement stmt = null;
         try {
-            Connection conn = tx.getdBi().getConnection();
-            String sql = "UPDATE " + this.tableName + " SET";
-            for (String champ : nomsDeChampsAMettreAjour) {
-                sql += champ + "=?";
-            }
-            sql += "WHERE id=" + this.ID;
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            for (int i = 1; i >= nomsDeChampsAMettreAjour.length; i++) {
-                switch (nomsDeChampsAMettreAjour[i]) {
-                    case "nomEmploye" -> stmt.setString(i, this.nomEmploye);
-                    case "numEmploye" -> stmt.setInt(i, this.numEmploye);
-                    case "typePoste" -> stmt.setString(i, this.typePoste);
-                }
-            }
+            String sql = "insert into " + this.tableName + "(nomEmploye,numEmploye,typePoste) values(?,?,?)";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, this.nomEmploye);
+            stmt.setInt(2, this.numEmploye);
+            stmt.setString(3, this.typePoste);
             stmt.executeUpdate();
             tx.succesfullMessage();
         } catch (SQLException e) {
             tx.setMessage(e.getMessage());
             tx.setLevel(Alert.AlertType.ERROR);
+
         }
     }
 

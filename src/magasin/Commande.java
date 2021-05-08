@@ -91,27 +91,20 @@ public class Commande extends DBObject implements IdbInterface {
 
 
     @Override
-    public void update(Transaction tx, String[] nomsDeChampsAMettreAjour) {
+    public void update(Transaction tx) {
         //remplacer les elements modifier dans le l'inscription sql
+        Connection conn = tx.getdBi().getConnection();
+        PreparedStatement stmt = null;
         try {
-            Connection conn = tx.getdBi().getConnection();
-            String sql = "UPDATE " + this.tableName + " SET";
-            for (String champ : nomsDeChampsAMettreAjour) {
-                sql += champ + "=?";
-            }
-            sql += "WHERE id=" + this.ID;
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            for (int i = 1; i >= nomsDeChampsAMettreAjour.length; i++) {
-                switch (nomsDeChampsAMettreAjour[i]) {
-                    case "listeArticle" -> stmt.setString(i, arrayToDB(this.listeArticle));
-                    case "reduction" -> stmt.setFloat(i, this.reduction);
-                    case "typePaeiment" -> stmt.setString(i, this.typePaiement);
-                    case "dateLivraison" -> stmt.setDate(i, (java.sql.Date) this.dateLivraison);
-                    case "adresseLivr" -> stmt.setString(i, this.adresseLivr.toDB());
-                    case "ID_Client" -> stmt.setLong(i, this.ID_client);
+            stmt = conn.prepareStatement(
+                    "insert into " + this.tableName + "(listeArticle, reduction, typePaiement, adresseLivr, dateLivraison,ID_client) values(?,?,?,?,?,?)");
 
-                }
-            }
+            stmt.setString(1, arrayToDB(this.listeArticle));
+            stmt.setFloat(2, this.reduction);
+            stmt.setString(3, this.typePaiement);
+            stmt.setString(4, this.adresseLivr.toDB());
+            stmt.setDate(5, new java.sql.Date(this.dateLivraison.getTime()));
+            stmt.setLong(6, this.ID_client);
             stmt.executeUpdate();
             tx.succesfullMessage();
         } catch (SQLException e) {

@@ -5,7 +5,7 @@ import database.Transaction;
 
 public interface IdbInterface {
 
-    void update(Transaction tx, String[] nomsDeChampsAMettreAjour);
+    void update(Transaction tx);
 
     void load(Transaction transaction, long id);
 

@@ -50,7 +50,7 @@ public class CommandQueryController extends QueryBaseController implements Initi
                         Commande cde = (Commande) dbo;
                         dbObjects.remove(cde);
                         doList.remove(cde.getDesc());
-                        if (currentSelectedObj.equals(cde)) {
+                        if (currentSelectedObj != null  && currentSelectedObj.equals(cde)) {
                             PCommandeController.clean();
                         }
                     }
