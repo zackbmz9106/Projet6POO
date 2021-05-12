@@ -77,7 +77,7 @@ public class loadSample {
 
         Produit Tele1 = new Produit("Televiseur Smart","LG","LG UHD 65",1260,false, (float) 0,LG.getID());
         Tele1.create(tx);
-        Main.getStock().createStockOfId(tx,Enceinte1.getId(),21);
+        Main.getStock().createStockOfId(tx,Tele1.getId(),21);
 
         ArrayList<Long> listecommande1 = new ArrayList<Long>();
         listecommande1.add(Ordi1.getID());

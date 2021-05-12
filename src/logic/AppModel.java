@@ -163,4 +163,56 @@ public class AppModel {
         }
         return tx;
     }
+
+    public Transaction updateProduit(String typeArticle, String marque, String nom, float prix, boolean iss, float solde, long idFournissseur, long stock) {
+        Transaction tx = new Transaction(dBi);
+        Produit p = new Produit(typeArticle, marque, nom, prix, iss, solde, idFournissseur);
+        QueryDB qDB = new QueryDB("nomArticle",nom,"","id");
+        p.query(tx,qDB);
+        if(tx.getLevel() != Alert.AlertType.ERROR){
+            ArrayList<Long> results =(ArrayList<Long>)tx.getCreatedObj();
+            if(results.size() > 1){
+                setTxToInternalError(tx,"Something has gone terribly wrong multiple Produit were found");
+                return tx;
+            }
+            Produit del = new Produit();
+            del.load(tx,results.get(0));
+            if(tx.getLevel() == Alert.AlertType.ERROR){
+                setTxToInternalError(tx,"Something has gone terribly wrong the Produit was not loaded properly");
+                return tx;
+            }
+            del.delete(tx);
+            if(tx.getLevel() == Alert.AlertType.ERROR){
+                setTxToInternalError(tx,"Something has gone terribly wrong the Produit was not deleted properly");
+                return tx;
+            }
+            tx.setDeleteObj(del);
+            Stock stk = Main.getStock();
+            stk.setProduit(del,0);
+            stk.delete(tx);
+            if(tx.getLevel() == Alert.AlertType.ERROR){
+                setTxToInternalError(tx,"Something has gone terribly wrong the stock of the product was not deleted properly");
+                return tx;
+            }
+            p.create(tx);
+            stk.setProduit(p,stock);
+            stk.create(tx);
+            if(tx.getLevel() == Alert.AlertType.ERROR){
+                setTxToInternalError(tx,"Something has gone terribly wrong the stock of the product was not created properly");
+                return tx;
+            }
+            tx.setCreatedObj(p);
+
+
+        }
+        return tx;
+    }
+
+    public Transaction searchPhoneNumberClient(String tel) {
+        Transaction tx = new Transaction(dBi);
+        QueryDB qdb = new QueryDB("numerotel", tel, "", "id");
+        Client c = new Client();
+        c.query(tx, qdb);
+        return tx;
+    }
 }

@@ -40,9 +40,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="811.0" prefWidth="1284.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1394.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.MainController">
     <children>
-        <MenuBar VBox.vgrow="NEVER">
+        <MenuBar prefHeight="29.0" prefWidth="1284.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="NEVER">
             <menus>
                 <Menu mnemonicParsing="false" text="Fichier">
                     <items>
@@ -76,19 +76,19 @@
                 </Menu>
             </menus>
         </MenuBar>
-      <SplitPane dividerPositions="0.29797979797979796" prefHeight="785.0" prefWidth="1284.0">
+      <SplitPane dividerPositions="0.29797979797979796" layoutY="29.0" prefHeight="756.0" prefWidth="1284.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="360.0" prefWidth="848.0">
                <children>
-                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="762.0" prefWidth="893.0">
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="762.0" prefWidth="893.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                         <AnchorPane fx:id="clientChartPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                            <fx:include fx:id="PClientChart" source="chartClient.fxml" />
+                            <fx:include fx:id="PClientChart" source="chartClient.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="376.0" prefWidth="891.0">
+                              <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="376.0" prefWidth="891.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
                                     <AnchorPane fx:id="moyPane" minHeight="0.0" minWidth="0.0" prefHeight="229.0" prefWidth="889.0">
@@ -104,4 +104,4 @@
         </items>
       </SplitPane>
     </children>
-</VBox>
+</AnchorPane>

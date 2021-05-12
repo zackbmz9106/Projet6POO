@@ -18,6 +18,17 @@ public class EmployeQueryController extends QueryBaseController implements Initi
 
     @FXML
     private EmployeController PEmployeController;
+
+    @Override
+    protected Button getUpdateButton() {
+        return null;
+    }
+
+    @Override
+    protected Button getActionButton() {
+        return PEmployeController.getActionButton();
+    }
+
     @Override
     void setToInternPane(DBObject o) {
         PEmployeController.employeReadout((Employe)o);
@@ -33,6 +44,7 @@ public class EmployeQueryController extends QueryBaseController implements Initi
         actionButton.setOnAction((ActionEvent)->{
             removeCurrentObj();
         });
+        actionButton.setDisable(true);
         Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
             switch (event) {
                 case NEW_EMPLOYE:

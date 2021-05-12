@@ -25,9 +25,9 @@ import java.util.Objects;
 
 public class Main extends Application {
 
-    public static final int MAJORVERSION = 0;
-    public static final int VERSION = 1;
-    public static final int BUILDNUMBER = 2;
+    public static  int MAJORVERSION;
+    public static  int VERSION ;
+    public static  int BUILDNUMBER;
     private static final Stock stock = new Stock();
     public static HardwareAbstractionLayer hal;
     public static SystemInfo si;
@@ -80,8 +80,12 @@ public class Main extends Application {
             e.printStackTrace();
         }
         assert ini != null;
+        MAJORVERSION = Integer.parseInt(ini.get("Application Properties","MajorVersion"));
+        VERSION = Integer.parseInt(ini.get("Application Properties","Version"));
+        BUILDNUMBER = Integer.parseInt(ini.get("Application Properties","BuildNumber"));
+        ini.put("Application Properties","BuildNumber",BUILDNUMBER++);
         isDemo = Boolean.parseBoolean(ini.get("Application Config", "runDemo"));
-//        ini.put("Application Config","runDemo","false");
+        ini.put("Application Config","runDemo","false");
         launch(args);
 
     }
@@ -117,8 +121,8 @@ public class Main extends Application {
         createShowHideDialog("./fxml/commandQuery.fxml", "Liste des commandes", ApplicationEvent.appWindows.CREATE_COMMANDE_QUERY);
         createShowHideDialog("./fxml/employeQuery.fxml","Liste des employe",ApplicationEvent.appWindows.CREATE_EMPLOYE_QUERY);
         if(isDemo){
-//            createShowHideDialog("./fxml/demo.fxml","Demo", ApplicationEvent.appWindows.CREATE_DEMO);
-//            appEventDisp.showWindow(ApplicationEvent.appWindows.CREATE_DEMO,true);
+            createShowHideDialog("./fxml/demo.fxml","Demo", ApplicationEvent.appWindows.CREATE_DEMO);
+            appEventDisp.showWindow(ApplicationEvent.appWindows.CREATE_DEMO,true);
      }
     }
 

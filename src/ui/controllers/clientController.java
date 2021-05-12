@@ -102,6 +102,7 @@ public class clientController extends ShowHideDialog implements Initializable {
         TAdresse.setText("");
         TNvoie.setText("");
         TCodePostal.setText("");
+        villeText.setText("");
         BFidel.setSelected(false);
     }
 
@@ -131,8 +132,14 @@ public class clientController extends ShowHideDialog implements Initializable {
             showError("Nom/Prenom invalide");
             return;
         }
+
         if (mail.length() == 0 && tel.length() == 0) {
             showError("Au moins le mail ou le téléphone doivent etre valide");
+            return;
+        }
+        int nbphone = Main.getAppC().searchPhoneNumberClient(tel);
+        if(nbphone>0 && nbphone!= -1 ){
+            showError("Le numéro de téléphone existe deja");
             return;
         }
         if (adresse.length() == 0 || nVoie.length() == 0 || codePostal.length() == 0 || ville.length() == 0) {
@@ -140,6 +147,12 @@ public class clientController extends ShowHideDialog implements Initializable {
             return;
         }
         Adresse a = new Adresse(adresse, nVoie, codePostal, ville);
+        LocalDate ld = LocalDate.now();
+        if(datanaissance==null || datanaissance.isAfter(ld)){
+            showError("Date de naissance invalide");
+            naissancePicker.requestFocus();
+            return;
+        }
         if(isStandalone) {
             Main.getAppC().createClient(prenom, nom, a, convertToDateViaInstant(datanaissance), mail, tel, Fidel);
         }else {

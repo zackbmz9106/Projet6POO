@@ -76,10 +76,10 @@ public class Stock extends DBObject implements IdbInterface {
         if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
             ArrayList<Long> results = (ArrayList<Long>) tx.getCreatedObj();
             this.id_produit = l;
-            this.qty = results.get(0) - 1;
-            Main.getStock().update(tx);
-        } else {
-            return;
+            if (results.size() > 0 && this.qty > 0) {
+                this.qty = results.get(0) - 1;
+                Main.getStock().update(tx);
+            }
         }
     }
 

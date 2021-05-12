@@ -18,6 +18,16 @@ public class CommandQueryController extends QueryBaseController implements Initi
     private CommandeController PCommandeController;
 
     @Override
+    protected Button getUpdateButton() {
+        return null;
+    }
+
+    @Override
+    protected Button getActionButton() {
+        return PCommandeController.getActionButton();
+    }
+
+    @Override
     void setToInternPane(DBObject o) {
         PCommandeController.CommandeReadout((Commande) o);
     }
@@ -37,6 +47,7 @@ public class CommandQueryController extends QueryBaseController implements Initi
         actionButton.setOnAction((ActionEvent) -> {
             deleteCurrentCommande();
         });
+        actionButton.setDisable(true);
         initAppDispatch(ApplicationEvent.appWindows.CREATE_COMMANDE_QUERY);
         Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
             switch (event) {

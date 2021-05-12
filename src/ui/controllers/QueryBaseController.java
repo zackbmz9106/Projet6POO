@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -27,8 +28,11 @@ public abstract class QueryBaseController extends ShowHideDialog implements Init
     @FXML
     protected AnchorPane ASelectionData;
 
+    abstract protected Button getUpdateButton();
     protected ArrayList<DBObject> dbObjects = new ArrayList<DBObject>();
     protected DBObject currentSelectedObj;
+    abstract protected Button getActionButton();
+
 
     public DBObject getCurrentSelectedObj() {
         return currentSelectedObj;
@@ -45,6 +49,11 @@ public abstract class QueryBaseController extends ShowHideDialog implements Init
         if (index >= 0) {
             currentSelectedObj = dbObjects.get(index);
             setToInternPane(currentSelectedObj);
+            getActionButton().setDisable(false);
+            if(getUpdateButton() != null){
+                getUpdateButton().setDisable(false);
+            }
+
         }
     }
 

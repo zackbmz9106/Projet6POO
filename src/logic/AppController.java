@@ -215,10 +215,12 @@ public class AppController {
         if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
             ArrayList<Long> results = new ArrayList<Long>();
             results = (ArrayList<Long>) tx.getCreatedObj();
-            return results.get(0);
-        } else {
-            return -1;
+            if(results.size() > 0) {
+                return results.get(0);
+            }
         }
+        return -1;
+
     }
 
     public void createCommande(ArrayList<Long> listearticle, float reduction, String typepaiement, Adresse adresselivr, Date datelivraison, long ID_client) {
@@ -317,11 +319,33 @@ public class AppController {
                     notifyDeletedDBObject((DBObject) tx.getDeleteObj());
                     notifyNewClient((Client) tx.getCreatedObj());
                     showDialog(tx, "Update Client ");
+                } else {
+                    showDialog(tx, "Client");
                 }
-            } else {
-                showDialog(tx, "Client");
             }
         }
 
+    public void updateProduit(String typeArticle, String marque, String nom, float prix, boolean iss, float solde, long idFournissseur, long stock) {
+        Transaction tx = Main.getAppM().updateProduit(typeArticle, marque, nom, prix, iss, solde, idFournissseur,stock);
+        if (tx.getLevel() != Alert.AlertType.NONE) {
+            if (tx.getLevel() != Alert.AlertType.ERROR) {
+                notifyDeletedDBObject((DBObject) tx.getDeleteObj());
+                notifyNewProduit((Produit) tx.getCreatedObj());
+                showDialog(tx, "Update Produit ");
+            }else {
+                showDialog(tx, "Produit");
+        }
+        }
     }
+
+    public int searchPhoneNumberClient(String tel) {
+        Transaction tx = Main.getAppM().searchPhoneNumberClient(tel);
+        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
+            ArrayList<Long> results = (ArrayList<Long>) tx.getCreatedObj();
+            return results.size();
+        }
+       showDialog(tx,"Recherche numéro de téléphone");
+        return -1;
+    }
+}
 

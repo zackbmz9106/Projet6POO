@@ -3,6 +3,7 @@ package ui.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import logic.ApplicationEvent;
 import magasin.DBObject;
 import magasin.Produit;
@@ -15,9 +16,16 @@ import java.util.ResourceBundle;
 public class queryProduitController extends QueryBaseController {
 
     @FXML
+    public AnchorPane PProduit;
+    @FXML
     private Button updateButton;
     @FXML
     private produitController PProduitController;
+
+    @Override
+    protected Button getUpdateButton() {
+        return updateButton;
+    }
 
     public Button getActionButton() {
         return PProduitController.getActionButton();
@@ -45,8 +53,10 @@ public class queryProduitController extends QueryBaseController {
         actionButton.setOnAction((ActionEvent) -> {
             removeCurrentObj();
         });
+        updateButton.setDisable(true);
         actionButton.setText("Supprimer");
         launchInitialSearch();
+        actionButton.setDisable(true);
         Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
             switch (event) {
                 case NEW_PRODUIT:
@@ -85,6 +95,7 @@ public class queryProduitController extends QueryBaseController {
     }
 
     public void update(ActionEvent actionEvent) {
-        System.out.println("INOP");
+        PProduitController.buttonClicked(null);
+        currentSelectedObj = null ;
     }
 }

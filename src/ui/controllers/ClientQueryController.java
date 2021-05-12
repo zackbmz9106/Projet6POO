@@ -17,8 +17,15 @@ public class ClientQueryController extends QueryBaseController {
 
     public CheckBox modifC;
     @FXML
+    public Button updButton;
+    @FXML
     private clientController PClientController;
 
+
+    @Override
+    protected Button getUpdateButton() {
+        return updButton;
+    }
 
     public Button getActionButton() {
         return PClientController.getActionButton();
@@ -34,6 +41,8 @@ public class ClientQueryController extends QueryBaseController {
             removeCurrentObj();
         });
         actionButton.setText("Supprimer");
+        actionButton.setDisable(true);
+        updButton.setDisable(true);
         launchInitialSearch();
         Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
             switch (event) {
@@ -83,6 +92,7 @@ public class ClientQueryController extends QueryBaseController {
     public void onUpdateButton(ActionEvent actionEvent) {
         if(modifC.isSelected()){
             PClientController.clickonButton(null);
+            currentSelectedObj = null ;
         }else {
             return;
         }
@@ -90,5 +100,8 @@ public class ClientQueryController extends QueryBaseController {
 
     public void onAuthorizeModif(ActionEvent actionEvent) {
         PClientController.setForClientRead(modifC.isSelected());
+        if(currentSelectedObj != null) {
+            updButton.setDisable(false);
+        }
     }
 }
