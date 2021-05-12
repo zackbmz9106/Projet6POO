@@ -30,8 +30,13 @@ public class ClientChart implements Initializable {
     private LineChart<?, ?> clientChart;
     private ArrayList<Client> clientList;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //set clientChart to accept the datatype
+        XYChart.Series data = new XYChart.Series();
+        data.getData().add(new XYChart.Data("",0));
+        clientChart.getData().add(data);
         clientList = Main.getAppC().searchAllClient();
         yAxis.setAutoRanging(false);
         yAxis.setLowerBound(0);
@@ -78,6 +83,7 @@ public class ClientChart implements Initializable {
         return max;
     }
 
+/*
     private int minIndex1(int[] list){
         int min = 0;
         for (int i = list.length - 1; i > 0;i--){
@@ -98,9 +104,10 @@ public class ClientChart implements Initializable {
         return max;
     }
 
+*/
 
     private void showLineClient() {
-        XYChart.Series data = new XYChart.Series();
+      XYChart.Series data = new XYChart.Series();
         int[] agesParindex = new int[120];
         for (Client c : clientList) {
             int age = calculateYearAge(c.getDateDeNaissance());
@@ -110,7 +117,7 @@ public class ClientChart implements Initializable {
         for (int i = 0; i < agesParindex.length; i++) {
             data.getData().add(new XYChart.Data(Integer.toString(i), agesParindex[i]));
         }
-        clientChart.getData().add(data);
+        clientChart.getData().set(0,data);
     }
 
 }

@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
 import magasin.DBObject;
+import org.springframework.lang.Nullable;
 import ui.Main;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public abstract class QueryBaseController extends ShowHideDialog implements Init
 
     @FXML
     protected AnchorPane ASelectionData;
-
+    @Nullable
     abstract protected Button getUpdateButton();
     protected ArrayList<DBObject> dbObjects = new ArrayList<DBObject>();
     protected DBObject currentSelectedObj;
