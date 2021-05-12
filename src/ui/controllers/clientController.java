@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class clientController extends ShowHideDialog implements Initializable {
+public class clientController extends ShowHideDialog{
 
 
     private final Pattern VALID_EMAIL_ADDRESS_REGEX =

@@ -15,7 +15,7 @@ import ui.Main;
 
 import java.util.ArrayList;
 
-public abstract class QueryBaseController extends ShowHideDialog implements Initializable {
+public abstract class QueryBaseController extends ShowHideDialog  {
 
 
     protected ObservableList<String> doList = FXCollections.observableArrayList();

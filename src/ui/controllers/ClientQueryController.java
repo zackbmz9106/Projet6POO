@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ClientQueryController extends QueryBaseController {
-
+    @FXML
     public CheckBox modifC;
     @FXML
     public Button updButton;
@@ -26,7 +26,7 @@ public class ClientQueryController extends QueryBaseController {
     protected Button getUpdateButton() {
         return updButton;
     }
-
+    @Override
     public Button getActionButton() {
         return PClientController.getActionButton();
     }
@@ -48,13 +48,14 @@ public class ClientQueryController extends QueryBaseController {
             switch (event) {
                 case NEW_CLIENT:
                     Client c = (Client) params[0];
-                    doList.add(affichClient(c));
+                    doList.add(c.getDesc());
                     dbObjects.add(c);
                     break;
                 case DELETED:
                     DBObject dbo = (DBObject) params[0];
                     if (dbo.getClass().getSimpleName().equals("Client")) {
-                        doList.remove(affichClient((Client) dbo));
+                        Client cl = (Client) dbo;
+                        doList.remove(cl.getDesc());
                         dbObjects.remove(dbo);
                         if (currentSelectedObj != null && currentSelectedObj.equals(dbo)) {
                             PClientController.clean();
@@ -74,13 +75,10 @@ public class ClientQueryController extends QueryBaseController {
         results = Main.getAppC().searchAllClient();
         dbObjects.addAll(results);
         for (DBObject c : dbObjects) {
-            doList.add(affichClient((Client) c));
+            Client cl = (Client) c;
+            doList.add(cl.getDesc());
         }
 
-    }
-
-    private String affichClient(Client c) {
-        return c.getNom() + " " + c.getPrenom();
     }
 
     @Override

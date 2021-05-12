@@ -1,12 +1,14 @@
 package ui.controllers;
 
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import logic.ApplicationEvent;
+import org.ini4j.Ini;
 import ui.Main;
 
-public abstract class ShowHideDialog {
+public abstract class ShowHideDialog implements Initializable {
 
     private ApplicationEvent.appWindows appWindow;
     protected boolean isStandalone = true;

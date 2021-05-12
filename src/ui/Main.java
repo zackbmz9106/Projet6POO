@@ -28,16 +28,16 @@ public class Main extends Application {
     public static  int MAJORVERSION;
     public static  int VERSION ;
     public static  int BUILDNUMBER;
+
     private static final Stock stock = new Stock();
     public static HardwareAbstractionLayer hal;
     public static SystemInfo si;
-    private static AppController appC;
-    private static AppModel appM;
-    private static ApplicationEventDispatcher appEventDisp;
-    private static Scene primaryScene;
+    private static AppController appC = new AppController();;
+    private static AppModel appM = new AppModel();
+    private static ApplicationEventDispatcher appEventDisp = new ApplicationEventDispatcher();
     private static boolean isDemo;
+    private static Scene primaryScene;
     private final Image APP_ICON = new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/ui/comp.png")));
-    private final ClientQueryController CQC = new ClientQueryController();
 
     public static Stock getStock() {
         return stock;
@@ -45,10 +45,6 @@ public class Main extends Application {
 
     public static ApplicationEventDispatcher getAppEventDisp() {
         return appEventDisp;
-    }
-
-    public static Scene getPrimaryScene() {
-        return primaryScene;
     }
 
     public static AppController getAppC() {
@@ -67,11 +63,9 @@ public class Main extends Application {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            System.exit(1);
         }
         System.out.println("Launching DB may take some time ...");
-        appC = new AppController();
-        appM = new AppModel();
-        appEventDisp = new ApplicationEventDispatcher();
         appM.initDB();
         Ini ini = null;
         try {
@@ -86,6 +80,7 @@ public class Main extends Application {
         ini.put("Application Properties","BuildNumber",BUILDNUMBER++);
         isDemo = Boolean.parseBoolean(ini.get("Application Config", "runDemo"));
         ini.put("Application Config","runDemo","false");
+        System.out.println("Now Launching fxml ...");
         launch(args);
 
     }
@@ -102,7 +97,7 @@ public class Main extends Application {
             System.exit(1);
         }
         primaryStage.setTitle("Project 6");
-        primaryScene = new Scene(root, 1284, 811);
+      primaryScene = new Scene(root, 1284, 811);
         primaryStage.setScene(primaryScene);
         primaryStage.getIcons().add(APP_ICON);
         primaryStage.show();

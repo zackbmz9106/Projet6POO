@@ -137,27 +137,6 @@ public class Client extends DBObject implements IdbInterface {
     }
 
 
-    public void query(Transaction tx, QueryDB qDB) {
-        //TODO : finir l'implementation
-        ArrayList<Long> out = new ArrayList<Long>();
-        Connection conn = tx.getdBi().getConnection();
-        ResultSet rs;
-        try {
-            rs = conn.prepareStatement(qDB.construcQuery(this.tableName)).executeQuery();
-            tx.succesfullMessage();
-            while (rs.next()) {
-                out.add(rs.getLong(1));
-            }
-        } catch (SQLException e) {
-            tx.setEx(e);
-            tx.setMessage(e.getMessage());
-            tx.setLevel(Alert.AlertType.ERROR);
-        }
-        tx.setCreatedObj(out);
-
-
-    }
-
 
     //GETER/SETTER+TOSTRING
 
@@ -221,5 +200,9 @@ public class Client extends DBObject implements IdbInterface {
     public String toString() {
         return "Client : " + this.prenom + " " + this.nom + " habitant à " + this.adresse.toString() + " née le " + this.dateDeNaissance
                 + "mail : " + this.mail + "n° tel " + this.numerotel + " avec " + this.pointFidelite + " point de fidelite";
+    }
+
+    public String getDesc() {
+        return this.prenom + " "+ this.nom ;
     }
 }

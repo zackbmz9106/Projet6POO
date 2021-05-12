@@ -43,7 +43,6 @@ public class DBObject {
     }
 
     public void query(Transaction tx, QueryDB qDB) {
-        //TODO : finir l'implementation
         ArrayList<Object> out = new ArrayList<Object>();
         Connection conn = tx.getdBi().getConnection();
         ResultSet rs;
