@@ -7,11 +7,9 @@
     </content>
     <orderEntry type="jdk" jdkName="16" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="jfx" level="application" />
-    <orderEntry type="library" name="commons-dbutils-1" level="application" />
-    <orderEntry type="library" name="ch.vorburger.mariaDB4j:mariaDB4j:2.4.0" level="application" />
+    <orderEntry type="library" exported="" name="org.openjfx:javafx-base:16-ea+6" level="project" />
     <orderEntry type="library" exported="" name="mysql-connector-java-3.0.11-stable-bin" level="project" />
-    <orderEntry type="module-library" scope="TEST">
+    <orderEntry type="module-library" exported="" scope="TEST">
       <library name="JUnit5.7.0">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/junit-jupiter-5.7.0.jar!/" />
@@ -27,7 +25,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/junit-jupiter-5.7.0.jar!/" />
@@ -43,48 +41,12 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/lib/jfx" />
-        </CLASSES>
-        <JAVADOC />
-        <NATIVE>
-          <root url="file://$MODULE_DIR$/lib/jfx" />
-        </NATIVE>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/lib/jfx" />
-        </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/lib/jfx" recursive="false" />
-        <jarDirectory url="file://$MODULE_DIR$/lib/jfx" recursive="false" type="SOURCES" />
-      </library>
-    </orderEntry>
     <orderEntry type="library" exported="" name="ch.vorburger.mariaDB4j:mariaDB4j:2.3.0" level="project" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/lib/javafx-sdk-16/lib" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/lib/javafx-sdk-16/lib" />
-        </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/lib/javafx-sdk-16/lib" recursive="false" />
-        <jarDirectory url="file://$MODULE_DIR$/lib/javafx-sdk-16/lib" recursive="false" type="SOURCES" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/oshi-core-5.6.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/oshi-core-5.6.1-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="library" exported="" name="com.github.oshi:oshi-core:5.6.1" level="application" />
     <orderEntry type="library" exported="" name="org.ini4j:ini4j:0.5.4" level="project" />
+    <orderEntry type="library" exported="" name="com.github.oshi:oshi-core:5.6.1" level="project" />
+    <orderEntry type="library" exported="" name="javafx-sdk-16-linux" level="project" />
+    <orderEntry type="library" exported="" name="javafx-sdk-16-macos-lib" level="project" />
+    <orderEntry type="library" exported="" name="javafx-sdk-16-windows-lib" level="project" />
+    <orderEntry type="library" exported="" name="bin" level="project" />
   </component>
 </module>

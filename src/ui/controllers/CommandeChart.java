@@ -1,3 +1,4 @@
+/*
 package ui.controllers;
 
 import javafx.fxml.FXML;
@@ -114,3 +115,4 @@ public class CommandeChart implements Initializable {
     }
 
 }
+*/
