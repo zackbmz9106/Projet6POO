@@ -68,4 +68,9 @@ public class ApplicationEventDispatcher {
         });
     }
 
+    public void notifyLowStock(String s) {
+        listeners.forEach((l) -> {
+            l.dispatchEvent(ApplicationEvent.events.MESSAGE, s,ApplicationEvent.messageTypes.STOCK);
+        });
+    }
 }

@@ -79,6 +79,9 @@ public class Stock extends DBObject implements IdbInterface {
                 this.qty = results.get(0) - 1;
                 Main.getStock().update(tx);
             }
+            if(this.qty == 5){
+                Main.getAppC().notifyLowStock(this.id_produit);
+            }
         }
     }
 

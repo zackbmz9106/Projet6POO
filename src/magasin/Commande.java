@@ -20,6 +20,7 @@ public class Commande extends DBObject implements IdbInterface {
     private Date dateLivraison;
     private long ID;
     private long ID_client;
+    private Date dateCreation;
 
     public Commande() {
         super("Commande");
@@ -63,9 +64,10 @@ public class Commande extends DBObject implements IdbInterface {
         //creer l'incsrpition depuis les valeurs de l'object
         Connection conn = tx.getdBi().getConnection();
         PreparedStatement stmt = null;
+        this.dateCreation = new Date();
         try {
             stmt = conn.prepareStatement(
-                    "insert into " + this.tableName + "(listeArticle, reduction, typePaiement, adresseLivr, dateLivraison,ID_client) values(?,?,?,?,?,?)",
+                    "insert into " + this.tableName + "(listeArticle, reduction, typePaiement, adresseLivr, dateLivraison,dateCreation,ID_client) values(?,?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
 
             stmt.setString(1, arrayToDB(this.listeArticle));
@@ -73,7 +75,8 @@ public class Commande extends DBObject implements IdbInterface {
             stmt.setString(3, this.typePaiement);
             stmt.setString(4, this.adresseLivr.toDB());
             stmt.setDate(5, new java.sql.Date(this.dateLivraison.getTime()));
-            stmt.setLong(6, this.ID_client);
+            stmt.setLong(7, this.ID_client);
+            stmt.setDate(6,new java.sql.Date(this.dateCreation.getTime()));
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -97,14 +100,15 @@ public class Commande extends DBObject implements IdbInterface {
         PreparedStatement stmt = null;
         try {
             stmt = conn.prepareStatement(
-                    "insert into " + this.tableName + "(listeArticle, reduction, typePaiement, adresseLivr, dateLivraison,ID_client) values(?,?,?,?,?,?)");
+                    "insert into " + this.tableName + "(listeArticle, reduction, typePaiement, adresseLivr, dateLivraison,dateCreation,ID_client) values(?,?,?,?,?,?,?)");
 
             stmt.setString(1, arrayToDB(this.listeArticle));
             stmt.setFloat(2, this.reduction);
             stmt.setString(3, this.typePaiement);
             stmt.setString(4, this.adresseLivr.toDB());
             stmt.setDate(5, new java.sql.Date(this.dateLivraison.getTime()));
-            stmt.setLong(6, this.ID_client);
+            stmt.setLong(7, this.ID_client);
+            stmt.setDate(6,new java.sql.Date(this.dateCreation.getTime()));
             stmt.executeUpdate();
             tx.succesfullMessage();
         } catch (SQLException e) {
@@ -129,6 +133,7 @@ public class Commande extends DBObject implements IdbInterface {
                     this.adresseLivr.fromDB(rs.getString("adresseLivr"));
                     this.dateLivraison = rs.getDate("dateLivraison");
                     this.ID_client = rs.getLong("ID_Client");
+                    this.dateCreation = rs.getDate("dateCreation");
                 }
                 transaction.succesfullMessage();
             }
@@ -143,7 +148,7 @@ public class Commande extends DBObject implements IdbInterface {
     public String getDesc() {
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        String date = simpleDateFormat.format(new Date());
+        String date = simpleDateFormat.format(dateCreation);
         return Main.getAppC().searchClient(this.getID_client()).getNom() + " " + date;
     }
 
@@ -154,5 +159,9 @@ public class Commande extends DBObject implements IdbInterface {
             out += p.getPrixReel() * reduction;
         }
         return out;
+    }
+
+    public Date getDateCreation() {
+        return  this.dateCreation;
     }
 }

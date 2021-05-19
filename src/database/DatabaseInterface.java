@@ -48,7 +48,7 @@ public class DatabaseInterface {
             stmt.executeUpdate(sqlClient);
             String sqlProduit = "CREATE TABLE Produit(typeArticle VARCHAR(100),marque VARCHAR(100),nomArticle VARCHAR(100),prixArticle FLOAT,isSolde BOOLEAN, solde FLOAT, ID_fournisseur bigint ,id bigint auto_increment primary key,FOREIGN KEY(ID_fournisseur) REFERENCES  Fournisseur(id))";
             stmt.executeUpdate(sqlProduit);
-            String sqlCommande = "CREATE TABLE Commande(listeArticle LONGTEXT, reduction FLOAT, typePaiement VARCHAR(20), adresseLivr VARCHAR(200),dateLivraison DATE,ID_client bigint ,id bigint auto_increment primary key, FOREIGN KEY (ID_client) REFERENCES Client(id)) ";
+            String sqlCommande = "CREATE TABLE Commande(listeArticle LONGTEXT, reduction FLOAT, typePaiement VARCHAR(20), adresseLivr VARCHAR(200),dateLivraison DATE,dateCreation DATE,ID_client bigint ,id bigint auto_increment primary key, FOREIGN KEY (ID_client) REFERENCES Client(id)) ";
             stmt.executeUpdate(sqlCommande);
             String sqlStock = "CREATE TABLE Stock(id_produit bigint , quantite bigint, FOREIGN KEY (id_produit) REFERENCES Produit(id))";
             stmt.executeUpdate(sqlStock);

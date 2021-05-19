@@ -92,11 +92,11 @@ public class loadSample {
         listecommande2.add(Ordi1.getID());
 
 
-        Commande com1 = new Commande(listecommande1,0,"CB",a,new Date(2020,12,24),c.getID());
+        Commande com1 = new Commande(listecommande1,0,"CB",a,new Date(2020- 1900,12,24),c.getID());
         com1.create(tx);
-        Commande com2 = new Commande(listecommande2,20,"Especes",b,new Date(2021,05,03),c1.getID());
+        Commande com2 = new Commande(listecommande2,20,"Especes",b,new Date(2020 - 1900,05,03),c1.getID());
         com2.create(tx);
-        Commande com3 = new Commande(listecommande1,30,"Cheque",f,new Date(2021,05,02),c2.getID());
+        Commande com3 = new Commande(listecommande1,30,"Cheque",f,new Date(2021- 1900,05,02),c2.getID());
         com2.create(tx);
 
 

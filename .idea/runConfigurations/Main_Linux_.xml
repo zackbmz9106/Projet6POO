@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Main Linux " type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="ui.Main" />
-    <module name="project6poojfx" />
-    <option name="VM_PARAMETERS" value="--module-path $PROJECT_DIR$/lib/jfx --add-modules=javafx.controls,javafx.fxml" />
+    <module name="Project6POOJFX" />
+    <option name="VM_PARAMETERS" value="--module-path $PROJECT_DIR$/lib/ --add-modules=javafx.controls,javafx.fxml" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

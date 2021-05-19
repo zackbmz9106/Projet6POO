@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -16,7 +17,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-
     @FXML
     private AnchorPane cartPane;
     @FXML
@@ -69,13 +69,6 @@ public class MainController implements Initializable {
     void OnRechercherClient(ActionEvent event) {
         Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT_QUERY, true);
     }
-
-/*
-    @FXML
-    void onClientGraph(ActionEvent event) {
-        ui.Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT_CHART, true);
-    }
-*/
 
     @FXML
     void onLoadSqlSample(ActionEvent event) {

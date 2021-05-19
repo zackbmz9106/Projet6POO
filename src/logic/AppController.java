@@ -347,5 +347,14 @@ public class AppController {
        showDialog(tx,"Recherche numéro de téléphone");
         return -1;
     }
+
+    public void notifyLowStock(long id_produit) {
+        ArrayList<Produit> results = searchProduits();
+        for (Produit p : results){
+            if(p.getId() == id_produit){
+                Main.getAppEventDisp().notifyLowStock("Il reste moins de 6 :" + p.getDesc());
+            }
+        }
+    }
 }
 

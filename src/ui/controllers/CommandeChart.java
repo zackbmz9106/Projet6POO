@@ -1,20 +1,16 @@
-/*
 package ui.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.stage.Window;
+import javafx.scene.chart.*;
+import javafx.util.Pair;
 import logic.ApplicationEvent;
-import magasin.Client;
+import magasin.Commande;
 import magasin.DBObject;
 import magasin.Produit;
-import ui.Main;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -29,90 +25,85 @@ public class CommandeChart implements Initializable {
     private final LineChart<String, Number> lineChart =
             new LineChart<String, Number>(xAxis, yAxis);
     @FXML
-    private LineChart<?, ?> CommandeChart;
-    private ArrayList<Client> clientList;
+    private BarChart<?, ?> CommandeChart;
+    private ArrayList<Commande> commandeList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        clientList = ui.Main.getAppC().searchAllProduit();
+        XYChart.Series data = new XYChart.Series();
+        data.getData().add(new XYChart.Data("",0));
+        CommandeChart.getData().add(data);
+        commandeList = ui.Main.getAppC().searchAllCommande();
         yAxis.setAutoRanging(false);
         yAxis.setLowerBound(0);
         yAxis.setUpperBound(10);
         xAxis.setLabel("Age");
         yAxis.setLabel("Articles Vendus");
         lineChart.setTitle("Produits");
-        showLineProduit();
+        showGraphCommande();
         ui.Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
             switch (event) {
-                case NEW_PRODUIT:
-                    Produit p = (Produit) params[0];
-                    produitList.add(p);
-                    showLineProduit();
+                case NEW_COMMAND:
+                    Commande p = (Commande) params[0];
+                    commandeList.add(p);
+                    showGraphCommande();
                     break;
                 case DELETED:
                     DBObject dbo = (DBObject) params[0];
-                    if (dbo.getClass().getSimpleName().equals("Produit")) {
-                        ProduitList.remove(dbo);
-                        showLineClient();
+                    if (dbo.getClass().getSimpleName().equals("Commande")) {
+                        commandeList.remove(dbo);
+                        showGraphCommande();
                         break;
                     }
                 case FORCE_RELOAD:
-                    ProduitList = ui.Main.getAppC().searchAllProduit();
-                    showLineClient();
+                    commandeList = ui.Main.getAppC().searchAllCommande();
+                    showGraphCommande();
                     break;
             }
         });
     }
 
-    private int calculateYearAge(Date datedenaissance) {
-        Date currentDate = new Date();
-        return currentDate.getYear() - datedenaissance.getYear();
+private ArrayList<Pair<Integer,Date>> compteMois(ArrayList<Date> dates){
 
-    }
-
-    private int max(int[] list) {
-        int max = 0;
-        for (int i : list) {
-            if (i > max) {
-                max = i;
+    ArrayList<Pair<Integer,Date>> out = new ArrayList<>();
+    int totalmonth = 0;
+    while (dates.size()>0){
+        Date currentDateTested = dates.get(0);
+        ArrayList<Date> tobeDeleted = new ArrayList<>();
+        for(Date date : dates){
+            if(date.getYear() == currentDateTested.getYear() && date.getMonth() == currentDateTested.getMonth()){
+                totalmonth ++;
+                tobeDeleted.add(date);
             }
         }
-        return max;
-    }
-
-    private int minIndex1(int[] list){
-        int min = 0;
-        for (int i = list.length - 1; i > 0;i--){
-            if(list[i] > 0){
-                min  = i;
-            }
+        for(Date delete : tobeDeleted){
+            dates.remove(delete);
         }
-        return min;
+        out.add(new Pair<Integer,Date>(totalmonth,currentDateTested));
+
     }
-
-    private int maxIndex1(int[] list){
-        int max = 0;
-        for (int i = 0; i < list.length ;i++){
-            if(list[i] > 0){
-                max  = i;
-            }
-        }
-        return max;
-    }
-
-
-    private void showBarProduit() {
-        XYChart.Series data = new XYChart.Series();
-
-        for (Produit p : produitList) {
-
-        }
-        yAxis.setUpperBound(max(agesParindex));
-        for (int i = 0; i < agesParindex.length; i++) {
-            data.getData().add(new XYChart.Data(Integer.toString(i), agesParindex[i]));
-        }
-        ProduitChart.getData().add(data);
-    }
+    return out;
 
 }
-*/
+
+    private void showGraphCommande() {
+        XYChart.Series data = new XYChart.Series();
+        ArrayList<Date> dateTab = new ArrayList<Date>();
+        for (Commande c : commandeList) {
+            dateTab.add(c.getDateCreation());
+        }
+        ArrayList<Pair<Integer,Date>> moisCompter = compteMois(dateTab);
+        String pattern = "MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        for(Pair<Integer,Date> p : moisCompter){
+            String date = simpleDateFormat.format(p.getValue());
+            data.getData().add(new XYChart.Data(date, p.getKey()));
+        }
+
+        CommandeChart.getData().set(0,data);
+    }
+
+
+
+
+}

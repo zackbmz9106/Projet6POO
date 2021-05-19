@@ -12,6 +12,10 @@ public class ApplicationEvent {
 
     public enum events {
         SHOW_WINDOW, NEW_CLIENT, NEW_PRODUIT, NEW_EMPLOYE, DELETED, ADDED_PRODUIT,
-        NEW_COMMAND, FORCE_RELOAD, CREATE_COMMANDE, SELECTED_CLIENT
+        NEW_COMMAND, FORCE_RELOAD, CREATE_COMMANDE, MESSAGE, SELECTED_CLIENT
+    }
+
+    public enum messageTypes{
+        BIRTHDAY,STOCK,LIVRAISON
     }
 }

@@ -59,7 +59,7 @@ public class Main {
     public static void main(String[] args) {
         si = new SystemInfo();
         hal = si.getHardware();
-
+        if(si.getOperatingSystem().getFamily() == "MacOS"){System.err.println("OS non supporté");System.exit(1);};
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
