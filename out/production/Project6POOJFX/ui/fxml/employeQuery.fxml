@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="693.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.EmployeQueryController">
+   <children>
+       <AnchorPane layoutX="344.0" layoutY="31.0" prefHeight="453.0" prefWidth="580.0">
+           <fx:include fx:id="PEmploye" source="employe.fxml" />
+       </AnchorPane>
+      <ListView fx:id="LElement" layoutX="14.0" layoutY="31.0" onMouseClicked="#onMouseClickedOnList" prefHeight="624.0" prefWidth="320.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="31.0" />
+   </children>
+</AnchorPane>

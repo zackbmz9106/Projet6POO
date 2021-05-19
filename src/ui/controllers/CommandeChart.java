@@ -34,7 +34,7 @@ public class CommandeChart implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        clientList = Main.getAppC().searchAllProduit();
+        clientList = ui.Main.getAppC().searchAllProduit();
         yAxis.setAutoRanging(false);
         yAxis.setLowerBound(0);
         yAxis.setUpperBound(10);
@@ -42,7 +42,7 @@ public class CommandeChart implements Initializable {
         yAxis.setLabel("Articles Vendus");
         lineChart.setTitle("Produits");
         showLineProduit();
-        Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
+        ui.Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
             switch (event) {
                 case NEW_PRODUIT:
                     Produit p = (Produit) params[0];
@@ -57,7 +57,7 @@ public class CommandeChart implements Initializable {
                         break;
                     }
                 case FORCE_RELOAD:
-                    ProduitList = Main.getAppC().searchAllProduit();
+                    ProduitList = ui.Main.getAppC().searchAllProduit();
                     showLineClient();
                     break;
             }

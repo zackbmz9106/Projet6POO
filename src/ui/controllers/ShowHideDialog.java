@@ -5,7 +5,6 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import logic.ApplicationEvent;
-import org.ini4j.Ini;
 import ui.Main;
 
 public abstract class ShowHideDialog implements Initializable {

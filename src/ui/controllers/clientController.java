@@ -2,7 +2,6 @@ package ui.controllers;
 
 import commons.Adresse;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;

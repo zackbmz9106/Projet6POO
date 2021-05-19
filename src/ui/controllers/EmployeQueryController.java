@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import logic.ApplicationEvent;
-import magasin.Client;
 import magasin.DBObject;
 import magasin.Employe;
 import ui.Main;

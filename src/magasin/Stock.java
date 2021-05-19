@@ -3,7 +3,6 @@ package magasin;
 import database.QueryDB;
 import database.Transaction;
 import javafx.scene.control.Alert;
-import org.springframework.lang.Nullable;
 import ui.Main;
 
 import java.sql.Connection;

@@ -73,7 +73,7 @@ public class MainController implements Initializable {
 /*
     @FXML
     void onClientGraph(ActionEvent event) {
-        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT_CHART, true);
+        ui.Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_CLIENT_CHART, true);
     }
 */
 
