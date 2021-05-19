@@ -8,6 +8,13 @@ public class Transaction {
     private String message;
     private Object createdObj;
     private Exception ex = null;
+    private Object deleteObj;
+
+    public Transaction(DatabaseInterface dbi) {
+        this.DBi = dbi;
+        this.message = "";
+        this.level = Alert.AlertType.NONE;
+    }
 
     public Object getDeleteObj() {
         return deleteObj;
@@ -15,14 +22,6 @@ public class Transaction {
 
     public void setDeleteObj(Object deleteObj) {
         this.deleteObj = deleteObj;
-    }
-
-    private Object deleteObj;
-
-    public Transaction(DatabaseInterface dbi) {
-        this.DBi = dbi;
-        this.message = "";
-        this.level = Alert.AlertType.NONE;
     }
 
     public Exception getEx() {

@@ -26,6 +26,7 @@ public class ClientQueryController extends QueryBaseController {
     protected Button getUpdateButton() {
         return updButton;
     }
+
     @Override
     public Button getActionButton() {
         return PClientController.getActionButton();
@@ -42,7 +43,7 @@ public class ClientQueryController extends QueryBaseController {
         });
         actionButton.setText("Supprimer");
         actionButton.setDisable(true);
-        updButton.setDisable(true);
+        updButton.setDisable(!modifC.isSelected());
         launchInitialSearch();
         Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
             switch (event) {
@@ -88,18 +89,18 @@ public class ClientQueryController extends QueryBaseController {
 
 
     public void onUpdateButton(ActionEvent actionEvent) {
-        if(modifC.isSelected()){
+        if (modifC.isSelected()) {
             PClientController.clickonButton(null);
-            currentSelectedObj = null ;
-        }else {
+            currentSelectedObj = null;
+        } else {
             return;
         }
     }
 
     public void onAuthorizeModif(ActionEvent actionEvent) {
         PClientController.setForClientRead(modifC.isSelected());
-        if(currentSelectedObj != null) {
-            updButton.setDisable(false);
+        if (currentSelectedObj != null) {
+            updButton.setDisable(!modifC.isSelected());
         }
     }
 }

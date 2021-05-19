@@ -40,6 +40,11 @@ public class Stock extends DBObject implements IdbInterface {
     }
 
     @Override
+    public String getDesc() {
+        return null;
+    }
+
+    @Override
     public void update(Transaction tx) {
     }
 
@@ -70,7 +75,7 @@ public class Stock extends DBObject implements IdbInterface {
     }
 
     public void removeOne(Transaction tx, long l) {
-        QueryDB qdb = new QueryDB("quantite", l, "", "id_produit");
+        QueryDB qdb = new QueryDB("id_produit", l, "", "quantite");
         Main.getStock().query(tx, qdb);
         if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
             ArrayList<Long> results = (ArrayList<Long>) tx.getCreatedObj();
@@ -79,7 +84,7 @@ public class Stock extends DBObject implements IdbInterface {
                 this.qty = results.get(0) - 1;
                 Main.getStock().update(tx);
             }
-            if(this.qty == 5){
+            if (this.qty == 5) {
                 Main.getAppC().notifyLowStock(this.id_produit);
             }
         }

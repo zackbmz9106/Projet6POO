@@ -64,9 +64,10 @@ public class EmployeController extends ShowHideDialog implements Initializable {
         initAppDispatch(ApplicationEvent.appWindows.CREATE_EMPLOYE);
     }
 
-    public Button getActionButton(){
+    public Button getActionButton() {
         return myButton;
     }
+
     public void setForReadout(boolean b) {
         TNomEmploye.setEditable(b);
         Ttype.setEditable(b);

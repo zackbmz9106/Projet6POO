@@ -27,15 +27,12 @@ public class DemoController extends ShowHideDialog implements Initializable {
     public Button back;
     @FXML
     public ImageView imageViewPane;
-
-    private int Index;
-
     ArrayList<Image> imageGal = new ArrayList<Image>();
-
     //ecrire la description des image qui defille ne pas oublier les \n pour sauter des lignes
     String[] textList = {"1",
             "2",
-                };
+    };
+    private int Index;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,13 +42,13 @@ public class DemoController extends ShowHideDialog implements Initializable {
             //ajouter les images ici avec leur nom
             imageGal.add(new Image(Objects.requireNonNull(DemoController.class.getResourceAsStream("./img/1.jpg"))));
             imageGal.add(new Image(Objects.requireNonNull(DemoController.class.getResourceAsStream("./img/2.jpg"))));
-            }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         Index = 0;
         imgDescArea.setText(textList[Index]);
         imageViewPane.setImage(imageGal.get(Index));
-        assert imageGal.size()  == textList.length;
+        assert imageGal.size() == textList.length;
     }
 
     @Override
@@ -60,25 +57,25 @@ public class DemoController extends ShowHideDialog implements Initializable {
     }
 
     public void onAdvance(ActionEvent actionEvent) {
-        if(Index + 1 < imageGal.size()){
+        if (Index + 1 < imageGal.size()) {
             Index++;
             imgDescArea.setText(textList[Index]);
             imageViewPane.setImage(imageGal.get(Index));
-            next.setDisable((Index +1 == imageGal.size()));
+            next.setDisable((Index + 1 == imageGal.size()));
         }
-        if(Index > 0){
+        if (Index > 0) {
             back.setDisable(false);
         }
     }
 
     public void onBack(ActionEvent actionEvent) {
-        if(Index > 0){
+        if (Index > 0) {
             Index--;
             imgDescArea.setText(textList[Index]);
             imageViewPane.setImage(imageGal.get(Index));
             back.setDisable((Index == 0));
         }
-        if(!(Index +1 == imageGal.size())) {
+        if (!(Index + 1 == imageGal.size())) {
             next.setDisable(false);
         }
 

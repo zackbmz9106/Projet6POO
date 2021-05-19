@@ -14,4 +14,6 @@ public interface IdbInterface {
     void query(Transaction tx, QueryDB qDB);
 
     void delete(Transaction tx);
+
+    String getDesc();
 }

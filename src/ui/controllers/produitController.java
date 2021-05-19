@@ -99,9 +99,9 @@ public class produitController extends ShowHideDialog implements Initializable {
             return;
         }
 
-        if(isStandalone) {
+        if (isStandalone) {
             Main.getAppC().createProduit(typeArticle, marque, nom, prix, iss, solde, IDFournissseur, stock);
-        }else{
+        } else {
             Main.getAppC().updateProduit(typeArticle, marque, nom, prix, iss, solde, IDFournissseur, stock);
         }
 

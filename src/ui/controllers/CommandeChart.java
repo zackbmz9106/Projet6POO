@@ -31,7 +31,7 @@ public class CommandeChart implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         XYChart.Series data = new XYChart.Series();
-        data.getData().add(new XYChart.Data("",0));
+        data.getData().add(new XYChart.Data("", 0));
         CommandeChart.getData().add(data);
         commandeList = ui.Main.getAppC().searchAllCommande();
         yAxis.setAutoRanging(false);
@@ -63,28 +63,28 @@ public class CommandeChart implements Initializable {
         });
     }
 
-private ArrayList<Pair<Integer,Date>> compteMois(ArrayList<Date> dates){
+    private ArrayList<Pair<Integer, Date>> compteMois(ArrayList<Date> dates) {
 
-    ArrayList<Pair<Integer,Date>> out = new ArrayList<>();
-    int totalmonth = 0;
-    while (dates.size()>0){
-        Date currentDateTested = dates.get(0);
-        ArrayList<Date> tobeDeleted = new ArrayList<>();
-        for(Date date : dates){
-            if(date.getYear() == currentDateTested.getYear() && date.getMonth() == currentDateTested.getMonth()){
-                totalmonth ++;
-                tobeDeleted.add(date);
+        ArrayList<Pair<Integer, Date>> out = new ArrayList<>();
+        int totalmonth = 0;
+        while (dates.size() > 0) {
+            Date currentDateTested = dates.get(0);
+            ArrayList<Date> tobeDeleted = new ArrayList<>();
+            for (Date date : dates) {
+                if (date.getYear() == currentDateTested.getYear() && date.getMonth() == currentDateTested.getMonth()) {
+                    totalmonth++;
+                    tobeDeleted.add(date);
+                }
             }
+            for (Date delete : tobeDeleted) {
+                dates.remove(delete);
+            }
+            out.add(new Pair<Integer, Date>(totalmonth, currentDateTested));
+
         }
-        for(Date delete : tobeDeleted){
-            dates.remove(delete);
-        }
-        out.add(new Pair<Integer,Date>(totalmonth,currentDateTested));
+        return out;
 
     }
-    return out;
-
-}
 
     private void showGraphCommande() {
         XYChart.Series data = new XYChart.Series();
@@ -92,18 +92,16 @@ private ArrayList<Pair<Integer,Date>> compteMois(ArrayList<Date> dates){
         for (Commande c : commandeList) {
             dateTab.add(c.getDateCreation());
         }
-        ArrayList<Pair<Integer,Date>> moisCompter = compteMois(dateTab);
+        ArrayList<Pair<Integer, Date>> moisCompter = compteMois(dateTab);
         String pattern = "MM-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        for(Pair<Integer,Date> p : moisCompter){
+        for (Pair<Integer, Date> p : moisCompter) {
             String date = simpleDateFormat.format(p.getValue());
             data.getData().add(new XYChart.Data(date, p.getKey()));
         }
 
-        CommandeChart.getData().set(0,data);
+        CommandeChart.getData().set(0, data);
     }
-
-
 
 
 }

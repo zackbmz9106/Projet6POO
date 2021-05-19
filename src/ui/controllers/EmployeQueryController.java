@@ -30,7 +30,7 @@ public class EmployeQueryController extends QueryBaseController implements Initi
 
     @Override
     void setToInternPane(DBObject o) {
-        PEmployeController.employeReadout((Employe)o);
+        PEmployeController.employeReadout((Employe) o);
     }
 
     @Override
@@ -40,34 +40,35 @@ public class EmployeQueryController extends QueryBaseController implements Initi
         PEmployeController.setForReadout(false);
         Button actionButton = PEmployeController.getActionButton();
         actionButton.setText("Supprimer");
-        actionButton.setOnAction((ActionEvent)->{
+        actionButton.setOnAction((ActionEvent) -> {
             removeCurrentObj();
         });
         actionButton.setDisable(true);
         Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
-            switch (event) {
-                case NEW_EMPLOYE:
-                    Employe e = (Employe) params[0];
-                    doList.add(e.getDesc());
-                    dbObjects.add(e);
-                    break;
-                case DELETED:
-                    DBObject dbo = (DBObject) params[0];
-                    if (dbo.getClass().getSimpleName().equals("Employe")) {
-                        Employe em = (Employe) dbo;
-                        doList.remove(em.getDesc());
-                        dbObjects.remove(em);
-                        if (currentSelectedObj != null  && currentSelectedObj.equals(em)) {
-                            PEmployeController.clean();
-                        }
+                    switch (event) {
+                        case NEW_EMPLOYE:
+                            Employe e = (Employe) params[0];
+                            doList.add(e.getDesc());
+                            dbObjects.add(e);
+                            break;
+                        case DELETED:
+                            DBObject dbo = (DBObject) params[0];
+                            if (dbo.getClass().getSimpleName().equals("Employe")) {
+                                Employe em = (Employe) dbo;
+                                doList.remove(em.getDesc());
+                                dbObjects.remove(em);
+                                if (currentSelectedObj != null && currentSelectedObj.equals(em)) {
+                                    PEmployeController.clean();
+                                }
+                            }
+                            break;
+                        case FORCE_RELOAD:
+                            launchInitialSearch();
+                            break;
                     }
-                    break;
-                case FORCE_RELOAD:
-                    launchInitialSearch();
-                    break;
-            }}
+                }
 
-            );
+        );
     }
 
     private void launchInitialSearch() {

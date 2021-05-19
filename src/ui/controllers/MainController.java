@@ -95,12 +95,14 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         quitItem.setAccelerator(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN));
     }
+
     @FXML
     public void onCommandCreate(ActionEvent event) {
         Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_COMMANDE_QUERY, true);
     }
+
     @FXML
-    public void onEmployeSearch(ActionEvent event){
-        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_EMPLOYE_QUERY,true);
+    public void onEmployeSearch(ActionEvent event) {
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_EMPLOYE_QUERY, true);
     }
 }

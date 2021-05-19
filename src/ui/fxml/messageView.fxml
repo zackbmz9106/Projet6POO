@@ -3,4 +3,5 @@
 <?import javafx.scene.control.ListView?>
 
 
-<ListView fx:id="MessageView" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.MessageViewController"/>
+<ListView xmlns:fx="http://javafx.com/fxml/1" fx:id="MessageView" xmlns="http://javafx.com/javafx/16"
+          fx:controller="ui.controllers.MessageViewController"/>

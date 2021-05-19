@@ -19,26 +19,27 @@ public class AverageSaleFigureController implements Initializable {
     private TextField onTextMoyen;
 
 
-    private float calculteMoyenne(){
+    private float calculteMoyenne() {
         float total = 0;
-        for(Commande c : CommandeList){
+        for (Commande c : CommandeList) {
             total += c.getEffectiveTotalPrice();
         }
         return total / CommandeList.size();
 
     }
 
-    private void updateMoyenne(){
+    private void updateMoyenne() {
         onTextMoyen.setText(String.valueOf(calculteMoyenne()));
     }
 
-    private void searchAllCommand(){
+    private void searchAllCommand() {
         CommandeList = Main.getAppC().searchAllCommande();
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
-            switch(event){
+            switch (event) {
                 case NEW_COMMAND:
                     Commande c = (Commande) params[0];
                     CommandeList.add(c);

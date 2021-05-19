@@ -69,7 +69,7 @@ public class queryProduitController extends QueryBaseController {
                     if (dbo.getClass().getSimpleName().equals("Produit")) {
                         doList.remove(affichProduit((Produit) dbo));
                         dbObjects.remove(dbo);
-                        if (currentSelectedObj != null  && currentSelectedObj.equals(dbo)) {
+                        if (currentSelectedObj != null && currentSelectedObj.equals(dbo)) {
                             PProduitController.clean();
                         }
                     }
@@ -96,6 +96,6 @@ public class queryProduitController extends QueryBaseController {
 
     public void update(ActionEvent actionEvent) {
         PProduitController.buttonClicked(null);
-        currentSelectedObj = null ;
+        currentSelectedObj = null;
     }
 }

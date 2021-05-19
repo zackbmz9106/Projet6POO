@@ -40,72 +40,97 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1394.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.MainController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="920.0" prefWidth="1394.0" xmlns="http://javafx.com/javafx/16"
+            fx:controller="ui.controllers.MainController">
     <children>
-        <MenuBar prefHeight="29.0" prefWidth="1284.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="NEVER">
+        <MenuBar prefHeight="29.0" prefWidth="1284.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                 AnchorPane.topAnchor="0.0" VBox.vgrow="NEVER">
             <menus>
                 <Menu mnemonicParsing="false" text="Fichier">
                     <items>
-                        <MenuItem fx:id="IsqlSample" mnemonicParsing="false" onAction="#onLoadSqlSample" text="Charger le sample SQL" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="quitItem" mnemonicParsing="false" onAction="#quit" text="Quit" />
+                        <MenuItem fx:id="IsqlSample" mnemonicParsing="false" onAction="#onLoadSqlSample"
+                                  text="Charger le sample SQL"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem fx:id="quitItem" mnemonicParsing="false" onAction="#quit" text="Quit"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Rechercher...">
                     <items>
-                        <MenuItem fx:id="queryCommandItem" mnemonicParsing="false" onAction="#onCommandCreate" text="Commande" />
-                  <MenuItem mnemonicParsing="false" onAction="#onEmployeSearch" text="Employe" />
-                        <MenuItem fx:id="queryProduitItem" mnemonicParsing="false" onAction="#onqueryProduit" text="Produit" />
-                        <MenuItem fx:id="rechercherClient" mnemonicParsing="false" onAction="#OnRechercherClient" text="Client" />
+                        <MenuItem fx:id="queryCommandItem" mnemonicParsing="false" onAction="#onCommandCreate"
+                                  text="Commande"/>
+                        <MenuItem mnemonicParsing="false" onAction="#onEmployeSearch" text="Employe"/>
+                        <MenuItem fx:id="queryProduitItem" mnemonicParsing="false" onAction="#onqueryProduit"
+                                  text="Produit"/>
+                        <MenuItem fx:id="rechercherClient" mnemonicParsing="false" onAction="#OnRechercherClient"
+                                  text="Client"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Créer...">
                     <items>
-                        <MenuItem fx:id="creerClientItem" mnemonicParsing="false" onAction="#oncreateClient" text="Client" />
-                        <MenuItem fx:id="creerEmployeItem" mnemonicParsing="false" onAction="#oncreateEmploye" text="Employe" />
-                        <MenuItem mnemonicParsing="false" onAction="#onCreateCommande" text="Commande" />
-                        <MenuItem fx:id="creerProduitItem" mnemonicParsing="false" onAction="#oncreateProduit" text="Produit" />
+                        <MenuItem fx:id="creerClientItem" mnemonicParsing="false" onAction="#oncreateClient"
+                                  text="Client"/>
+                        <MenuItem fx:id="creerEmployeItem" mnemonicParsing="false" onAction="#oncreateEmploye"
+                                  text="Employe"/>
+                        <MenuItem mnemonicParsing="false" onAction="#onCreateCommande" text="Commande"/>
+                        <MenuItem fx:id="creerProduitItem" mnemonicParsing="false" onAction="#oncreateProduit"
+                                  text="Produit"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Aide">
                     <items>
-                        <MenuItem fx:id="aboutItem" mnemonicParsing="false" onAction="#onCreateAbout" text="A propos ..." />
+                        <MenuItem fx:id="aboutItem" mnemonicParsing="false" onAction="#onCreateAbout"
+                                  text="A propos ..."/>
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
-      <SplitPane dividerPositions="0.4245906348750359" layoutY="29.0" prefHeight="756.0" prefWidth="1284.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
-        <items>
-            <AnchorPane fx:id="commadeBarPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <fx:include source="messageView.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="360.0" prefWidth="848.0">
-               <children>
-                  <SplitPane dividerPositions="0.38726372637263723" orientation="VERTICAL" prefHeight="762.0" prefWidth="893.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <items>
-                        <AnchorPane fx:id="clientChartPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                            <fx:include fx:id="PClientChart" source="chartClient.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                           <children>
-                              <SplitPane dividerPositions="0.7603492884864165" orientation="VERTICAL" prefHeight="620.0" prefWidth="798.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <items>
-                                    <AnchorPane fx:id="CommandePane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                        <fx:include fx:id="commanBar" source="CommandeChart.fxml" />
-                                    </AnchorPane>
-                                    <AnchorPane fx:id="moyPane" minHeight="0.0" minWidth="0.0" prefHeight="229.0" prefWidth="889.0">
-                                        <fx:include fx:id="PMoyenne" source="averageSaleFigure.fxml" />
-                                    </AnchorPane>
-                                </items>
-                              </SplitPane>
-                           </children></AnchorPane>
-                    </items>
-                  </SplitPane>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
+        <SplitPane dividerPositions="0.4245906348750359" layoutY="29.0" prefHeight="756.0" prefWidth="1284.0"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                   AnchorPane.topAnchor="29.0">
+            <items>
+                <AnchorPane fx:id="commadeBarPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <fx:include source="messageView.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="360.0" prefWidth="848.0">
+                    <children>
+                        <SplitPane dividerPositions="0.38726372637263723" orientation="VERTICAL" prefHeight="762.0"
+                                   prefWidth="893.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <items>
+                                <AnchorPane fx:id="clientChartPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0"
+                                            prefWidth="160.0">
+                                    <fx:include fx:id="PClientChart" source="chartClient.fxml"
+                                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                </AnchorPane>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                    <children>
+                                        <SplitPane dividerPositions="0.7603492884864165" orientation="VERTICAL"
+                                                   prefHeight="620.0" prefWidth="798.0" AnchorPane.bottomAnchor="0.0"
+                                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                   AnchorPane.topAnchor="0.0">
+                                            <items>
+                                                <AnchorPane fx:id="CommandePane" minHeight="0.0" minWidth="0.0"
+                                                            prefHeight="100.0" prefWidth="160.0">
+                                                    <fx:include fx:id="commanBar" source="CommandeChart.fxml"/>
+                                                </AnchorPane>
+                                                <AnchorPane fx:id="moyPane" minHeight="0.0" minWidth="0.0"
+                                                            prefHeight="229.0" prefWidth="889.0">
+                                                    <fx:include fx:id="PMoyenne" source="averageSaleFigure.fxml"/>
+                                                </AnchorPane>
+                                            </items>
+                                        </SplitPane>
+                                    </children>
+                                </AnchorPane>
+                            </items>
+                        </SplitPane>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
     </children>
 </AnchorPane>

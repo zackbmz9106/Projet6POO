@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class DBObject {
+public class DBObject{
     protected long ID;
     protected String tableName;
 
@@ -23,10 +23,11 @@ public class DBObject {
     }
 
     public void delete(Transaction transaction) {
-        deletefromId(transaction,this.ID);
+        deletefromId(transaction, this.ID);
 
     }
-    public void deletefromId(Transaction transaction,long id) {
+
+    public void deletefromId(Transaction transaction, long id) {
         Connection conn = transaction.getdBi().getConnection();
         try {
             PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM " + this.tableName + " WHERE id =" + id);

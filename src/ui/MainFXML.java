@@ -46,10 +46,10 @@ public class MainFXML extends Application {
         createShowHideDialog("/ui/fxml/about.fxml", "A propos", ApplicationEvent.appWindows.CREATE_ABOUT);
         createShowHideDialog("/ui/fxml/commandFiling.fxml", "Selectionner un client", ApplicationEvent.appWindows.CREATE_CLIENT_COMMANDE_FILLER);
         createShowHideDialog("/ui/fxml/commandQuery.fxml", "Liste des commandes", ApplicationEvent.appWindows.CREATE_COMMANDE_QUERY);
-        createShowHideDialog("/ui/fxml/employeQuery.fxml","Liste des employe",ApplicationEvent.appWindows.CREATE_EMPLOYE_QUERY);
-        if(Main.isDemo){
-            createShowHideDialog("/ui/fxml/demo.fxml","Demo", ApplicationEvent.appWindows.CREATE_DEMO);
-            Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_DEMO,true);
+        createShowHideDialog("/ui/fxml/employeQuery.fxml", "Liste des employe", ApplicationEvent.appWindows.CREATE_EMPLOYE_QUERY);
+        if (Main.isDemo) {
+            createShowHideDialog("/ui/fxml/demo.fxml", "Demo", ApplicationEvent.appWindows.CREATE_DEMO);
+            Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_DEMO, true);
         }
     }
 

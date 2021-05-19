@@ -9,8 +9,8 @@ import ui.Main;
 
 public abstract class ShowHideDialog implements Initializable {
 
-    private ApplicationEvent.appWindows appWindow;
     protected boolean isStandalone = true;
+    private ApplicationEvent.appWindows appWindow;
 
     protected abstract Window getWindow();
 

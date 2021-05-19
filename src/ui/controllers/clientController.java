@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class clientController extends ShowHideDialog{
+public class clientController extends ShowHideDialog {
 
 
     private final Pattern VALID_EMAIL_ADDRESS_REGEX =
@@ -69,7 +69,7 @@ public class clientController extends ShowHideDialog{
         TAdresse.setEditable(b);
         TNvoie.setEditable(b);
         TCodePostal.setEditable(b);
-        BFidel.setDisable(b);
+        BFidel.setDisable(!b);
         villeText.setEditable(b);
 //        myButton.setVisible(b);
     }
@@ -136,10 +136,12 @@ public class clientController extends ShowHideDialog{
             showError("Au moins le mail ou le téléphone doivent etre valide");
             return;
         }
-        int nbphone = Main.getAppC().searchPhoneNumberClient(tel);
-        if(nbphone>0 && nbphone!= -1 ){
-            showError("Le numéro de téléphone existe deja");
-            return;
+        if(!isStandalone) {
+            int nbphone = Main.getAppC().searchPhoneNumberClient(tel);
+            if (nbphone > 0 && nbphone != -1) {
+                showError("Le numéro de téléphone existe deja");
+                return;
+            }
         }
         if (adresse.length() == 0 || nVoie.length() == 0 || codePostal.length() == 0 || ville.length() == 0) {
             showError("Veuilliez verifier l'adresse");
@@ -147,14 +149,14 @@ public class clientController extends ShowHideDialog{
         }
         Adresse a = new Adresse(adresse, nVoie, codePostal, ville);
         LocalDate ld = LocalDate.now();
-        if(datanaissance==null || datanaissance.isAfter(ld)){
+        if (datanaissance == null || datanaissance.isAfter(ld)) {
             showError("Date de naissance invalide");
             naissancePicker.requestFocus();
             return;
         }
-        if(isStandalone) {
+        if (isStandalone) {
             Main.getAppC().createClient(prenom, nom, a, convertToDateViaInstant(datanaissance), mail, tel, Fidel);
-        }else {
+        } else {
             Main.getAppC().updateClient(prenom, nom, a, convertToDateViaInstant(datanaissance), mail, tel, Fidel);
         }
 

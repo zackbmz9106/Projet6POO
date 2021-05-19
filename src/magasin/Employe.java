@@ -6,18 +6,6 @@ import javafx.scene.control.Alert;
 import java.sql.*;
 
 public class Employe extends DBObject implements IdbInterface {
-    public String getNomEmploye() {
-        return nomEmploye;
-    }
-
-    public int getNumEmploye() {
-        return numEmploye;
-    }
-
-    public String getTypePoste() {
-        return typePoste;
-    }
-
     String nomEmploye;
     int numEmploye;
     String typePoste;
@@ -28,10 +16,21 @@ public class Employe extends DBObject implements IdbInterface {
         this.numEmploye = numEmploye;
         this.typePoste = typePoste;
     }
-
     public Employe() {
 //        A utiliser pour rechercher dans la base
         super("Employe");
+    }
+
+    public String getNomEmploye() {
+        return nomEmploye;
+    }
+
+    public int getNumEmploye() {
+        return numEmploye;
+    }
+
+    public String getTypePoste() {
+        return typePoste;
     }
 
     @Override

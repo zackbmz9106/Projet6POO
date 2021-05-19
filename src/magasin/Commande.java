@@ -25,6 +25,7 @@ public class Commande extends DBObject implements IdbInterface {
     public Commande() {
         super("Commande");
     }
+
     public Commande(ArrayList<Long> listearticle, float reduction, String typepaiement, Adresse adresselivr, Date datelivraison, long ID_client) {
         super("Commande");
         this.listeArticle = listearticle;
@@ -76,7 +77,7 @@ public class Commande extends DBObject implements IdbInterface {
             stmt.setString(4, this.adresseLivr.toDB());
             stmt.setDate(5, new java.sql.Date(this.dateLivraison.getTime()));
             stmt.setLong(7, this.ID_client);
-            stmt.setDate(6,new java.sql.Date(this.dateCreation.getTime()));
+            stmt.setDate(6, new java.sql.Date(this.dateCreation.getTime()));
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -108,7 +109,7 @@ public class Commande extends DBObject implements IdbInterface {
             stmt.setString(4, this.adresseLivr.toDB());
             stmt.setDate(5, new java.sql.Date(this.dateLivraison.getTime()));
             stmt.setLong(7, this.ID_client);
-            stmt.setDate(6,new java.sql.Date(this.dateCreation.getTime()));
+            stmt.setDate(6, new java.sql.Date(this.dateCreation.getTime()));
             stmt.executeUpdate();
             tx.succesfullMessage();
         } catch (SQLException e) {
@@ -152,16 +153,16 @@ public class Commande extends DBObject implements IdbInterface {
         return Main.getAppC().searchClient(this.getID_client()).getNom() + " " + date;
     }
 
-    public float getEffectiveTotalPrice(){
+    public float getEffectiveTotalPrice() {
         float out = 0;
         ArrayList<Produit> produitListFromCommande = Main.getAppC().getProduitListFromCommande(this);
-        for(Produit p : produitListFromCommande){
+        for (Produit p : produitListFromCommande) {
             out += p.getPrixReel() * reduction;
         }
         return out;
     }
 
     public Date getDateCreation() {
-        return  this.dateCreation;
+        return this.dateCreation;
     }
 }

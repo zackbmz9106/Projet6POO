@@ -13,6 +13,9 @@ import logic.AppController;
 import logic.AppModel;
 import logic.ApplicationEvent;
 import logic.ApplicationEventDispatcher;
+import magasin.Client;
+import magasin.Commande;
+import magasin.Produit;
 import magasin.Stock;
 import org.ini4j.Ini;
 import oshi.SystemInfo;
@@ -20,23 +23,24 @@ import oshi.hardware.HardwareAbstractionLayer;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 import static javafx.application.Application.launch;
 
 public class Main {
 
+    private static final Stock stock = new Stock();
+    private static final AppController appC = new AppController();
+    private static final AppModel appM = new AppModel();
+    private static final ApplicationEventDispatcher appEventDisp = new ApplicationEventDispatcher();
     public static int MAJORVERSION;
     public static int VERSION;
     public static int BUILDNUMBER;
-
-    private static final Stock stock = new Stock();
     public static HardwareAbstractionLayer hal;
     public static SystemInfo si;
-    private static AppController appC = new AppController();
-    ;
-    private static AppModel appM = new AppModel();
-    private static ApplicationEventDispatcher appEventDisp = new ApplicationEventDispatcher();
     public static boolean isDemo;
 
 
@@ -59,7 +63,10 @@ public class Main {
     public static void main(String[] args) {
         si = new SystemInfo();
         hal = si.getHardware();
-        if(si.getOperatingSystem().getFamily() == "MacOS"){System.err.println("OS non supporté");System.exit(1);};
+        if (si.getOperatingSystem().getFamily() == "MacOS") {
+            System.err.println("OS non supporté");
+            System.exit(1);
+        }
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -82,11 +89,31 @@ public class Main {
         ini.put("Application Properties", "BuildNumber", BUILDNUMBER++);
         isDemo = Boolean.parseBoolean(ini.get("Application Config", "runDemo"));
         ini.put("Application Config", "runDemo", "false");
+        checkDailyNotify();
         System.out.println("Now Launching fxml ...");
-        launch(MainFXML.class,args);
+        launch(MainFXML.class, args);
 
     }
+
+    public static void checkDailyNotify() {
+        ArrayList<Commande> cms = appC.searchAllCommande();
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String currentDate = simpleDateFormat.format(new Date());
+        for (Commande c : cms) {
+            if (simpleDateFormat.format(c.getDateLivraison()).equals(currentDate)) {
+                appC.notifyDelivery(c);
+            }
+        }
+        ArrayList<Client> cls = appC.searchAllClient();
+        for (Client c : cls) {
+            if (simpleDateFormat.format(c.getDateDeNaissance()).equals(currentDate)) {
+                appC.notifyBirthday(c);
+            }
+        }
+    }
 }
+
 
 
 

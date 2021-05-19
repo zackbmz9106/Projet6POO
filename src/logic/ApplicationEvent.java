@@ -15,7 +15,7 @@ public class ApplicationEvent {
         NEW_COMMAND, FORCE_RELOAD, CREATE_COMMANDE, MESSAGE, SELECTED_CLIENT
     }
 
-    public enum messageTypes{
-        BIRTHDAY,STOCK,LIVRAISON
+    public enum messageTypes {
+        BIRTHDAY, STOCK, SUCCES, LIVRAISON
     }
 }

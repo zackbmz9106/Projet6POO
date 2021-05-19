@@ -34,7 +34,7 @@ public class ClientChart implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         //set clientChart to accept the datatype
         XYChart.Series data = new XYChart.Series();
-        data.getData().add(new XYChart.Data("",0));
+        data.getData().add(new XYChart.Data("", 0));
         clientChart.getData().add(data);
         clientList = Main.getAppC().searchAllClient();
         yAxis.setAutoRanging(false);
@@ -106,7 +106,7 @@ public class ClientChart implements Initializable {
 */
 
     private void showLineClient() {
-      XYChart.Series data = new XYChart.Series();
+        XYChart.Series data = new XYChart.Series();
         int[] agesParindex = new int[120];
         for (Client c : clientList) {
             int age = calculateYearAge(c.getDateDeNaissance());
@@ -116,7 +116,7 @@ public class ClientChart implements Initializable {
         for (int i = 0; i < agesParindex.length; i++) {
             data.getData().add(new XYChart.Data(Integer.toString(i), agesParindex[i]));
         }
-        clientChart.getData().set(0,data);
+        clientChart.getData().set(0, data);
     }
 
 }

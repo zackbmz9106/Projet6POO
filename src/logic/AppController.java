@@ -215,7 +215,7 @@ public class AppController {
         if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
             ArrayList<Long> results = new ArrayList<Long>();
             results = (ArrayList<Long>) tx.getCreatedObj();
-            if(results.size() > 0) {
+            if (results.size() > 0) {
                 return results.get(0);
             }
         }
@@ -314,27 +314,27 @@ public class AppController {
 
     public void updateClient(String prenom, String nom, Adresse a, Date datanaissance, String mail, String tel, boolean fidel) {
         Transaction tx = Main.getAppM().updateClient(prenom, nom, a, datanaissance, mail, tel, fidel);
-            if (tx.getLevel() != Alert.AlertType.NONE) {
-                if (tx.getLevel() != Alert.AlertType.ERROR) {
-                    notifyDeletedDBObject((DBObject) tx.getDeleteObj());
-                    notifyNewClient((Client) tx.getCreatedObj());
-                    showDialog(tx, "Update Client ");
-                } else {
-                    showDialog(tx, "Client");
-                }
+        if (tx.getLevel() != Alert.AlertType.NONE) {
+            if (tx.getLevel() != Alert.AlertType.ERROR) {
+                notifyDeletedDBObject((DBObject) tx.getDeleteObj());
+                notifyNewClient((Client) tx.getCreatedObj());
+                showDialog(tx, "Update Client ");
+            } else {
+                showDialog(tx, "Client");
             }
         }
+    }
 
     public void updateProduit(String typeArticle, String marque, String nom, float prix, boolean iss, float solde, long idFournissseur, long stock) {
-        Transaction tx = Main.getAppM().updateProduit(typeArticle, marque, nom, prix, iss, solde, idFournissseur,stock);
+        Transaction tx = Main.getAppM().updateProduit(typeArticle, marque, nom, prix, iss, solde, idFournissseur, stock);
         if (tx.getLevel() != Alert.AlertType.NONE) {
             if (tx.getLevel() != Alert.AlertType.ERROR) {
                 notifyDeletedDBObject((DBObject) tx.getDeleteObj());
                 notifyNewProduit((Produit) tx.getCreatedObj());
                 showDialog(tx, "Update Produit ");
-            }else {
+            } else {
                 showDialog(tx, "Produit");
-        }
+            }
         }
     }
 
@@ -344,17 +344,25 @@ public class AppController {
             ArrayList<Long> results = (ArrayList<Long>) tx.getCreatedObj();
             return results.size();
         }
-       showDialog(tx,"Recherche numéro de téléphone");
+        showDialog(tx, "Recherche numéro de téléphone");
         return -1;
     }
 
     public void notifyLowStock(long id_produit) {
         ArrayList<Produit> results = searchProduits();
-        for (Produit p : results){
-            if(p.getId() == id_produit){
+        for (Produit p : results) {
+            if (p.getId() == id_produit) {
                 Main.getAppEventDisp().notifyLowStock("Il reste moins de 6 :" + p.getDesc());
             }
         }
+    }
+
+    public void notifyDelivery(Commande c) {
+        Main.getAppEventDisp().notifyDelivery("Livraison aujourd'hui de la commande de : " + searchClient(c.getID_client()).getDesc());
+    }
+
+    public void notifyBirthday(Client c) {
+        Main.getAppEventDisp().notifyBirthday("Anniversaire de : " + c.getDesc());
     }
 }
 

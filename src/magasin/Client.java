@@ -137,7 +137,6 @@ public class Client extends DBObject implements IdbInterface {
     }
 
 
-
     //GETER/SETTER+TOSTRING
 
     public Adresse getAdresse() {
@@ -203,6 +202,6 @@ public class Client extends DBObject implements IdbInterface {
     }
 
     public String getDesc() {
-        return this.prenom + " "+ this.nom ;
+        return this.prenom + " " + this.nom;
     }
 }

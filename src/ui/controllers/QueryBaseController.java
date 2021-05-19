@@ -14,7 +14,7 @@ import ui.Main;
 
 import java.util.ArrayList;
 
-public abstract class QueryBaseController extends ShowHideDialog  {
+public abstract class QueryBaseController extends ShowHideDialog {
 
 
     protected ObservableList<String> doList = FXCollections.observableArrayList();
@@ -27,10 +27,12 @@ public abstract class QueryBaseController extends ShowHideDialog  {
 
     @FXML
     protected AnchorPane ASelectionData;
-    @Nullable
-    abstract protected Button getUpdateButton();
     protected ArrayList<DBObject> dbObjects = new ArrayList<DBObject>();
     protected DBObject currentSelectedObj;
+
+    @Nullable
+    abstract protected Button getUpdateButton();
+
     abstract protected Button getActionButton();
 
 
@@ -50,7 +52,7 @@ public abstract class QueryBaseController extends ShowHideDialog  {
             currentSelectedObj = dbObjects.get(index);
             setToInternPane(currentSelectedObj);
             getActionButton().setDisable(false);
-            if(getUpdateButton() != null){
+            if (getUpdateButton() != null) {
                 getUpdateButton().setDisable(false);
             }
 

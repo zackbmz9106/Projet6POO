@@ -16,20 +16,21 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MessageViewController implements Initializable {
+    private final ObservableList<MessageObject> items = FXCollections.observableArrayList();
     @FXML
-    public ListView MessageView;
-    private ObservableList<MessageObject> items =  FXCollections.observableArrayList();
+    public ListView<MessageObject> MessageView = new ListView<MessageObject>();;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Main.getAppEventDisp().addListener((ApplicationEvent.events event, Object... params) -> {
-            if(event.equals(ApplicationEvent.events.MESSAGE)){
-                items.add(new MessageObject((String) params[0],(ApplicationEvent.messageTypes)params[1]));
+            if (event.equals(ApplicationEvent.events.MESSAGE)) {
+                items.add(new MessageObject((String) params[0], (ApplicationEvent.messageTypes) params[1]));
             }
         });
-        ListView<MessageObject> listView = new ListView<MessageObject>();
-        listView.setItems(items);
-        listView.setCellFactory(param -> new ListCell<MessageObject>() {
-            private ImageView imageView = new ImageView();
+        MessageView.setItems(items);
+        MessageView.setCellFactory(param -> new ListCell<MessageObject>() {
+            private final ImageView imageView = new ImageView();
+
             @Override
             public void updateItem(MessageObject message, boolean empty) {
                 super.updateItem(message, empty);
@@ -37,11 +38,14 @@ public class MessageViewController implements Initializable {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    switch (message.getMessageTypes()){
-                        case STOCK -> imageView.setImage(new Image(Objects.requireNonNull(MessageViewController.class.getResourceAsStream("/img/stock.png"))));
-                        case BIRTHDAY -> imageView.setImage((new Image(Objects.requireNonNull(MessageViewController.class.getResourceAsStream("/img/birthday.png")))));
-                        case LIVRAISON -> imageView.setImage(new Image(Objects.requireNonNull(MessageViewController.class.getResourceAsStream("/img/livraison.png"))));
+                    switch (message.getMessageTypes()) {
+                        case STOCK -> imageView.setImage(new Image(Objects.requireNonNull(MessageViewController.class.getResourceAsStream("./img/stock.png"))));
+                        case BIRTHDAY -> imageView.setImage((new Image(Objects.requireNonNull(MessageViewController.class.getResourceAsStream("./img/birthday.png")))));
+                        case LIVRAISON -> imageView.setImage(new Image(Objects.requireNonNull(MessageViewController.class.getResourceAsStream("./img/livraison.png"))));
+                        case SUCCES -> imageView.setImage(new Image(Objects.requireNonNull(MessageViewController.class.getResourceAsStream("./img/succes.png"))));
                     }
+                    imageView.setPreserveRatio(true);
+                    imageView.setFitHeight(64);
                     setText(message.getText());
                     setGraphic(imageView);
                 }
@@ -49,20 +53,21 @@ public class MessageViewController implements Initializable {
         });
     }
 
-    private class MessageObject{
+    private class MessageObject {
+        private final String text;
+        private final ApplicationEvent.messageTypes messageTypes;
+
+        public MessageObject(String text, ApplicationEvent.messageTypes messageTypes) {
+            this.messageTypes = messageTypes;
+            this.text = text;
+        }
+
         public String getText() {
             return text;
         }
 
         public ApplicationEvent.messageTypes getMessageTypes() {
             return messageTypes;
-        }
-
-        private String text;
-        private ApplicationEvent.messageTypes messageTypes;
-        public MessageObject(String text, ApplicationEvent.messageTypes messageTypes){
-            this.messageTypes = messageTypes;
-            this.text = text;
         }
     }
 }
