@@ -1,0 +1,1 @@
+java --module-path ./lib/jfx-macos/ --add-modules=javafx.controls,javafx.base,javafx.fxml,javafx.graphics -jar Project6POOJFX.jar
