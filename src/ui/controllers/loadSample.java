@@ -63,7 +63,7 @@ public class loadSample {
         Ordi1.create(tx);
         Main.getStock().createStockOfId(tx, Ordi1.getId(), 89);
 
-        Produit Ordi2 = new Produit("Ordinateur tour", "Tishiba", "R450-MEGA", 2500, true, (float) 0.90, Tishiba.getID());
+        Produit Ordi2 = new Produit("Ordinateur tour", "Tishiba", "R450-MEGA", 2500, true, 90, Tishiba.getID());
         Ordi2.create(tx);
         Main.getStock().createStockOfId(tx, Ordi2.getId(), 32);
 
@@ -72,7 +72,7 @@ public class loadSample {
         Main.getStock().createStockOfId(tx, Ecouteurs1.getId(), 64);
 
 
-        Produit Enceinte1 = new Produit("Enceinte sonore", "Sony", "AZETT650", 480, true, (float) 0.40, Sony.getID());
+        Produit Enceinte1 = new Produit("Enceinte sonore", "Sony", "AZETT650", 480, true, (float) 90, Sony.getID());
         Enceinte1.create(tx);
         Main.getStock().createStockOfId(tx, Enceinte1.getId(), 10);
 

@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Window;
 import logic.ApplicationEvent;
@@ -233,6 +234,10 @@ public class CommandeController extends ShowHideDialog implements Initializable 
         totalSansReduc += price;
         try {
             reduction = Float.parseFloat(reductionField.getText()) / 100;
+            if(reduction>1){
+                showError("Reduction invalide");
+                return;
+            }
         } catch (NumberFormatException e) {
             showError("Reduction invalide");
             return;
@@ -287,5 +292,14 @@ public class CommandeController extends ShowHideDialog implements Initializable 
         commandeList = FXCollections.observableArrayList();
         productList = new ArrayList<Produit>();
         LcommandeView.setItems(commandeList);
+    }
+
+    public void onKeyTyped(KeyEvent keyEvent) {
+        try {
+            Integer.parseInt(keyEvent.getCharacter());
+        }catch (Exception e){
+            return;
+        }
+        setPrice(0);
     }
 }

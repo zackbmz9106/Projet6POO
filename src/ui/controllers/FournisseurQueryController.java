@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import logic.ApplicationEvent;
+import magasin.Client;
 import magasin.DBObject;
 import magasin.Fournisseur;
 import ui.Main;
@@ -50,6 +51,16 @@ public class FournisseurQueryController extends QueryBaseController {
                         case FORCE_RELOAD:
                             InitialSearch();
                             break;
+                        case DELETED:
+                            DBObject dbo = (DBObject) params[0];
+                            if (dbo.getClass().getSimpleName().equals("Fournisseur")) {
+                                Fournisseur cl = (Fournisseur) dbo;
+                                doList.remove(cl.getDesc());
+                                dbObjects.remove(dbo);
+                                if (currentSelectedObj != null && currentSelectedObj.equals(dbo)) {
+                                    PFournisseurController.clean();
+                                }
+                            }
                     }
                 });
         getActionButton().setText("Supprimer");

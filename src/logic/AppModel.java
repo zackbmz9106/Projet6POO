@@ -181,12 +181,6 @@ public class AppModel {
                 setTxToInternalError(tx, "Something has gone terribly wrong the Produit was not loaded properly");
                 return tx;
             }
-            del.delete(tx);
-            if (tx.getLevel() == Alert.AlertType.ERROR) {
-                setTxToInternalError(tx, "Something has gone terribly wrong the Produit was not deleted properly");
-                return tx;
-            }
-            tx.setDeleteObj(del);
             Stock stk = Main.getStock();
             stk.setProduit(del, 0);
             stk.delete(tx);
@@ -194,6 +188,12 @@ public class AppModel {
                 setTxToInternalError(tx, "Something has gone terribly wrong the stock of the product was not deleted properly");
                 return tx;
             }
+            del.delete(tx);
+            if (tx.getLevel() == Alert.AlertType.ERROR) {
+                setTxToInternalError(tx, "Something has gone terribly wrong the Produit was not deleted properly");
+                return tx;
+            }
+            tx.setDeleteObj(del);
             p.create(tx);
             stk.setProduit(p, stock);
             stk.create(tx);

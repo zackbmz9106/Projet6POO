@@ -61,4 +61,8 @@ public class FournisseurController extends ShowHideDialog{
     public void setToInternPane(Fournisseur o) {
         Tfourname.setText(o.getNomFournisseur());
     }
+
+    public void clean() {
+        Tfourname.setText("");
+    }
 }

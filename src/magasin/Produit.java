@@ -142,7 +142,7 @@ public class Produit extends DBObject implements IdbInterface {
 
     public float getPrixReel() {
         if (isSolde) {
-            return prixArticle * solde;
+            return prixArticle - (prixArticle * (solde/100));
         } else {
             return prixArticle;
         }
