@@ -86,7 +86,10 @@ public class Fournisseur extends DBObject implements IdbInterface {
 
     @Override
     public String getDesc() {
-        return null;
+        return nomFournisseur;
     }
 
+    public String getNomFournisseur() {
+        return nomFournisseur;
+    }
 }

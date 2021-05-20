@@ -20,6 +20,7 @@ import magasin.Stock;
 import org.ini4j.Ini;
 import oshi.SystemInfo;
 import oshi.hardware.HardwareAbstractionLayer;
+import ui.controllers.loadSample;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,6 +43,18 @@ public class Main {
     public static HardwareAbstractionLayer hal;
     public static SystemInfo si;
     public static boolean isDemo;
+    public static  boolean loadOnStartup;
+
+    public static void setLoadStartup(boolean b){
+        Ini ini = null;
+        try {
+            ini = new Ini(new File("config.ini"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert ini != null;
+        ini.put("Application Config", "LoadOnStartup", b);
+    }
 
 
     public static Stock getStock() {
@@ -88,8 +101,9 @@ public class Main {
         BUILDNUMBER = Integer.parseInt(ini.get("Application Properties", "BuildNumber"));
         ini.put("Application Properties", "BuildNumber", BUILDNUMBER++);
         isDemo = Boolean.parseBoolean(ini.get("Application Config", "runDemo"));
-        ini.put("Application Config", "runDemo", "false");
-        checkDailyNotify();
+//        ini.put("Application Config", "runDemo", "false");
+        loadOnStartup = Boolean.parseBoolean( ini.get("Application Properties", "LoadOnStartup"));
+        if(!loadOnStartup){checkDailyNotify();}
         System.out.println("Now Launching fxml ...");
         launch(MainFXML.class, args);
 

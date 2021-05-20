@@ -98,4 +98,10 @@ public class ApplicationEventDispatcher {
             l.dispatchEvent(ApplicationEvent.events.MESSAGE, s, ApplicationEvent.messageTypes.SUCCES);
         });
     }
+    public void notifyNewFournisseur(Fournisseur f){
+        listeners.forEach((l) -> {
+            l.dispatchEvent(ApplicationEvent.events.NEW_FOURNISSEUR, f);
+        });
+        notifySucces(f.getDesc());
+    }
 }

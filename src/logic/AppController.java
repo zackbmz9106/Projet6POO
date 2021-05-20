@@ -17,6 +17,15 @@ import java.util.Date;
 
 public class AppController {
 
+    protected void showError(String errorMessage) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Erreur de saisie");
+        //alert.setHeaderText("Erreur d'inscription dans la base de donnée");
+        alert.setContentText(errorMessage);
+        alert.showAndWait();
+    }
+
+
     private void showDialog(Transaction tx, String name) {
         Alert alert = new Alert(tx.getLevel());
         alert.setTitle(name);
@@ -64,6 +73,12 @@ public class AppController {
 
     public void createProduit(String typeArticle, String marque, String nomArticle, float prixArticle, boolean isSolde, float solde, long ID_fournisseur, long qty) {
         Transaction tx = Main.getAppM().createProduit(typeArticle, marque, nomArticle, prixArticle, isSolde, solde, ID_fournisseur);
+        ArrayList<Produit> pds = searchProduits();
+        for (Produit p : pds){
+            if(p.getNomArticle() == nomArticle){
+                showError("Un produit existe deja avec ce nom");
+            }
+        }
         if (tx.getLevel() != Alert.AlertType.NONE) {
             Main.getStock().setProduit((Produit) tx.getCreatedObj(), qty);
             Transaction stocktx = new Transaction(tx.getdBi());
@@ -363,6 +378,20 @@ public class AppController {
 
     public void notifyBirthday(Client c) {
         Main.getAppEventDisp().notifyBirthday("Anniversaire de : " + c.getDesc());
+    }
+
+    public void createFournisseur(String fourname) {
+        Transaction tx = Main.getAppM().createFournisseur(fourname);
+        if (tx.getLevel() != Alert.AlertType.NONE) {
+            showDialog(tx, "Creation fournisseur");
+            if (tx.getLevel() != Alert.AlertType.ERROR) {
+                notifyNewFournisseur((Fournisseur) tx.getCreatedObj());
+            }
+        }
+    }
+
+    private void notifyNewFournisseur(Fournisseur createdObj) {
+        Main.getAppEventDisp().notifyNewFournisseur(createdObj);
     }
 }
 

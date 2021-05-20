@@ -69,6 +69,7 @@ public class EmployeQueryController extends QueryBaseController implements Initi
                 }
 
         );
+        LElement.setItems(doList);
     }
 
     private void launchInitialSearch() {

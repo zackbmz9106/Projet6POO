@@ -46,7 +46,7 @@ public abstract class QueryBaseController extends ShowHideDialog {
     }
 
     @FXML
-    void onMouseClickedOnList(MouseEvent event) {
+    public void onMouseClickedOnList(MouseEvent event) {
         int index = LElement.getSelectionModel().getSelectedIndex();
         if (index >= 0) {
             currentSelectedObj = dbObjects.get(index);

@@ -215,4 +215,12 @@ public class AppModel {
         c.query(tx, qdb);
         return tx;
     }
+
+    public Transaction createFournisseur(String fourname) {
+        Transaction tx = new Transaction(dBi);
+        Fournisseur f = new Fournisseur(fourname);
+        f.create(tx);
+        tx.setCreatedObj(f);
+        return tx;
+    }
 }

@@ -72,6 +72,9 @@ public class produitController extends ShowHideDialog implements Initializable {
             stock = Long.parseLong(Tstock.getText().trim());
             if (iss) {
                 solde = Float.parseFloat(Solde.getText().trim());
+            }else if(Solde.getText().trim() != ""){
+                showError("Vérifier solde");
+                return;
             }
         } catch (NumberFormatException e) {
             showError("Verifier les nombres");

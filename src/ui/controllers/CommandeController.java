@@ -161,15 +161,20 @@ public class CommandeController extends ShowHideDialog implements Initializable 
         }
         Adresse a = new Adresse(adresse, nVoie, codePostal, ville);
         ArrayList<Long> idProductList = new ArrayList<Long>();
-        for (Produit p : productList) {
-            if (Main.getAppC().searchQtyOfProduit(p.getId()) > 0) {
-                idProductList.add(p.getId());
-            } else {
-                showError("Il ne reste pas asser du produit : " + p.getDesc());
-                return;
+        if (productList.size() > 0) {
+            for (Produit p : productList) {
+                if (Main.getAppC().searchQtyOfProduit(p.getId()) > 0) {
+                    idProductList.add(p.getId());
+                } else {
+                    showError("Il ne reste pas asser du produit : " + p.getDesc());
+                    return;
+                }
             }
+            Main.getAppC().createCommande(idProductList, reduction, paiemenet, a, convertToDateViaInstant(dateLivr), currentClient.getID());
+        }else {
+            showError("Commande vide");
+            return;
         }
-        Main.getAppC().createCommande(idProductList, reduction, paiemenet, a, convertToDateViaInstant(dateLivr), currentClient.getID());
     }
 
     @FXML

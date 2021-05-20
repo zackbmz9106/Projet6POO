@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
@@ -17,6 +18,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+
+    @FXML
+    public CheckMenuItem loadOnstartup;
     @FXML
     private AnchorPane cartPane;
     @FXML
@@ -94,6 +98,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         quitItem.setAccelerator(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN));
+        loadOnstartup.setSelected(Main.loadOnStartup);
     }
 
     @FXML
@@ -104,5 +109,13 @@ public class MainController implements Initializable {
     @FXML
     public void onEmployeSearch(ActionEvent event) {
         Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_EMPLOYE_QUERY, true);
+    }
+
+    public void onLoadOnStartup(ActionEvent actionEvent) {
+        Main.setLoadStartup(loadOnstartup.isSelected());
+    }
+
+    public void oncreateFour(ActionEvent actionEvent) {
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_FOURNISSEUR,true);
     }
 }
