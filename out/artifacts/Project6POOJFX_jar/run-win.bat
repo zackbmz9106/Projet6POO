@@ -1,1 +1,0 @@
-java --module-path ./lib --add-modules javafx.controls,javafx.base,javafx.fxml,javafx.graphics --add-opens=javafx.graphics/javafx.scene=ALL-UNNAMED --add-exports javafx.base/com.sun.javafx.event=ALL-UNNAMED -jar Project6POOJFX.jar
