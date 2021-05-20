@@ -118,4 +118,8 @@ public class MainController implements Initializable {
     public void oncreateFour(ActionEvent actionEvent) {
         Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_FOURNISSEUR,true);
     }
+
+    public void onQueryFournisseur(ActionEvent actionEvent) {
+        Main.getAppC().showWindow(ApplicationEvent.appWindows.CREATE_FOURNISSEUR_QUERY,true);
+    }
 }

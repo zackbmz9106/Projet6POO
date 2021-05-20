@@ -46,6 +46,8 @@ public class Stock extends DBObject implements IdbInterface {
 
     @Override
     public void update(Transaction tx) {
+        delete(tx);
+        create(tx);
     }
 
     @Override

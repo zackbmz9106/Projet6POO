@@ -25,7 +25,7 @@ public class DatabaseInterface {
             e.printStackTrace();
             System.exit(1);
         }
-        configBuilder.setPort(3306); // OR, default: setPort(0); => autom. detect free port
+        configBuilder.setPort(0); // OR, default: setPort(0); => autom. detect free port
         configBuilder.setDataDir(tempDirWithPrefix.toFile().getAbsolutePath()); // just an example
         DB db = null;
         String dbName = "test"; // never test

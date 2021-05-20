@@ -41,10 +41,10 @@ public class Fournisseur extends DBObject implements IdbInterface {
         //cherche l'inscription avec son id et copie les valeurs dans l'obj
         try {
             Connection conn = transaction.getdBi().getConnection();
-            ResultSet rs = conn.prepareStatement("SELECT * FROM Client WHERE id =" + id).executeQuery();
+            ResultSet rs = conn.prepareStatement("SELECT * FROM Fournisseur WHERE id =" + id).executeQuery();
             if (rs != null) {
                 while (rs.next()) {
-                    this.nomFournisseur = rs.getString("listeArticle");
+                    this.nomFournisseur = rs.getString("nomFournisseur");
                 }
                 transaction.succesfullMessage();
             }

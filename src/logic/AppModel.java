@@ -223,4 +223,47 @@ public class AppModel {
         tx.setCreatedObj(f);
         return tx;
     }
+
+    public Transaction updateFournisseur(String fourname) {
+        Transaction tx = new Transaction(dBi);
+        Fournisseur p = new Fournisseur(fourname);
+        QueryDB qDB = new QueryDB("nomFournisseur", fourname, "", "id");
+        p.query(tx, qDB);
+        if (tx.getLevel() != Alert.AlertType.ERROR) {
+            ArrayList<Long> results = (ArrayList<Long>) tx.getCreatedObj();
+            if (results.size() > 1) {
+                setTxToInternalError(tx, "Something has gone terribly wrong multiple Fournisseur were found");
+                return tx;
+            }
+            Fournisseur del = new Fournisseur();
+            del.load(tx, results.get(0));
+            if (tx.getLevel() == Alert.AlertType.ERROR) {
+                setTxToInternalError(tx, "Something has gone terribly wrong the Fournisseur was not loaded properly");
+                return tx;
+            }
+            del.delete(tx);
+            if (tx.getLevel() == Alert.AlertType.ERROR) {
+                setTxToInternalError(tx, "Something has gone terribly wrong the Fournisseur was not deleted properly");
+                return tx;
+            }
+            tx.setDeleteObj(del);
+            p.create(tx);
+            if (tx.getLevel() == Alert.AlertType.ERROR) {
+                setTxToInternalError(tx, "Something has gone terribly wrong the Fournisseur was not created properly");
+                return tx;
+            }
+            tx.setCreatedObj(p);
+
+
+        }
+        return tx;
+    }
+
+    public Transaction loadProduit(Long aLong) {
+        Transaction tx = new Transaction(dBi);
+        Produit c = new Produit();
+        c.load(tx, aLong);
+        tx.setCreatedObj(c);
+        return tx;
+    }
 }

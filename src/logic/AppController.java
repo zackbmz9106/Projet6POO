@@ -250,9 +250,30 @@ public class AppController {
                         System.err.println("The following error happen during the stock operation of " + l + " : " + tmp.getMessage());
                     }
                 }
+                notifyUpdatedStock(listearticle);
             }
         }
     }
+
+    private void notifyUpdatedStock(ArrayList<Long> productsLong) {
+        ArrayList<Long> done = new ArrayList<>();
+        for (long l : productsLong) {
+            if (!isContaining(done,l)) {
+                Main.getAppEventDisp().notifyUpdatedStock((Produit) Main.getAppM().loadProduit(l).getCreatedObj());
+                done.add(l);
+            }
+        }
+    }
+
+    private boolean isContaining(ArrayList<Long> done, long l) {
+        for(long d :done){
+            if (l == d){
+                return  true;
+            }
+        }
+        return false;
+    }
+
 
     public void notifySelectedClient(Client c) {
         Main.getAppEventDisp().notifySelectedClient(c);
@@ -392,6 +413,41 @@ public class AppController {
 
     private void notifyNewFournisseur(Fournisseur createdObj) {
         Main.getAppEventDisp().notifyNewFournisseur(createdObj);
+    }
+
+    public ArrayList<Fournisseur> searchAllFournisseurs() {
+        Transaction tx = Main.getAppM().searchAll("Fournisseur");
+        if (tx.getLevel() != Alert.AlertType.NONE && tx.getLevel() != Alert.AlertType.ERROR) {
+            ArrayList<Fournisseur> out = new ArrayList<Fournisseur>();
+            ArrayList<Long> objsid = (ArrayList<Long>) tx.getCreatedObj();
+            for (long l : objsid) {
+                Fournisseur Fournisseur = new Fournisseur();
+                Fournisseur.load(tx, l);
+                if (tx.getLevel() != Alert.AlertType.ERROR) {
+                    out.add(Fournisseur);
+                } else {
+                    showDialog(tx,"Fournisseur avec id : " + l + " introuvable");
+                }
+
+            }
+            return out;
+        } else {
+            ArrayList<Fournisseur> cl = new ArrayList<Fournisseur>();
+            return cl;
+        }
+    }
+
+    public void updateFournisseur(String fourname) {
+        Transaction tx = Main.getAppM().updateFournisseur(fourname);
+        if (tx.getLevel() != Alert.AlertType.NONE) {
+            if (tx.getLevel() != Alert.AlertType.ERROR) {
+                notifyDeletedDBObject((DBObject) tx.getDeleteObj());
+                notifyNewFournisseur((Fournisseur) tx.getCreatedObj());
+                showDialog(tx, "Update Fournisseur ");
+            } else {
+                showDialog(tx, "Fournisseur");
+            }
+        }
     }
 }
 

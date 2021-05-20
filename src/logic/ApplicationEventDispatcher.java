@@ -19,7 +19,6 @@ public class ApplicationEventDispatcher {
         listeners.forEach((l) -> {
             l.dispatchEvent(ApplicationEvent.events.ADDED_PRODUIT, p);
         });
-        notifySucces("Creation de : " + p.getDesc() + " effectué avec succes");
     }
 
     public void notifyDeletedObj(DBObject o) {
@@ -102,6 +101,12 @@ public class ApplicationEventDispatcher {
         listeners.forEach((l) -> {
             l.dispatchEvent(ApplicationEvent.events.NEW_FOURNISSEUR, f);
         });
-        notifySucces(f.getDesc());
+        notifySucces("Nouveau founisseur : " + f.getDesc());
+    }
+    public void notifyUpdatedStock(Produit p ){
+        String s = " Mise a jour du stock de " + p.getDesc() + " nouveau stock de :" + String.valueOf(Main.getAppC().searchQtyOfProduit(p.getId()));
+        listeners.forEach((l) -> {
+            l.dispatchEvent(ApplicationEvent.events.MESSAGE, s,ApplicationEvent.messageTypes.STOCK);
+        });
     }
 }
