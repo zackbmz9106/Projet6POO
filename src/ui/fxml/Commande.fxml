@@ -16,22 +16,22 @@
         <Button fx:id="allDeleteButton" layoutX="24.0" layoutY="672.0" mnemonicParsing="false" onAction="#onAllDelete" text="Tout supprimer" AnchorPane.bottomAnchor="14.0" />
         <Button fx:id="actionButton" layoutX="950.0" layoutY="648.0" mnemonicParsing="false" onAction="#onContinue" text="Continuer" AnchorPane.bottomAnchor="38.0" AnchorPane.rightAnchor="27.0" />
         <Button fx:id="selectedDeleteButton" layoutX="158.0" layoutY="672.0" mnemonicParsing="false" onAction="#onSelectedDelete" text="Supprimer le produit selectionné" AnchorPane.bottomAnchor="14.0" />
-        <TextField fx:id="totalTArea" editable="false" layoutX="213.0" layoutY="634.0" AnchorPane.bottomAnchor="52.0" />
-        <Text layoutX="147.0" layoutY="653.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" wrappingWidth="47.130001068115234" AnchorPane.bottomAnchor="57.190999031066895" />
+        <TextField fx:id="totalTArea" editable="false" layoutX="226.0" layoutY="636.0" AnchorPane.bottomAnchor="53.0" />
+        <Text layoutX="171.0" layoutY="652.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" wrappingWidth="47.130001068115234" AnchorPane.bottomAnchor="58.0" />
         <Button fx:id="addButton" layoutX="387.0" layoutY="672.0" mnemonicParsing="false" onAction="#add" prefHeight="28.0" prefWidth="94.0" text="Ajouter" AnchorPane.bottomAnchor="14.0" />
         <AnchorPane fx:id="clientPane" layoutX="486.0" layoutY="14.0" prefHeight="468.0" prefWidth="568.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="14.0">
             <fx:include fx:id="PClient" source="client.fxml" />
             <Button fx:id="createClientButton" layoutX="341.0" layoutY="426.0" mnemonicParsing="false" onAction="#onClientCreate" text="Creer le Client" AnchorPane.bottomAnchor="14.0" />
-            <Button fx:id="clientSearchButton" layoutX="179.0" layoutY="426.0" mnemonicParsing="false" onAction="#onSearchClient" text="Rechercher le client" AnchorPane.rightAnchor="263.0" />
+            <Button fx:id="clientSearchButton" layoutX="198.0" layoutY="429.0" mnemonicParsing="false" onAction="#onSearchClient" text="Rechercher le client" AnchorPane.rightAnchor="262.0" />
         </AnchorPane>
-        <TextField fx:id="reductionField" layoutX="456.0" layoutY="634.0" onKeyTyped="#onKeyTyped" prefHeight="28.0" prefWidth="59.0" AnchorPane.bottomAnchor="52.0" />
-        <Text layoutX="380.0" layoutY="653.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reduction :" wrappingWidth="105.0" AnchorPane.bottomAnchor="57.0" />
-        <Text layoutX="536.0" layoutY="653.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%" />
+        <TextField fx:id="reductionField" layoutX="445.0" layoutY="634.0" onKeyTyped="#onKeyTyped" prefHeight="28.0" prefWidth="59.0" AnchorPane.bottomAnchor="52.0" />
+        <Text layoutX="380.0" layoutY="653.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reduction :" wrappingWidth="82.0" AnchorPane.bottomAnchor="57.0" />
+        <Text layoutX="511.0" layoutY="652.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%" />
         <DatePicker fx:id="dateLivraison" layoutX="682.0" layoutY="508.0" AnchorPane.rightAnchor="185.0" />
         <Label layoutX="385.0" layoutY="444.0" prefHeight="18.0" prefWidth="70.0" text="N° de voie" AnchorPane.bottomAnchor="252.0" AnchorPane.rightAnchor="601.0" />
         <TextField fx:id="TNvoie" layoutX="467.0" layoutY="439.0" AnchorPane.bottomAnchor="247.0" AnchorPane.rightAnchor="427.0" />
-        <TextField fx:id="TAdresse" layoutX="467.0" layoutY="488.0" />
-        <Label layoutX="391.0" layoutY="493.0" prefHeight="18.0" prefWidth="70.0" text="Adresse" AnchorPane.rightAnchor="601.0" />
+        <TextField fx:id="TAdresse" layoutX="480.0" layoutY="490.0" />
+        <Label layoutX="391.0" layoutY="493.0" prefHeight="18.0" prefWidth="82.0" text="Nom de voie" AnchorPane.rightAnchor="589.0" />
         <TextField fx:id="TCodePostal" layoutX="467.0" layoutY="533.0" AnchorPane.bottomAnchor="153.0" AnchorPane.rightAnchor="427.0" />
         <Label layoutX="385.0" layoutY="538.0" prefHeight="18.0" prefWidth="82.0" text="Code Postal" />
         <Text layoutX="386.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ville" wrappingWidth="69.0" AnchorPane.bottomAnchor="117.1909990310669" AnchorPane.rightAnchor="601.0" />

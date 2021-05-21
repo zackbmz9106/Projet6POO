@@ -24,6 +24,8 @@ import ui.controllers.loadSample;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,6 +46,7 @@ public class Main {
     public static SystemInfo si;
     public static boolean isDemo;
     public static  boolean loadOnStartup;
+    public static Path tempDirWithPrefix = null;
 
     public static void setLoadStartup(boolean b){
         Ini ini = null;
@@ -83,6 +86,13 @@ public class Main {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        String prefix = "project6";
+        try {
+            tempDirWithPrefix = Files.createTempDirectory(prefix);
+        } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
         }

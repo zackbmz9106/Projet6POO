@@ -99,18 +99,11 @@ public class DemoController extends ShowHideDialog implements Initializable {
             imageGal.add(new Image(Objects.requireNonNull(DemoController.class.getResourceAsStream("./img/RecherchetEmploye1.png"))));
             imageGal.add(new Image(Objects.requireNonNull(DemoController.class.getResourceAsStream("./img/CreerClient1.png"))));
             imageGal.add(new Image(Objects.requireNonNull(DemoController.class.getResourceAsStream("./img/CreerClient2.png"))));
-
-
-
-
-
-
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+        imageViewPane.setPreserveRatio(true);
+        imageViewPane.setFitHeight(500);
         Index = 0;
         imgDescArea.setText(textList[Index]);
         imageViewPane.setImage(imageGal.get(Index));
@@ -132,6 +125,7 @@ public class DemoController extends ShowHideDialog implements Initializable {
         if (Index > 0) {
             back.setDisable(false);
         }
+
     }
 
     public void onBack(ActionEvent actionEvent) {

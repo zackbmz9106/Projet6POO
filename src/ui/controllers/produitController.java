@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Window;
 import logic.ApplicationEvent;
 import magasin.Produit;
@@ -47,12 +48,10 @@ public class produitController extends ShowHideDialog implements Initializable {
     private long searchIDFournisseur() {
         String fourName = TfourName.getText().trim();
         if (fourName.equals("")) {
-            showError("Entrée une nom de fournisseur valable");
             return -1;
         }
         long fourId = Main.getAppC().searchFournisseur(fourName);
         if (fourId < 0) {
-            showError("Fournisseur introuvable");
             return -1;
         }
         return fourId;
@@ -160,5 +159,13 @@ public class produitController extends ShowHideDialog implements Initializable {
         Solde.setText("");
         Iss.setSelected(false);
         TfourName.setText("");
+    }
+
+    public void checkFournisseur(KeyEvent keyEvent) {
+        if (searchIDFournisseur() == -1) {
+            TfourName.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+        }else{
+            TfourName.setStyle("");
+        }
     }
 }

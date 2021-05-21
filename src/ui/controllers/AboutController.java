@@ -1,13 +1,21 @@
 package ui.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.stage.Window;
 import logic.ApplicationEvent;
+import org.ini4j.Ini;
 import ui.Main;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 
 public class AboutController extends ShowHideDialog implements Initializable {
@@ -32,8 +40,53 @@ public class AboutController extends ShowHideDialog implements Initializable {
         aboutText.setText(text);
     }
 
+    public void checkUpdate(){
+        Path tmpFile ;
+        try {
+            tmpFile = Files.createTempFile("temp",".ini");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        try {
+            Files.copy(
+                    new URL("https://raw.githubusercontent.com/FicheeSS/Projet6POO/c51af1d23221e97c8361219ae3dfe2cbc208daaf/config.ini").openStream(),
+                    tmpFile,
+                    StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        Ini ini = null;
+        try {
+            ini = new Ini(new File(tmpFile.toString()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        assert ini != null;
+        if(Main.MAJORVERSION < Integer.parseInt(ini.get("Application Properties", "MajorVersion"))||
+                Main.VERSION < Integer.parseInt(ini.get("Application Properties", "Version"))||
+        Main.BUILDNUMBER < Integer.parseInt(ini.get("Application Properties", "BuildNumber"))){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Mise a jour");
+            //alert.setHeaderText("Erreur d'inscription dans la base de donnée");
+            alert.setContentText("Une mise à jour est disponible");
+            alert.showAndWait();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Mise a jour");
+            //alert.setHeaderText("Erreur d'inscription dans la base de donnée");
+            alert.setContentText("Votre programme est à jour");
+            alert.showAndWait();
+        }
+    }
     @Override
     protected Window getWindow() {
         return aboutText.getScene().getWindow();
+    }
+
+    public void verifyUpdate(ActionEvent actionEvent) {
+        checkUpdate();
     }
 }

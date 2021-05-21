@@ -88,6 +88,7 @@ public class CommandeChart implements Initializable {
 
     private void showGraphCommande() {
         XYChart.Series data = new XYChart.Series();
+        data.setName("Commandes");
         ArrayList<Date> dateTab = new ArrayList<Date>();
         for (Commande c : commandeList) {
             dateTab.add(c.getDateCreation());

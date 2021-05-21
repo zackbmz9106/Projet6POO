@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/15.0.1" fx:controller="ui.controllers.AboutController">
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="461.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.AboutController">
     <children>
-        <TextArea fx:id="aboutText" editable="false" layoutX="27.0" layoutY="63.0" prefHeight="317.0"
-                  prefWidth="546.0"/>
+        <TextArea fx:id="aboutText" editable="false" layoutX="27.0" layoutY="63.0" prefHeight="317.0" prefWidth="546.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="29.0" />
+      <Button layoutX="468.0" layoutY="422.0" mnemonicParsing="false" onAction="#verifyUpdate" prefHeight="25.0" prefWidth="120.0" text="Verifier mise à jour" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+      <Text layoutX="27.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A propos" wrappingWidth="170.431640625" />
     </children>
 </AnchorPane>

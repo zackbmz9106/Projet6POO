@@ -107,6 +107,7 @@ public class ClientChart implements Initializable {
 
     private void showLineClient() {
         XYChart.Series data = new XYChart.Series();
+        data.setName("Age");
         int[] agesParindex = new int[120];
         for (Client c : clientList) {
             int age = calculateYearAge(c.getDateDeNaissance());

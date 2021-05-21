@@ -2,15 +2,14 @@
 
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="693.0" prefWidth="782.0"
-            xmlns="http://javafx.com/javafx/15.0.1" fx:controller="ui.controllers.EmployeQueryController">
+<AnchorPane prefHeight="693.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.EmployeQueryController">
     <children>
         <AnchorPane layoutX="344.0" layoutY="31.0" prefHeight="453.0" prefWidth="580.0">
-            <fx:include fx:id="PEmploye" source="employe.fxml"/>
+            <fx:include fx:id="PEmploye" source="employe.fxml" />
         </AnchorPane>
-        <ListView fx:id="LElement" layoutX="14.0" layoutY="31.0" onMouseClicked="#onMouseClickedOnList"
-                  prefHeight="624.0" prefWidth="320.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="14.0"
-                  AnchorPane.topAnchor="31.0"/>
+        <ListView fx:id="LElement" layoutX="14.0" layoutY="31.0" onMouseClicked="#onMouseClickedOnList" prefHeight="624.0" prefWidth="320.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="31.0" />
+      <Text layoutX="14.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des employé.es" wrappingWidth="310.13671875" />
     </children>
 </AnchorPane>
